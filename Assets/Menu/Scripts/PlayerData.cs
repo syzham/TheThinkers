@@ -1,0 +1,19 @@
+using System.Collections.Generic;
+
+namespace Menu.Scripts
+{
+    public struct PlayerData
+    {
+        public string PlayerName { get; private set; }
+        public ulong ClientId { get; private set; }
+        
+        public List<string> Abilities { get; private set; }
+
+        public PlayerData(string playerName, ulong clientId)
+        {
+            PlayerName = playerName;
+            ClientId = clientId;
+            Abilities = new List<string>();
+        }
+    }
+}
