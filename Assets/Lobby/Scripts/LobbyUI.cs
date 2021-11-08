@@ -51,6 +51,7 @@ namespace Lobby.Scripts
 
         private bool IsEveryoneReady()
         {
+            var total = 0;
             if (lobbyPlayers.Count < 2)
             {
                 return false;
@@ -58,13 +59,18 @@ namespace Lobby.Scripts
 
             foreach (var player in lobbyPlayers)
             {
+                total += player.AbilityCount;
                 if (!player.IsReady)
+                {
+                    return false;
+                }
+                else if (player.AbilityCount == 0)
                 {
                     return false;
                 }
             }
 
-            return true;
+            return total == 4;
         }
 
         private void HandleClientConnected(ulong clientId)
