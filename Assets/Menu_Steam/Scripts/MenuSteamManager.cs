@@ -12,9 +12,6 @@ using UnityEngine.UI;
 
 public class MenuSteamManager : MonoBehaviour
 {
-    [SerializeField] private GameObject startButton;
-    [SerializeField] private SteamP2PTransport transport;
-
     private const string HostAddressKey = "HostAddress";
     
     protected Callback<LobbyCreated_t> lobbyCreated;
@@ -37,11 +34,7 @@ public class MenuSteamManager : MonoBehaviour
 
     public void HostLobby()
     {
-        startButton.GetComponentInChildren<TMP_Text>().text = SteamFriends.GetPersonaName();
-        //PlayerPrefs.SetString("PlayerName", SteamFriends.GetPersonaName());
-        //GameNetPortal.Instance.StartHost();
-
-        SteamMatchmaking.CreateLobby(ELobbyType.k_ELobbyTypeFriendsOnly, 4);
+        SteamMatchmaking.CreateLobby(ELobbyType.k_ELobbyTypeFriendsOnly, 5);
     }
 
     public void QuitButton()
@@ -53,7 +46,6 @@ public class MenuSteamManager : MonoBehaviour
     {
         if (callback.m_eResult != EResult.k_EResultOK)
         {
-            startButton.SetActive(true);
             return;
         }
         SteamMatchmaking.SetLobbyData(new CSteamID(callback.m_ulSteamIDLobby), HostAddressKey, SteamUser.GetSteamID().m_SteamID.ToString());
@@ -77,9 +69,8 @@ public class MenuSteamManager : MonoBehaviour
         }
 
         string hostAddress = SteamMatchmaking.GetLobbyData(new CSteamID(callback.m_ulSteamIDLobby), HostAddressKey);
-        startButton.GetComponentInChildren<TMP_Text>().text = hostAddress;
-
-        transport.ConnectToSteamID = Convert.ToUInt64(hostAddress);
+        
+        NetworkManager.Singleton.GetComponent<SteamP2PTransport>().ConnectToSteamID = Convert.ToUInt64(hostAddress);
         
         PlayerPrefs.SetString("PlayerName", SteamFriends.GetPersonaName());
         ClientGameNetPortal.Instance.StartClient();

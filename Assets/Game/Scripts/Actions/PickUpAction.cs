@@ -6,14 +6,14 @@ namespace Game.Scripts.Actions
     {
         public override void Execute(Player.Player player, GameObject interObject)
         { 
-            interObject.SetActive(false);
+            interObject.GetComponent<Interactable>().SetActiveServerRpc(false);
             dialogue.name = player.GetName(); 
-            TriggerDialogue(0);
+            TriggerDialogue(0, player);
         }
 
         public override void Execute(GameObject interObject)
         {
-            interObject.SetActive(false);
+            interObject.GetComponent<Interactable>().SetActiveServerRpc(false);
         }
 
     }

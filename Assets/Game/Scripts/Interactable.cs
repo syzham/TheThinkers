@@ -1,18 +1,57 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
+using MLAPI;
+using MLAPI.Messaging;
+using MLAPI.NetworkVariable;
 using UnityEngine;
 
-public class Interactable : MonoBehaviour
+namespace Game.Scripts
 {
-    // Start is called before the first frame update
-    void Start()
+    public class Interactable : NetworkBehaviour
     {
-        
-    }
+        [SerializeField] private NetworkVariableBool isActive = new NetworkVariableBool(true);
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        private Player.Player _player;
+
+        private void Start()
+        {
+            gameObject.SetActive(isActive.Value);
+        }
+
+        public void Execute(GameObject player)
+        {
+            _player = player.GetComponent<Player.Player>();
+            ExecuteServerRpc();
+        }
+
+        [ServerRpc(RequireOwnership = false)]
+        private void ExecuteServerRpc()
+        {
+            ExecuteClientRpc();
+        }
+
+        [ClientRpc]
+        private void ExecuteClientRpc()
+        {
+            if (_player)
+                GetComponent<Actions.Actions>().Execute(_player, gameObject);
+
+            else
+                GetComponent<Actions.Actions>().Execute(gameObject);
+
+            _player = null;
+        }
+
+        [ServerRpc(RequireOwnership = false)]
+        public void SetActiveServerRpc(bool set)
+        {
+            isActive.Value = set;
+            SetActiveClientRpc(set);
+        }
+
+        [ClientRpc]
+        private void SetActiveClientRpc(bool set)
+        {
+            gameObject.SetActive(set);
+        }
     }
 }

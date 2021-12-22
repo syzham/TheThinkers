@@ -1,18 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class PolyglotAction : MonoBehaviour
+namespace Game.Scripts.Actions
 {
-    // Start is called before the first frame update
-    void Start()
+    public class PolyglotAction : Actions
     {
-        
-    }
+        public override void Execute(Player.Player player, GameObject interObject)
+        {
+            TriggerDialogue(player.IsPolyglot() ? 0 : 1, player);
+        }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        public override void Execute(GameObject interObject)
+        {
+        }
     }
 }

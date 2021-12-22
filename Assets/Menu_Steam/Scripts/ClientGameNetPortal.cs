@@ -1,14 +1,25 @@
 using System;
+using System.Security.Cryptography;
 using System.Text;
 using MLAPI;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 namespace Menu_Steam.Scripts
 {
     [RequireComponent(typeof(GameNetPortal))]
     public class ClientGameNetPortal : MonoBehaviour
     {
+        [SerializeField] private string menuName;
+
+        [SerializeField] private GameObject adminPasswordObject;
+        [SerializeField] private Text adminText;
+
+        [SerializeField] private TMP_Text text;
+
+        [SerializeField] private bool isAdmin = false;
         public static ClientGameNetPortal Instance => instance;
         private static ClientGameNetPortal instance;
 
@@ -61,7 +72,8 @@ namespace Menu_Steam.Scripts
             {
                 clientGUID = Guid.NewGuid().ToString(),
                 clientScene = SceneManager.GetActiveScene().buildIndex,
-                playerName = PlayerPrefs.GetString("PlayerName", "Missing Name")
+                playerName = PlayerPrefs.GetString("PlayerName", "Missing Name"),
+                isAdmin = this.isAdmin
             });
 
             byte[] payloadBytes = Encoding.UTF8.GetBytes(payload);
@@ -95,7 +107,7 @@ namespace Menu_Steam.Scripts
 
             HandleClientDisconnect(NetworkManager.Singleton.LocalClientId);
 
-            SceneManager.LoadScene("Menu_Steam");
+            SceneManager.LoadScene(menuName);
         }
 
         private void HandleConnectionFinished(ConnectStatus status)
@@ -120,20 +132,59 @@ namespace Menu_Steam.Scripts
                 SceneManager.sceneLoaded -= HandleSceneLoaded;
                 gameNetPortal.OnUserDisconnectRequested -= HandleUserDisconnectRequested;
 
-                if (SceneManager.GetActiveScene().name != "Menu_Steam")
+                if (SceneManager.GetActiveScene().name != menuName)
                 {
                     if (!DisconnectReason.HasTransitionReason)
                     {
                         DisconnectReason.SetDisconnectReason(ConnectStatus.GenericDisconnect);
                     }
 
-                    SceneManager.LoadScene("Menu_Steam");
+                    SceneManager.LoadScene(menuName);
                 }
                 else
                 {
                     OnNetworkTimedOut?.Invoke();
                 }
             }
+        }
+
+        public void AdminButtonOnClick()
+        {
+            adminPasswordObject.SetActive(true);
+        }
+
+        public void AdminButtonCancelOnClick()
+        {
+            text.text = "";
+            adminPasswordObject.SetActive(false);
+        }
+
+        public void AdminButtonEnterOnClick()
+        {
+            var correctPassword = "f4a90729f5a9247ab740b001b53e0b80fae417ea1831c3798b79fc139394820e";
+
+                var passwordInput = text.text;
+            byte[] bytes = Encoding.UTF8.GetBytes(passwordInput);
+            SHA256Managed hashStringManaged = new SHA256Managed();
+            byte[] hash = hashStringManaged.ComputeHash(bytes);
+            string hashString = string.Empty;
+            foreach (var x in hash)
+            {
+                hashString += String.Format("{0:x2}", x);
+            }
+
+            if (correctPassword.Equals(hashString))
+            {
+                isAdmin = true;
+            }
+
+            adminText.text = "Admin";
+            AdminButtonCancelOnClick();
+        }
+
+        public bool IsPlayerAdmin()
+        {
+            return isAdmin;
         }
     }
 }

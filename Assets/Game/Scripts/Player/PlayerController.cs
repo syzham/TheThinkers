@@ -1,18 +1,26 @@
-using System.Collections;
-using System.Collections.Generic;
+using MLAPI;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+namespace Game.Scripts.Player
 {
-    // Start is called before the first frame update
-    void Start()
+    public class PlayerController : NetworkBehaviour
     {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        [SerializeField] private Rigidbody2D rb;
+        [SerializeField] private float moveSpeed;
+        private void Update()
+        {
+            if (IsOwner)
+                CheckInput();
+        }
+
+        private void CheckInput()
+        {
+            var move = new Vector3(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+            
+            var position = transform.position;
+            rb.MovePosition(new Vector2((position.x + move.x * moveSpeed * Time.deltaTime),
+                position.y + move.y * moveSpeed * Time.deltaTime));
+        }
     }
 }

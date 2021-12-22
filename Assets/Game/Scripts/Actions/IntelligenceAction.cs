@@ -1,18 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class IntelligenceAction : MonoBehaviour
+namespace Game.Scripts.Actions
 {
-    // Start is called before the first frame update
-    void Start()
+    public class IntelligenceAction : Actions
     {
-        
-    }
+        public override void Execute(Player.Player player, GameObject interObject)
+        {
+            TriggerDialogue(player.IsIntelligent() ? 0 : 1, player);
+        }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        public override void Execute(GameObject interObject)
+        {
+        }
     }
 }

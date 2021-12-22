@@ -1,4 +1,5 @@
-using Menu.Scripts;
+using System.Collections.Generic;
+using Menu_Steam.Scripts;
 using MLAPI;
 using MLAPI.Connection;
 using MLAPI.Messaging;
@@ -15,17 +16,23 @@ namespace Lobby.Scripts
         [SerializeField] private LobbyPlayerCard[] lobbyPlayerCards;
         [SerializeField] private Button startGameButton;
 
-        private NetworkList<LobbyPlayerState> lobbyPlayers = new NetworkList<LobbyPlayerState>();
-
+        private readonly NetworkList<LobbyPlayerState> _lobbyPlayers = new NetworkList<LobbyPlayerState>();
+        private static Dictionary<string, PlayerData> _playersData;
+        
         public override void NetworkStart()
         {
             if (IsClient)
             {
-                lobbyPlayers.OnListChanged += HandleLobbyPlayersStateChanged;
+                foreach (var player in lobbyPlayerCards)
+                {
+                    player.OnStart();
+                }
+                _lobbyPlayers.OnListChanged += HandleLobbyPlayersStateChanged;
             }
 
             if (IsServer)
             {
+                _playersData = ServerGameNetPortal.Instance.GetPlayerDatas();
                 startGameButton.gameObject.SetActive(true);
 
                 NetworkManager.Singleton.OnClientConnectedCallback += HandleClientConnected;
@@ -40,7 +47,7 @@ namespace Lobby.Scripts
 
         private void OnDestroy()
         {
-            lobbyPlayers.OnListChanged -= HandleLobbyPlayersStateChanged;
+            _lobbyPlayers.OnListChanged -= HandleLobbyPlayersStateChanged;
 
             if (NetworkManager.Singleton)
             {
@@ -52,19 +59,19 @@ namespace Lobby.Scripts
         private bool IsEveryoneReady()
         {
             var total = 0;
-            if (lobbyPlayers.Count < 2)
+            if (_lobbyPlayers.Count < 2)
             {
                 return false;
             }
 
-            foreach (var player in lobbyPlayers)
+            foreach (var player in _lobbyPlayers)
             {
                 total += player.AbilityCount;
                 if (!player.IsReady)
                 {
                     return false;
                 }
-                else if (player.AbilityCount == 0)
+                if (player.AbilityCount == 0)
                 {
                     return false;
                 }
@@ -79,23 +86,24 @@ namespace Lobby.Scripts
 
             if (!playerData.HasValue) { return; }
 
-            lobbyPlayers.Add(new LobbyPlayerState(
+            _lobbyPlayers.Add(new LobbyPlayerState(
                 clientId,
                 playerData.Value.PlayerName,
                 false,
                 "",
                 "",
+                0,
                 0
             ));
         }
 
         private void HandleClientDisconnect(ulong clientId)
         {
-            for (int i = 0; i < lobbyPlayers.Count; i++)
+            for (int i = 0; i < _lobbyPlayers.Count; i++)
             {
-                if (lobbyPlayers[i].ClientId == clientId)
+                if (_lobbyPlayers[i].ClientId == clientId)
                 {
-                    lobbyPlayers.RemoveAt(i);
+                    _lobbyPlayers.RemoveAt(i);
                     break;
                 }
             }
@@ -104,17 +112,18 @@ namespace Lobby.Scripts
         [ServerRpc(RequireOwnership = false)]
         private void ToggleReadyServerRpc(ServerRpcParams serverRpcParams = default)
         {
-            for (int i = 0; i < lobbyPlayers.Count; i++)
+            for (int i = 0; i < _lobbyPlayers.Count; i++)
             {
-                if (lobbyPlayers[i].ClientId == serverRpcParams.Receive.SenderClientId)
+                if (_lobbyPlayers[i].ClientId == serverRpcParams.Receive.SenderClientId)
                 {
-                    lobbyPlayers[i] = new LobbyPlayerState(
-                        lobbyPlayers[i].ClientId,
-                        lobbyPlayers[i].PlayerName,
-                        !lobbyPlayers[i].IsReady,
-                        lobbyPlayers[i].Ability1,
-                        lobbyPlayers[i].Ability2,
-                        lobbyPlayers[i].AbilityCount
+                    _lobbyPlayers[i] = new LobbyPlayerState(
+                        _lobbyPlayers[i].ClientId,
+                        _lobbyPlayers[i].PlayerName,
+                        !_lobbyPlayers[i].IsReady,
+                        _lobbyPlayers[i].Ability1,
+                        _lobbyPlayers[i].Ability2,
+                        _lobbyPlayers[i].AbilityCount,
+                        _lobbyPlayers[i].ChosenCharacter
                     );
                 }
             }
@@ -133,74 +142,70 @@ namespace Lobby.Scripts
         [ServerRpc(RequireOwnership = false)]
         private void ClickAbilityServerRpc(string ability, ServerRpcParams serverRpcParams = default)
         {
-            for (int i = 0; i < lobbyPlayers.Count; i++)
+            for (var i = 0; i < _lobbyPlayers.Count; i++)
             {
-                if (lobbyPlayers[i].ClientId == serverRpcParams.Receive.SenderClientId)
+                if (_lobbyPlayers[i].ClientId != serverRpcParams.Receive.SenderClientId) continue;
+                
+                int newCount;
+                string newAbility1;
+                var newAbility2 = "";
+                if (TakenAbility(ability, _lobbyPlayers[i]))
                 {
-                    var playerData = ServerGameNetPortal.Instance.GetPlayerData(lobbyPlayers[i].ClientId);
-                    int newCount;
-                    string newAbility1;
-                    string newAbility2 = "";
-                    if (takenAbility(ability, lobbyPlayers[i]))
-                    {
-                        newCount = lobbyPlayers[i].AbilityCount;
-                        newAbility1 = lobbyPlayers[i].Ability1;
-                        newAbility2 = lobbyPlayers[i].Ability2;
-                    }
-                    else if (ability == lobbyPlayers[i].Ability1)
-                    {
-                        newCount = lobbyPlayers[i].AbilityCount - 1;
-                        newAbility1 = lobbyPlayers[i].Ability2;
-                    } 
-                    else if (ability == lobbyPlayers[i].Ability2)
-                    {
-                        newCount = lobbyPlayers[i].AbilityCount - 1;
-                        newAbility1 = lobbyPlayers[i].Ability1;
-                    }
-                    else if (lobbyPlayers[i].AbilityCount == 0)
-                    {
-                        newCount = 1;
-                        newAbility1 = ability;
-                    }
-                    else if (lobbyPlayers[i].AbilityCount == 1)
-                    {
-                        newCount = 2;
-                        newAbility1 = lobbyPlayers[i].Ability1;
-                        newAbility2 = ability;
-                    }
-                    else
-                    {
-                        newCount = lobbyPlayers[i].AbilityCount;
-                        newAbility1 = lobbyPlayers[i].Ability1;
-                        newAbility2 = lobbyPlayers[i].Ability2;
-                    }
-
-                    lobbyPlayers[i] = new LobbyPlayerState(
-                        lobbyPlayers[i].ClientId,
-                        lobbyPlayers[i].PlayerName,
-                        lobbyPlayers[i].IsReady,
-                        newAbility1,
-                        newAbility2,
-                        newCount
-                    );
+                    newCount = _lobbyPlayers[i].AbilityCount;
+                    newAbility1 = _lobbyPlayers[i].Ability1;
+                    newAbility2 = _lobbyPlayers[i].Ability2;
                 }
+                else if (ability == _lobbyPlayers[i].Ability1)
+                {
+                    newCount = _lobbyPlayers[i].AbilityCount - 1;
+                    newAbility1 = _lobbyPlayers[i].Ability2;
+                } 
+                else if (ability == _lobbyPlayers[i].Ability2)
+                {
+                    newCount = _lobbyPlayers[i].AbilityCount - 1;
+                    newAbility1 = _lobbyPlayers[i].Ability1;
+                }
+                else if (_lobbyPlayers[i].AbilityCount == 0)
+                {
+                    newCount = 1;
+                    newAbility1 = ability;
+                }
+                else if (_lobbyPlayers[i].AbilityCount == 1)
+                {
+                    newCount = 2;
+                    newAbility1 = _lobbyPlayers[i].Ability1;
+                    newAbility2 = ability;
+                }
+                else
+                {
+                    newCount = _lobbyPlayers[i].AbilityCount;
+                    newAbility1 = _lobbyPlayers[i].Ability1;
+                    newAbility2 = _lobbyPlayers[i].Ability2;
+                }
+
+                _lobbyPlayers[i] = new LobbyPlayerState(
+                    _lobbyPlayers[i].ClientId,
+                    _lobbyPlayers[i].PlayerName,
+                    _lobbyPlayers[i].IsReady,
+                    newAbility1,
+                    newAbility2,
+                    newCount,
+                    _lobbyPlayers[i].ChosenCharacter
+                );
             }
         }
 
-        private bool takenAbility(string ability, LobbyPlayerState current)
+        private bool TakenAbility(string ability, LobbyPlayerState current)
         {
-            bool found = false;
-            foreach (LobbyPlayerState i in lobbyPlayers)
+            var found = false;
+            foreach (var i in _lobbyPlayers)
             {
-                if (current.ClientId == i.ClientId)
-                {
-                    continue;
-                }
-                else if (ability.Equals(i.Ability1) || ability.Equals(i.Ability2))
-                {
-                    found = true;
-                    break;
-                }
+                if (current.ClientId == i.ClientId) continue;
+
+                if (!ability.Equals(i.Ability1) && !ability.Equals(i.Ability2)) continue;
+                
+                found = true;
+                break;
             }
 
             return found;
@@ -227,13 +232,51 @@ namespace Lobby.Scripts
             ClickAbilityServerRpc(ability);
         }
 
+        public void OnCharacterOnClick()
+        {
+            var index =
+                EventSystem.current.currentSelectedGameObject.transform.parent.parent.parent.parent.name switch
+                {
+                    "Player1" => 0,
+                    "Player2" => 1,
+                    "Player3" => 2,
+                    _ => 3
+                };
+            OnCharacterOnClickServerRpc(index);
+        }
+        
+        [ServerRpc(RequireOwnership = false)]
+        private void OnCharacterOnClickServerRpc(int index, ServerRpcParams serverRpcParams = default)
+        {
+            for (var i = 0; i < _lobbyPlayers.Count; i++)
+            {
+                if (_lobbyPlayers[i].ClientId != serverRpcParams.Receive.SenderClientId) continue;
+
+                if (i != index) return;
+
+                _lobbyPlayers[i] = new LobbyPlayerState(
+                    _lobbyPlayers[i].ClientId,
+                    _lobbyPlayers[i].PlayerName,
+                    _lobbyPlayers[i].IsReady,
+                    _lobbyPlayers[i].Ability1,
+                    _lobbyPlayers[i].Ability2,
+                    _lobbyPlayers[i].AbilityCount,
+                    (_lobbyPlayers[i].ChosenCharacter + 1) % CharacterSelection.Instance.GetCharacters.Length
+                );
+            }
+        }
+
         private void HandleLobbyPlayersStateChanged(NetworkListEvent<LobbyPlayerState> lobbyState)
         {
             for (int i = 0; i < lobbyPlayerCards.Length; i++)
             {
-                if (lobbyPlayers.Count > i)
+                if (_lobbyPlayers.Count > i)
                 {
-                    lobbyPlayerCards[i].UpdateDisplay(lobbyPlayers[i]);
+                    lobbyPlayerCards[i].UpdateDisplay(_lobbyPlayers[i]);
+                    if (NetworkManager.Singleton.LocalClientId == _lobbyPlayers[i].ClientId)
+                    {
+                        UpdatePlayerDataServerRpc(i);
+                    }
                 }
                 else
                 {
@@ -245,6 +288,17 @@ namespace Lobby.Scripts
             {
                 startGameButton.interactable = IsEveryoneReady();
             }
+        }
+
+        [ServerRpc(RequireOwnership = false)]
+        private void UpdatePlayerDataServerRpc(int player)
+        {
+            var currentPlayer = _lobbyPlayers[player];
+            var playerGuid = ServerGameNetPortal.Instance.GetGuids()[currentPlayer.ClientId];
+            var newData = new PlayerData(currentPlayer.PlayerName, currentPlayer.ClientId, currentPlayer.ChosenCharacter, 
+                new List<string>(){currentPlayer.Ability1, currentPlayer.Ability2});
+
+            _playersData[playerGuid] = newData;
         }
     }
 }

@@ -1,18 +1,30 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
+using MLAPI;
+using MLAPI.Messaging;
 using UnityEngine;
 
-public class CharacterSelection : MonoBehaviour
+namespace Lobby.Scripts
 {
-    // Start is called before the first frame update
-    void Start()
+    public class CharacterSelection : MonoBehaviour
     {
-        
-    }
+        [SerializeField] private Character[] characters;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        public static CharacterSelection Instance => instance;
+        private static CharacterSelection instance;
+
+        private void Awake()
+        {
+            if (instance != null && instance != this)
+            {
+                Destroy(gameObject);
+                return;
+            }
+
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+
+        public Character[] GetCharacters => characters;
     }
 }

@@ -15,6 +15,11 @@ namespace Menu_Steam.Scripts
         [Header("Settings")]
         [SerializeField] private int maxPlayers = 4;
 
+        [Header("Scene Names")] 
+        [SerializeField] private string lobbyName;
+        [SerializeField] private string menuName;
+        [SerializeField] private string gameName;
+
         public static ServerGameNetPortal Instance => instance;
         private static ServerGameNetPortal instance;
 
@@ -85,18 +90,29 @@ namespace Menu_Steam.Scripts
             return null;
         }
 
+        public Dictionary<ulong, string> GetGuids()
+        {
+            return clientIdToGuid;
+        }
+
+        public Dictionary<string, PlayerData> GetPlayerDatas()
+        {
+            return clientData;
+        }
+
         public void StartGame()
         {
             gameInProgress = true;
 
-            NetworkSceneManager.SwitchScene("Game");
+            NetworkSceneManager.SwitchScene(gameName);
+            
         }
 
         public void EndRound()
         {
             gameInProgress = false;
 
-            NetworkSceneManager.SwitchScene("Lobby");
+            NetworkSceneManager.SwitchScene(lobbyName);
         }
 
         private void HandleNetworkReadied()
@@ -107,7 +123,7 @@ namespace Menu_Steam.Scripts
             NetworkManager.Singleton.OnClientDisconnectCallback += HandleClientDisconnect;
             gameNetPortal.OnClientSceneChanged += HandleClientSceneChanged;
 
-            NetworkSceneManager.SwitchScene("Lobby");
+            NetworkSceneManager.SwitchScene(lobbyName);
 
             if (NetworkManager.Singleton.IsHost)
             {
@@ -150,7 +166,7 @@ namespace Menu_Steam.Scripts
 
             ClearData();
 
-            SceneManager.LoadScene("Menu_Steam");
+            SceneManager.LoadScene(menuName);
         }
 
         private void HandleServerStarted()
@@ -160,7 +176,7 @@ namespace Menu_Steam.Scripts
             string clientGuid = Guid.NewGuid().ToString();
             string playerName = PlayerPrefs.GetString("PlayerName", "Missing Name");
 
-            clientData.Add(clientGuid, new PlayerData(playerName, NetworkManager.Singleton.LocalClientId));
+            clientData.Add(clientGuid, new PlayerData(playerName, NetworkManager.Singleton.LocalClientId, 0, null));
             clientIdToGuid.Add(NetworkManager.Singleton.LocalClientId, clientGuid);
         }
 
@@ -204,11 +220,16 @@ namespace Menu_Steam.Scripts
                 gameReturnStatus = ConnectStatus.ServerFull;
             }
 
+            if (connectionPayload.isAdmin)
+            {
+                gameReturnStatus = ConnectStatus.Success;
+            }
+
             if (gameReturnStatus == ConnectStatus.Success)
             {
                 clientSceneMap[clientId] = connectionPayload.clientScene;
                 clientIdToGuid[clientId] = connectionPayload.clientGUID;
-                clientData[connectionPayload.clientGUID] = new PlayerData(connectionPayload.playerName, clientId);
+                clientData[connectionPayload.clientGUID] = new PlayerData(connectionPayload.playerName, clientId, 0, null);
             }
 
             callback(false, 0, true, null, null);

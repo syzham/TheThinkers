@@ -439,7 +439,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.1, y: 0.2}
   m_AnchorMax: {x: 0.9, y: 0.8}
-  m_AnchoredPosition: {x: 205.344, y: -2.9100037}
+  m_AnchoredPosition: {x: 205.344, y: -2.9100342}
   m_SizeDelta: {x: -87.43, y: 322.554}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &964624742
@@ -918,7 +918,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.3, y: 0.075}
   m_AnchorMax: {x: 0.7, y: 0.175}
-  m_AnchoredPosition: {x: -743, y: 638.0615}
+  m_AnchoredPosition: {x: -743, y: 556.73}
   m_SizeDelta: {x: -362.63, y: 340.56}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1882333067
@@ -1050,7 +1050,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Ability4
+  m_text: Multilingual
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1290,7 +1290,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Ability1
+  m_text: Strength
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1594,7 +1594,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Ability3
+  m_text: Lockpicker
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1676,7 +1676,7 @@ GameObject:
   - component: {fileID: 8262134327507660333}
   - component: {fileID: 6232822092654998426}
   m_Layer: 0
-  m_Name: Ability3Button
+  m_Name: Lockpicker
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1809,7 +1809,7 @@ GameObject:
   - component: {fileID: 3818299162611722380}
   - component: {fileID: 3239538939938594468}
   m_Layer: 0
-  m_Name: Ability2Button
+  m_Name: Intelligence
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1994,7 +1994,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Ability2
+  m_text: Intelligence
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2076,7 +2076,7 @@ GameObject:
   - component: {fileID: 1731255498044897854}
   - component: {fileID: 7678892946347089414}
   m_Layer: 0
-  m_Name: Ability1Button
+  m_Name: Strength
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2209,7 +2209,7 @@ GameObject:
   - component: {fileID: 7733167637947583283}
   - component: {fileID: 2049708573329460179}
   m_Layer: 0
-  m_Name: Ability4Button
+  m_Name: Polyglot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2821,6 +2821,18 @@ PrefabInstance:
     - target: {fileID: 4237331793813064128, guid: 25b0bd1c83713d44ab76eaa07a6357fa, type: 3}
       propertyPath: m_Name
       value: LobbyPlayerCard (0)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4861277226905059330, guid: 25b0bd1c83713d44ab76eaa07a6357fa, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 7026144361477342948}
+    - target: {fileID: 4861277226905059330, guid: 25b0bd1c83713d44ab76eaa07a6357fa, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnCharacterOnClick
+      objectReference: {fileID: 0}
+    - target: {fileID: 4861277226905059330, guid: 25b0bd1c83713d44ab76eaa07a6357fa, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Lobby.Scripts.LobbyUI, Assembly-CSharp
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 7136380821082899079, guid: 25b0bd1c83713d44ab76eaa07a6357fa, type: 3}

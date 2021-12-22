@@ -8,5 +8,6 @@ namespace Menu_Steam.Scripts
         public string clientGUID;
         public int clientScene = -1;
         public string playerName;
+        public bool isAdmin;
     }
 }

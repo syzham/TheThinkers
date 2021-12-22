@@ -1,18 +1,42 @@
-using System.Collections;
-using System.Collections.Generic;
+using Game.Scripts.Actions;
 using UnityEngine;
 
-public class LockCommand : MonoBehaviour
+namespace Game.Scripts.Console.Commands
 {
-    // Start is called before the first frame update
-    void Start()
+    public sealed class LockCommand : Command
     {
+        public override string Name { get; protected set; }
+        public override string CommandName { get; protected set; }
+        public override string Description { get; protected set; }
+        public override string Help { get; protected set; }
         
-    }
+        public LockCommand()
+        {
+            Name = "Lock";
+            CommandName = "lock";
+            Description = "Locks a lockable item.";
+            Help = "lock [LocationName].[ItemName]";
+            
+            AddCommandToConsole();
+        }
+        public override void RunCommand(string[] args)
+        {
+            var lockItem = GetInteractableItem(args[0]);
 
-    // Update is called once per frame
-    void Update()
-    {
+            if (!lockItem) return;
+
+            if (lockItem.TryGetComponent(out LockPickAction action))
+            {
+                action.LockServerRpc();
+                return;
+            }
+
+            Debug.LogWarning("Item cannot be locked");
+        }
         
+        public static LockCommand CreateCommand()
+        {
+            return new LockCommand();
+        }
     }
 }

@@ -1,18 +1,43 @@
-using System.Collections;
-using System.Collections.Generic;
+using MLAPI.Messaging;
 using UnityEngine;
 
-public class StrengthAction : MonoBehaviour
+namespace Game.Scripts.Actions
 {
-    // Start is called before the first frame update
-    void Start()
+    public class StrengthAction : Actions
     {
+        private GameObject _interObject;
         
-    }
+        public override void Execute(Player.Player player, GameObject interObject)
+        {
+            dialogue.name = player.GetName();
+            _interObject = interObject;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+            if (player.IsStrength())
+            {
+                TriggerDialogue(0, player);
+                RemoveItemServerRpc();
+            }
+            else
+            {
+                TriggerDialogue(1, player);
+            }
+        }
+
+        public override void Execute(GameObject interObject)
+        {
+            _interObject = interObject;
+        }
+
+        [ServerRpc(RequireOwnership = false)]
+        private void RemoveItemServerRpc()
+        {
+            RemoveItemClientRpc();
+        }
+
+        [ClientRpc]
+        private void RemoveItemClientRpc()
+        {
+            _interObject.GetComponent<Interactable>().SetActiveServerRpc(false);
+        }
     }
 }
