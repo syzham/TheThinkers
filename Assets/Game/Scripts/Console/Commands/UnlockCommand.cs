@@ -1,4 +1,5 @@
 using Game.Scripts.Actions;
+using Game.Scripts.Items.LockableItem;
 using UnityEngine;
 
 namespace Game.Scripts.Console.Commands
@@ -25,9 +26,9 @@ namespace Game.Scripts.Console.Commands
 
             if (!lockItem) return;
 
-            if (lockItem.TryGetComponent(out LockPickAction action))
+            if (lockItem.TryGetComponent(out Lockable action))
             {
-                action.UnlockServerRpc();
+                action.Unlock();
                 return;
             }
 

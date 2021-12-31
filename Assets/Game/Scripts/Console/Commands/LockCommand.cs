@@ -1,4 +1,5 @@
 using Game.Scripts.Actions;
+using Game.Scripts.Items.LockableItem;
 using UnityEngine;
 
 namespace Game.Scripts.Console.Commands
@@ -9,8 +10,8 @@ namespace Game.Scripts.Console.Commands
         public override string CommandName { get; protected set; }
         public override string Description { get; protected set; }
         public override string Help { get; protected set; }
-        
-        public LockCommand()
+
+        private LockCommand()
         {
             Name = "Lock";
             CommandName = "lock";
@@ -25,9 +26,9 @@ namespace Game.Scripts.Console.Commands
 
             if (!lockItem) return;
 
-            if (lockItem.TryGetComponent(out LockPickAction action))
+            if (lockItem.TryGetComponent(out Lockable action))
             {
-                action.LockServerRpc();
+                action.Lock();
                 return;
             }
 

@@ -6,6 +6,7 @@ namespace Game.Scripts.Actions
     {
         public override void Execute(Player.Player player, GameObject interObject)
         { 
+            InventoryManager.Instance.AddItem(interObject);
             interObject.GetComponent<Interactable>().SetActiveServerRpc(false);
             dialogue.name = player.GetName(); 
             TriggerDialogue(0, player);

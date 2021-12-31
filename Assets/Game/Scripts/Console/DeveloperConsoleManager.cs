@@ -36,6 +36,8 @@ namespace Game.Scripts.Console
         {
             consoleCanvas.gameObject.SetActive(false);
             CreateCommand();
+            consoleText.supportRichText = true;
+
         }
 
         private void OnEnable()
@@ -50,7 +52,14 @@ namespace Game.Scripts.Console
 
         private void HandleLog(string logMessage, string stackTrace, LogType type)
         {
-            var message = "[" + type +"]  " + logMessage;
+            var colour = type switch
+            {
+                LogType.Log => "<color=white>",
+                LogType.Error => "<color=red>",
+                _ => "<color=yellow>"
+            };
+
+            var message = colour + logMessage + "</color>";
             AddMessageToConsole(message);
         }
 
@@ -64,6 +73,7 @@ namespace Game.Scripts.Console
             ListCommand.CreateCommand();
             AbilityCommand.CreateCommand();
             ChangeNameCommand.CreateCommand();
+            InventoryCommand.CreateCommand();
         }
 
         public static void AddCommandsToConsole(string name, Command command)
@@ -89,7 +99,7 @@ namespace Game.Scripts.Console
                 {
                     if (inputText.text != "")
                     {
-                        AddMessageToConsole(inputText.text);
+                        AddMessageToConsole("> " + inputText.text);
                         ParseInput(inputText.text);
                         consoleInput.text = "";
                         consoleInput.ActivateInputField();

@@ -22,5 +22,13 @@ namespace Game.Scripts.Player
             rb.MovePosition(new Vector2((position.x + move.x * moveSpeed * Time.deltaTime),
                 position.y + move.y * moveSpeed * Time.deltaTime));
         }
+
+        private void OnCollisionEnter2D(Collision2D collision)
+        {
+            if (collision.gameObject.CompareTag("Player"))
+            {
+                Physics2D.IgnoreCollision(collision.collider, collision.otherCollider);
+            }
+        }
     }
 }
