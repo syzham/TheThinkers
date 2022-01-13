@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Game.Scripts.Console.Commands;
+using Game.Scripts.Inventory;
 using Game.Scripts.Player;
 using Menu_Steam.Scripts;
 using UnityEngine;
@@ -88,8 +89,10 @@ namespace Game.Scripts.Console
         {
             if (Input.GetKeyDown(KeyCode.BackQuote) && ClientGameNetPortal.Instance.IsPlayerAdmin())
             {
+                consoleInput.text = "";
                 consoleCanvas.gameObject.SetActive(!consoleCanvas.gameObject.activeInHierarchy);
                 AdminController.Instance.enabled = !AdminController.Instance.enabled;
+                InventoryManager.Instance.enable = !InventoryManager.Instance.enable;
             }
 
             if (consoleCanvas.gameObject.activeInHierarchy)

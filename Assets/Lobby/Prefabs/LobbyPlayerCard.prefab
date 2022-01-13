@@ -144,8 +144,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Display Name
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: cb7e7e5eb341ce84398e2c128b8ee93c, type: 2}
+  m_sharedMaterial: {fileID: -9107174952368610310, guid: cb7e7e5eb341ce84398e2c128b8ee93c, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -243,10 +243,10 @@ RectTransform:
   m_Father: {fileID: 3305669588603439764}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 160, y: 30}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1788950209165783092
 CanvasRenderer:
@@ -277,8 +277,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 14
+    m_Font: {fileID: 12800000, guid: 652f7165b7c30ab46af6c4aad90a639b, type: 2}
+    m_FontSize: 40
     m_FontStyle: 0
     m_BestFit: 1
     m_MinSize: 10
@@ -289,7 +289,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 
+  m_Text: test
 --- !u!1 &3555119561119790297
 GameObject:
   m_ObjectHideFlags: 0
@@ -431,11 +431,11 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 14
+    m_Font: {fileID: 12800000, guid: 652f7165b7c30ab46af6c4aad90a639b, type: 2}
+    m_FontSize: 40
     m_FontStyle: 0
     m_BestFit: 1
-    m_MinSize: 10
+    m_MinSize: 8
     m_MaxSize: 70
     m_Alignment: 4
     m_AlignByGeometry: 0
@@ -540,9 +540,6 @@ MonoBehaviour:
   ability2Panel: {fileID: 7893019621881188519}
   characterSelectDisplay: {fileID: 7853593261180160953}
   characterPreviewParent: {fileID: 5045380366237327521}
-  characters:
-  - {fileID: 11400000, guid: 383299d0ebecfe64abc923763cca3494, type: 2}
-  - {fileID: 11400000, guid: 727430e285f5c4a48a40f7724bd30fd9, type: 2}
 --- !u!1 &4905470916900570236
 GameObject:
   m_ObjectHideFlags: 0
@@ -610,8 +607,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Waiting For Player...
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: cb7e7e5eb341ce84398e2c128b8ee93c, type: 2}
+  m_sharedMaterial: {fileID: -9107174952368610310, guid: cb7e7e5eb341ce84398e2c128b8ee93c, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -635,8 +632,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 40
-  m_fontSizeBase: 40
+  m_fontSize: 51.5
+  m_fontSizeBase: 51.5
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 0

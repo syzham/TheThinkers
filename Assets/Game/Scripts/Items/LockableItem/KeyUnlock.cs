@@ -1,4 +1,5 @@
 using System.Linq;
+using Game.Scripts.Inventory;
 using UnityEngine;
 
 namespace Game.Scripts.Items.LockableItem
@@ -7,13 +8,14 @@ namespace Game.Scripts.Items.LockableItem
     {
         [SerializeField] private GameObject key;
         
-        public override bool UnlockAttempt(Player.Player _)
+        public override bool? UnlockAttempt(Player.Player _)
         {
             if (!IsLocked()) return true;
             
             if (!Enumerable.Contains(InventoryManager.Instance.GetInventory(), key)) return false;
             
             Unlock();
+            InventoryManager.Instance.RemoveItem(key);
             return true;
         }
     }

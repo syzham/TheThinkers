@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using MLAPI;
 using MLAPI.Messaging;
 using MLAPI.NetworkVariable;
@@ -44,7 +45,7 @@ namespace Game.Scripts.Items.LockableItem
             _isLocked.Value = startLocked;
         }
 
-        public abstract bool UnlockAttempt(Player.Player player);
+        public abstract bool? UnlockAttempt(Player.Player player);
 
         public bool IsLocked()
         {
