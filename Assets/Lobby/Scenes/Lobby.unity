@@ -344,11 +344,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1242718271125943519, guid: f04855a6b3fae4f478846139aa5cf621, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0.0000076293945
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1242718271125943519, guid: f04855a6b3fae4f478846139aa5cf621, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -3.410099
+      value: -3.410098
       objectReference: {fileID: 0}
     - target: {fileID: 1356351705257883068, guid: f04855a6b3fae4f478846139aa5cf621, type: 3}
       propertyPath: m_Name
@@ -482,6 +482,18 @@ PrefabInstance:
       propertyPath: m_sharedMaterial
       value: 
       objectReference: {fileID: -9107174952368610310, guid: cb7e7e5eb341ce84398e2c128b8ee93c, type: 2}
+    - target: {fileID: 4764530183783896768, guid: f04855a6b3fae4f478846139aa5cf621, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4764530183783896768, guid: f04855a6b3fae4f478846139aa5cf621, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: -1086
+      objectReference: {fileID: 0}
+    - target: {fileID: 4764530183783896768, guid: f04855a6b3fae4f478846139aa5cf621, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -362.36
+      objectReference: {fileID: 0}
     - target: {fileID: 4951895714752392945, guid: f04855a6b3fae4f478846139aa5cf621, type: 3}
       propertyPath: isReadyToggle
       value: 
@@ -596,7 +608,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7026144361477342948, guid: f04855a6b3fae4f478846139aa5cf621, type: 3}
       propertyPath: lobbyPlayerCards.Array.size
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7026144361477342948, guid: f04855a6b3fae4f478846139aa5cf621, type: 3}
       propertyPath: lobbyPlayerCards.Array.data[0]
@@ -613,7 +625,7 @@ PrefabInstance:
     - target: {fileID: 7026144361477342948, guid: f04855a6b3fae4f478846139aa5cf621, type: 3}
       propertyPath: lobbyPlayerCards.Array.data[3]
       value: 
-      objectReference: {fileID: 1868522890}
+      objectReference: {fileID: 0}
     - target: {fileID: 7133898380513532439, guid: f04855a6b3fae4f478846139aa5cf621, type: 3}
       propertyPath: m_Name
       value: Player1
@@ -1047,17 +1059,6 @@ MonoBehaviour:
 --- !u!114 &1741457003 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6216484074020486038, guid: f04855a6b3fae4f478846139aa5cf621, type: 3}
-  m_PrefabInstance: {fileID: 293607806}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d1e1f65a7f09c2d4dac0fa708bbbb047, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1868522890 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6216484074709102081, guid: f04855a6b3fae4f478846139aa5cf621, type: 3}
   m_PrefabInstance: {fileID: 293607806}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}

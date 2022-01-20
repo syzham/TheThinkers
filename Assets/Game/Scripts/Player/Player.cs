@@ -13,7 +13,6 @@ namespace Game.Scripts.Player
         [SerializeField] private NetworkVariableBool strength;
         [SerializeField] private NetworkVariableBool intelligence;
         [SerializeField] private NetworkVariableBool lockPicker;
-        [SerializeField] private NetworkVariableBool polyglot;
         [SerializeField] private NetworkVariableString playerName;
         [SerializeField] private NetworkVariableString currentLocation;
         
@@ -45,11 +44,7 @@ namespace Game.Scripts.Player
                 case "Lockpicker":
                     lockPicker.Value = status;
                     break;
-                
-                case "Polyglot":
-                    polyglot.Value = status;
-                    break;
-                
+
                 default:
                     Debug.Log(ability + " is not a valid ability");
                     break;
@@ -69,11 +64,6 @@ namespace Game.Scripts.Player
         public bool IsLockPicker()
         {
             return lockPicker.Value;
-        }
-
-        public bool IsPolyglot()
-        {
-            return polyglot.Value;
         }
 
         public string GetName()

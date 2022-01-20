@@ -10,10 +10,12 @@ namespace Game.Scripts.LockPicking
         [SerializeField] private GameObject panel;
         [SerializeField] private Text timerText;
 
-        [SerializeField] private Text question;
-        [SerializeField] private InputField input;
+        [SerializeField] private GameObject movingBar;
+        [SerializeField] private GameObject stationaryBar;
+        [SerializeField] private GameObject correctPlace;
 
         private bool _checkUpdate = false;
+        private int _barSpeed;
 
         public static PickLockManager Instance { get; private set; }
 
@@ -48,28 +50,40 @@ namespace Game.Scripts.LockPicking
             _loc = loc;
             _player = player;
             _player.GetComponent<PlayerController>().enabled = false;
+            _player.GetComponent<PlayerInteract>().enabled = false;
             panel.SetActive(true);
             _timer = new Timer(time);
 
-            _tempNum1 = Random.Range(1, 10);
-            _tempNum2 = Random.Range(1, 10);
+            StartMovingBar(2);
 
-            question.text = _tempNum1 + " + " + _tempNum2;
-            
             _checkUpdate = true;
             _checkButtonClicked = false;
         }
 
         public void CheckButtonClick()
         {
-            if (input.text != (_tempNum1 + _tempNum2).ToString())
+            if (correctPlace.GetComponent<Collider2D>().bounds.Contains(movingBar.transform.position))
+                _checkButtonClicked = true;
+        }
+
+        private void StartMovingBar(int speed)
+        {
+            _barSpeed = speed;
+        }
+
+        private void MoveBar()
+        {
+            foreach (var col in stationaryBar.GetComponents<Collider2D>())
             {
-                input.ActivateInputField();
-                input.text = "";
-                return;
+                if (col.bounds.Contains(movingBar.transform.position))
+                {
+                    _barSpeed *= -1;
+                }
             }
-            
-            _checkButtonClicked = true;
+
+            var position = movingBar.transform.position;
+            position = new Vector3(position.x, position.y + _barSpeed, position.z);
+            movingBar.transform.position = position;
         }
 
         private void Update()
@@ -77,11 +91,13 @@ namespace Game.Scripts.LockPicking
             if (!_checkUpdate) return;
             _timer.Tick(Time.deltaTime);
             timerText.text = Mathf.FloorToInt(_timer.RemainingTime).ToString();
+            MoveBar();
             if (_timer.RemainingTime > 0f)
             {
                 if (!_checkButtonClicked) return;
                 
                 _player.GetComponent<PlayerController>().enabled = true;
+                _player.GetComponent<PlayerInteract>().enabled = true;
                 _loc.Unlock();
                 panel.SetActive(false);
                 _checkUpdate = false;

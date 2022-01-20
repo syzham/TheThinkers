@@ -13,7 +13,7 @@ namespace Menu_Steam.Scripts
     public class ServerGameNetPortal : MonoBehaviour
     {
         [Header("Settings")]
-        [SerializeField] private int maxPlayers = 4;
+        [SerializeField] private int maxPlayers = 3;
 
         [Header("Scene Names")] 
         [SerializeField] private string lobbyName;

@@ -8,6 +8,9 @@ namespace Game.Scripts.Player
 
         [SerializeField] private Rigidbody2D rb;
         [SerializeField] private float moveSpeed;
+
+        private bool _disableHorizontal = false;
+        private bool _disableVertical = false;
         private void Update()
         {
             if (IsOwner)
@@ -16,7 +19,8 @@ namespace Game.Scripts.Player
 
         private void CheckInput()
         {
-            var move = new Vector3(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+            var move = new Vector3(_disableHorizontal ? 0 : Input.GetAxisRaw("Horizontal"), 
+                _disableVertical ? 0: Input.GetAxisRaw("Vertical"));
             
             var position = transform.position;
             rb.MovePosition(new Vector2((position.x + move.x * moveSpeed * Time.deltaTime),
@@ -30,5 +34,26 @@ namespace Game.Scripts.Player
                 Physics2D.IgnoreCollision(collision.collider, collision.otherCollider);
             }
         }
+
+        public void DisableHorizontal()
+        {
+            _disableHorizontal = true;
+        }
+
+        public void DisableVertical()
+        {
+            _disableVertical = true;
+        }
+
+        public void EnableMovement()
+        {
+            _disableHorizontal = false;
+            _disableVertical = false;
+        }
+
+        public void ChangeSpeed(float times)
+        {
+            moveSpeed *= times;
+        } 
     }
 }

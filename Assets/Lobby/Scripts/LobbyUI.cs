@@ -77,7 +77,7 @@ namespace Lobby.Scripts
                 }
             }
 
-            return total == 4;
+            return total == 3;
         }
 
         private void HandleClientConnected(ulong clientId)
@@ -165,22 +165,22 @@ namespace Lobby.Scripts
                     newCount = _lobbyPlayers[i].AbilityCount - 1;
                     newAbility1 = _lobbyPlayers[i].Ability1;
                 }
-                else if (_lobbyPlayers[i].AbilityCount == 0)
+                else switch (_lobbyPlayers[i].AbilityCount)
                 {
-                    newCount = 1;
-                    newAbility1 = ability;
-                }
-                else if (_lobbyPlayers[i].AbilityCount == 1)
-                {
-                    newCount = 2;
-                    newAbility1 = _lobbyPlayers[i].Ability1;
-                    newAbility2 = ability;
-                }
-                else
-                {
-                    newCount = _lobbyPlayers[i].AbilityCount;
-                    newAbility1 = _lobbyPlayers[i].Ability1;
-                    newAbility2 = _lobbyPlayers[i].Ability2;
+                    case 0:
+                        newCount = 1;
+                        newAbility1 = ability;
+                        break;
+                    case 1:
+                        newCount = 2;
+                        newAbility1 = _lobbyPlayers[i].Ability1;
+                        newAbility2 = ability;
+                        break;
+                    default:
+                        newCount = _lobbyPlayers[i].AbilityCount;
+                        newAbility1 = _lobbyPlayers[i].Ability1;
+                        newAbility2 = _lobbyPlayers[i].Ability2;
+                        break;
                 }
 
                 _lobbyPlayers[i] = new LobbyPlayerState(

@@ -34,7 +34,7 @@ public class MenuSteamManager : MonoBehaviour
 
     public void HostLobby()
     {
-        SteamMatchmaking.CreateLobby(ELobbyType.k_ELobbyTypeFriendsOnly, 5);
+        SteamMatchmaking.CreateLobby(ELobbyType.k_ELobbyTypeFriendsOnly, 4);
     }
 
     public void QuitButton()

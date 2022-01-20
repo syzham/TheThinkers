@@ -46,8 +46,6 @@ namespace Game.Scripts.Console.Commands
                     if (comp.IsLockPicker())
                         Debug.Log("LockPicker");
 
-                    if (comp.IsPolyglot())
-                        Debug.Log("Polyglot");
                     Debug.Log("--------------------");
                 }
                 else
