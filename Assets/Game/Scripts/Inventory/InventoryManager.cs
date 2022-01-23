@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Game.Scripts.Items;
+using Game.Scripts.Player;
 using Menu_Steam.Scripts;
 using MLAPI;
 using MLAPI.Messaging;
@@ -13,10 +14,12 @@ namespace Game.Scripts.Inventory
 {
     public class InventoryManager : NetworkBehaviour
     {
+        [SerializeField] private int rows;
         [SerializeField] private GameObject inventoryPanel;
         [SerializeField] private GameObject[] inventorySlots;
 
         private int _takenSlots = 0;
+        private int _selectedSlot = 0;
         public bool enable = true;
         
         
@@ -76,23 +79,57 @@ namespace Game.Scripts.Inventory
         {
             return _inventory.Select(id => GetNetworkObject(id).gameObject).ToList();
         }
-        
-        private void Update()
+
+        private void CheckInput()
         {
-            if (!enable) return;
-            
             if (Input.GetKeyDown(KeyCode.I))
             {
                 inventoryPanel.SetActive(!inventoryPanel.activeInHierarchy);
-
+                PlayerMovement();
             }
 
             if (!inventoryPanel.activeInHierarchy) return;
             
+            if (Input.GetKeyDown(KeyCode.UpArrow))
+            {
+                if (_selectedSlot >= rows)
+                {
+                    _selectedSlot -= rows;
+                }
+            } else if (Input.GetKeyDown(KeyCode.DownArrow))
+            {
+                if (_selectedSlot < inventorySlots.Length - rows)
+                {
+                    _selectedSlot += rows;
+                }
+            } else if (Input.GetKeyDown(KeyCode.LeftArrow))
+            {
+                if (_selectedSlot == 0) return;
+                
+                if (_selectedSlot % rows != 0)
+                {
+                    _selectedSlot -= 1;
+                }
+            } else if (Input.GetKeyDown(KeyCode.RightArrow))
+            {
+                if (_selectedSlot == 0)
+                {
+                    _selectedSlot += 1;
+                }
+                else if (_selectedSlot % rows != rows - 1 && _selectedSlot != inventorySlots.Length - 1)
+                {
+                    _selectedSlot += 1;
+                }
+            }
+        }
+
+        private void UpdateSlots()
+        {
+            var i = 0;
             foreach (var slot in inventorySlots)
             {
                 if (_takenSlots >= inventorySlots.Length) break;
-                
+                   
                 
                 var slotImage = slot.transform.Find("ImageHolder").GetComponent<Image>();
                 slotImage.enabled = false;
@@ -109,9 +146,40 @@ namespace Game.Scripts.Inventory
                 slot.GetComponent<Slot>().itemName = obtainable.itemName;
                 slotImage.enabled = true;
                 slot.GetComponent<Slot>().isSlotted = true;
+
+                if (i == _selectedSlot)
+                {
+                    slot.GetComponent<Slot>().Expand();
+                }
+                else
+                {
+                    slot.GetComponent<Slot>().Compress();
+                }
+                i++;
             }
 
             _takenSlots = 0;
+        }
+
+        private static void PlayerMovement()
+        {
+            foreach (var player in GameObject.FindGameObjectsWithTag("Player"))
+            {
+                player.GetComponent<PlayerController>().enabled = !player.GetComponent<PlayerController>().enabled;
+            }
+        }
+        
+        private void Update()
+        {
+            if (!enable) return;
+            
+            CheckInput();
+
+            if (!inventoryPanel.activeInHierarchy) return;
+
+            UpdateSlots();
+            
+            
         }
 
     }
