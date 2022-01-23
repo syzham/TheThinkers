@@ -60,7 +60,7 @@ namespace Game.Scripts.LockPicking
             _checkButtonClicked = false;
         }
 
-        public void CheckButtonClick()
+        private void CheckButtonClick()
         {
             if (correctPlace.GetComponent<Collider2D>().bounds.Contains(movingBar.transform.position))
                 _checkButtonClicked = true;
@@ -94,6 +94,8 @@ namespace Game.Scripts.LockPicking
             MoveBar();
             if (_timer.RemainingTime > 0f)
             {
+                if (Input.GetButtonDown("Interact")) {CheckButtonClick();}
+                
                 if (!_checkButtonClicked) return;
                 
                 _player.GetComponent<PlayerController>().enabled = true;
