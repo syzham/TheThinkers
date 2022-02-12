@@ -6,19 +6,14 @@ namespace Game.Scripts
 {
     public class UIManager : MonoBehaviour
     {
-        [SerializeField] private GameObject dialogueUI;
-        [SerializeField] private GameObject consoleUI;
-        [SerializeField] private GameObject inventoryUI;
-        [SerializeField] private GameObject pauseUI;
-        [SerializeField] private GameObject pickLockUI;
+        [SerializeField] private GameObject[] userInterface;
 
         private void Awake()
         {
-            dialogueUI.SetActive(true);
-            consoleUI.SetActive(true);
-            inventoryUI.SetActive(true);
-            pauseUI.SetActive(true);
-            pickLockUI.SetActive(true);
+            foreach (var ui in userInterface)
+            {
+                ui.SetActive(true);
+            }
         }
     }
 }

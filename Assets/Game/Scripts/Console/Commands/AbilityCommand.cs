@@ -1,3 +1,4 @@
+using Game.Scripts.Player;
 using UnityEngine;
 
 namespace Game.Scripts.Console.Commands
@@ -28,8 +29,7 @@ namespace Game.Scripts.Console.Commands
                 return;
             }
 
-            var players = GameObject.FindGameObjectsWithTag("Player");
-            foreach (var player in players)
+            foreach (var player in PlayerManager.Instance.Players)
             {
                 var comp = player.GetComponent<Player.Player>();
                 if (!comp.GetName().Equals(args[0])) continue;

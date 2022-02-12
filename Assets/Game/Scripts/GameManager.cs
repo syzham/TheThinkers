@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Game.Scripts.Player;
 using Lobby.Scripts;
 using Menu_Steam.Scripts;
 using MLAPI;
@@ -70,8 +71,16 @@ namespace Game.Scripts
             _loadingClients.Remove(serverRpcParams.Receive.SenderClientId);
 
             if (_loadingClients.Count != 0) { return; }
-
+            
             Debug.Log("Everyone is ready");
+            UpdatePlayersClientRpc();
+        }
+
+        [ClientRpc]
+        private void UpdatePlayersClientRpc()
+        {
+            Debug.Log("is doing!!!!");
+            PlayerManager.Instance.UpdatePlayers();
         }
 
         private void SpawnPlayer(ulong clientId, bool isAdmin)

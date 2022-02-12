@@ -36,7 +36,7 @@ namespace Game.Scripts.Player
             {
                 if (!(_timer.RemainingTime <= 0)) return;
                 
-                foreach (var play in GameObject.FindGameObjectsWithTag("Player"))
+                foreach (var play in PlayerManager.Instance.Players)
                 {
                     play.GetComponent<PlayerInfo>().HideInfo();
                 }
@@ -45,7 +45,7 @@ namespace Game.Scripts.Player
 
             _timer = new Timer(5);
             
-            foreach (var play in GameObject.FindGameObjectsWithTag("Player"))
+            foreach (var play in PlayerManager.Instance.Players)
             {
                 play.GetComponent<PlayerInfo>().ShowInfo();
             }

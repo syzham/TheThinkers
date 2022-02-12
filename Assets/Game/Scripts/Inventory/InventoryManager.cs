@@ -163,10 +163,14 @@ namespace Game.Scripts.Inventory
 
         private static void PlayerMovement()
         {
-            foreach (var player in GameObject.FindGameObjectsWithTag("Player"))
+            /* foreach (var player in GameObject.FindGameObjectsWithTag("Player"))
             {
+                if (!player.GetComponent<NetworkObject>().IsOwner) continue;
                 player.GetComponent<PlayerController>().enabled = !player.GetComponent<PlayerController>().enabled;
-            }
+            } */
+
+            PlayerManager.Instance.CurrentPlayer.GetComponent<PlayerController>().enabled =
+                !PlayerManager.Instance.CurrentPlayer.GetComponent<PlayerController>().enabled;
         }
         
         private void Update()

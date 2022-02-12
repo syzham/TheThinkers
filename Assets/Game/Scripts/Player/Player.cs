@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Cinemachine;
 using Menu_Steam.Scripts;
 using MLAPI;
 using MLAPI.Messaging;
@@ -17,15 +18,28 @@ namespace Game.Scripts.Player
         [SerializeField] private NetworkVariableString currentLocation;
         
         public GameObject playerCamera;
+        public CinemachineVirtualCamera cameraMachine;
+        public CinemachineConfiner2D cameraConfine;
 
         public override void NetworkStart()
         {
-            if (!IsOwner) return;
-            SetCurrentLocationServerRpc("Spawn Location");
+            if (!IsOwner)
+            {
+                Destroy(playerCamera);
+                Destroy(cameraMachine);
+                return;
+            }
+            
+            SetCurrentLocationServerRpc("SpawnLocation");
 
             GetPlayerDataServerRpc(OwnerClientId, ClientGameNetPortal.Instance.IsPlayerAdmin());
 
             playerCamera.SetActive(true);
+            playerCamera.transform.SetParent(null);
+            cameraMachine.transform.SetParent(null);
+            cameraMachine.m_Lens.OrthographicSize = 210;
+
+            cameraConfine.m_BoundingShape2D = GameObject.Find("SpawnLocation").GetComponent<PolygonCollider2D>();
         }
 
         [ServerRpc(RequireOwnership = false)]

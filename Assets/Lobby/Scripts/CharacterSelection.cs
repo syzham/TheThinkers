@@ -22,7 +22,6 @@ namespace Lobby.Scripts
             }
 
             instance = this;
-            DontDestroyOnLoad(gameObject);
         }
 
         public Character[] GetCharacters => characters;

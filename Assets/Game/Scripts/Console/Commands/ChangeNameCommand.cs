@@ -1,3 +1,4 @@
+using Game.Scripts.Player;
 using UnityEngine;
 
 namespace Game.Scripts.Console.Commands
@@ -24,7 +25,7 @@ namespace Game.Scripts.Console.Commands
             if (args.Length == 0)
             {
                 Debug.Log("--------------------");
-                foreach (var plays in GameObject.FindGameObjectsWithTag("Player"))
+                foreach (var plays in PlayerManager.Instance.Players)
                 {
                     Debug.Log(plays.GetComponent<Player.Player>().GetName());
                 }
@@ -38,8 +39,7 @@ namespace Game.Scripts.Console.Commands
                 return;
             }
             
-            var players = GameObject.FindGameObjectsWithTag("Player");
-            foreach (var player in players)
+            foreach (var player in PlayerManager.Instance.Players)
             {
                 var comp = player.GetComponent<Player.Player>();
                 if (!comp.GetName().Equals(args[0])) continue;
