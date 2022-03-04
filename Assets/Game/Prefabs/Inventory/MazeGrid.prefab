@@ -52,13 +52,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3678857284234121208}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.990566, g: 0.990566, b: 0.990566, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -86,8 +86,8 @@ GameObject:
   - component: {fileID: 6132455904798467342}
   - component: {fileID: 6132455904798467336}
   - component: {fileID: 6132455904798467343}
-  - component: {fileID: 8890565255087068782}
   - component: {fileID: 8558311197294124759}
+  - component: {fileID: 7712918886433349378}
   m_Layer: 5
   m_Name: MazeGrid
   m_TagString: Untagged
@@ -153,20 +153,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &8890565255087068782
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6132455904798467341}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c8e8f0e117d5b6f43aad7a94ef93f4da, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isSlotted: 0
-  itemName: 
 --- !u!61 &8558311197294124759
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -193,3 +179,19 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 101.133804, y: 59.00708}
   m_EdgeRadius: 0
+--- !u!114 &7712918886433349378
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6132455904798467341}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca7770450fa35d24b83823478124d57e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  up: 0
+  down: 0
+  right: 0
+  left: 0
