@@ -16,14 +16,13 @@ namespace Game.Scripts.Actions
         public bool grabbed = false;
         private Player.Player _player;
         private GameObject _inter;
-        
+        [SerializeField] private BoxCollider2D threshold;
+
         public override void Execute(Player.Player player, GameObject interObject)
         {
-
-            dialogue.name = player.GetName();
-
             if (!player.IsStrength())
             {
+                dialogue.name=player.GetName();
                 TriggerDialogue(1, player);
                 return;
             }
@@ -102,8 +101,19 @@ namespace Game.Scripts.Actions
             //ReparentServerRpc(_inter.GetComponent<NetworkObject>().NetworkObjectId, _parent.GetComponent<NetworkObject>().NetworkObjectId);
             _player.GetComponent<PlayerInteract>().enabled = true;
             _player.GetComponent<PlayerController>().EnableMovement();
-            _player.GetComponent<PlayerController>().ChangeSpeed(4);
+            _player.GetComponent<PlayerController>().ChangeSpeed();
             grabbed = false;
+        }
+
+        private void OnTriggerEnter2D(Collider2D other){
+            if (threshold==other){
+                _inter.transform.SetParent(_parent);
+                _player.GetComponent<PlayerInteract>().enabled = true;
+                _player.GetComponent<PlayerController>().EnableMovement();
+                _player.GetComponent<PlayerController>().ChangeSpeed();
+                grabbed = false;
+                TriggerDialogue(0,_player);
+            }
         }
     }
 }

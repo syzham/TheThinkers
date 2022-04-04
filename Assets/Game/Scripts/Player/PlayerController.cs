@@ -9,8 +9,13 @@ namespace Game.Scripts.Player
         [SerializeField] private Rigidbody2D rb;
         [SerializeField] private float moveSpeed;
 
+        private float MOVESPEED;
+
         private bool _disableHorizontal = false;
         private bool _disableVertical = false;
+        public void Start(){
+            MOVESPEED=moveSpeed;
+        }
         private void Update()
         {
             if (IsOwner)
@@ -35,6 +40,7 @@ namespace Game.Scripts.Player
             }
         }
 
+        
         public void DisableHorizontal()
         {
             _disableHorizontal = true;
@@ -54,6 +60,11 @@ namespace Game.Scripts.Player
         public void ChangeSpeed(float times)
         {
             moveSpeed *= times;
+        }
+
+        public void ChangeSpeed()
+        {
+            moveSpeed = MOVESPEED;
         } 
     }
 }
