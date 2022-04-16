@@ -8,9 +8,12 @@ namespace Game.Scripts.Player
 
         [SerializeField] private Rigidbody2D rb;
         [SerializeField] private float moveSpeed;
+        [SerializeField] private Animator anim;
 
         private bool _disableHorizontal = false;
         private bool _disableVertical = false;
+        private static readonly int Sideways = Animator.StringToHash("sideways");
+
         private void Update()
         {
             if (IsOwner)
@@ -25,6 +28,17 @@ namespace Game.Scripts.Player
             var position = transform.position;
             rb.MovePosition(new Vector2((position.x + move.x * moveSpeed * Time.deltaTime),
                 position.y + move.y * moveSpeed * Time.deltaTime));
+
+            anim.SetFloat("horizontal", move[0]);
+            anim.SetFloat("vertical", move[1]);
+            anim.SetFloat("speed", move.sqrMagnitude);
+
+            if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyUp(KeyCode.A))
+            {
+                var temp = transform.localScale;
+                temp.x *= -1;
+                transform.localScale = temp;
+            }
         }
 
         private void OnCollisionEnter2D(Collision2D collision)

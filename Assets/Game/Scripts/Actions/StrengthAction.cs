@@ -16,6 +16,7 @@ namespace Game.Scripts.Actions
         public bool grabbed = false;
         private Player.Player _player;
         private GameObject _inter;
+        [SerializeField] private BoxCollider2D adf;
         
         public override void Execute(Player.Player player, GameObject interObject)
         {

@@ -21,8 +21,6 @@ namespace Game.Scripts.Events
         {
             if (!_started)
             {
-                Debug.Log("removed movement");
-                
                 if (PlayerManager.Instance.Players == null)
                 {
                     return;
