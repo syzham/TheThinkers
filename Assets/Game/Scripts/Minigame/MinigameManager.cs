@@ -133,7 +133,7 @@ namespace Game.Scripts.MiniGame
         private void Completed()
         {
             MiniGameCompleted?.Invoke();
-            _logic.MiniGameCompleted -= Completed;
+            // _logic.MiniGameCompleted -= Completed;
         }
     }
 }
