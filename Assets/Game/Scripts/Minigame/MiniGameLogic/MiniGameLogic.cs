@@ -25,7 +25,7 @@ namespace Game.Scripts.MiniGame.MiniGameLogic
         protected void SetIsCompleted(bool newVal)
         {
             IsCompleted = newVal;
-            MiniGameCompleted?.Invoke();
+            // MiniGameCompleted?.Invoke();
         }
     }
 }
