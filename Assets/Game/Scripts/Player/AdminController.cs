@@ -14,7 +14,7 @@ namespace Game.Scripts.Player
         {
             Instance = this;
         }
-        private void Update()
+        private void FixedUpdate()
         {
             if (IsOwner)
                 CheckInput();

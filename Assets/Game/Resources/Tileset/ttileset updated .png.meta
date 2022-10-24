@@ -1,0 +1,828 @@
+fileFormatVersion: 2
+guid: 594245e0c5821b5499b511602f7f5900
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -3272893883974274422
+    second: ttileset updated _0
+  - first:
+      213: -6158295476527278014
+    second: ttileset updated _1
+  - first:
+      213: 1068599293695733814
+    second: ttileset updated _2
+  - first:
+      213: -7750665761696829427
+    second: ttileset updated _3
+  - first:
+      213: -7926689168560978130
+    second: ttileset updated _4
+  - first:
+      213: -5424043954467567800
+    second: ttileset updated _5
+  - first:
+      213: 1174434891391975890
+    second: ttileset updated _6
+  - first:
+      213: 1846745503091449130
+    second: ttileset updated _7
+  - first:
+      213: 4264985660361317412
+    second: ttileset updated _8
+  - first:
+      213: 2229497521182938339
+    second: ttileset updated _9
+  - first:
+      213: 6616299895610880564
+    second: ttileset updated _10
+  - first:
+      213: -8224058581041563430
+    second: ttileset updated _11
+  - first:
+      213: 9170125579834729672
+    second: ttileset updated _12
+  - first:
+      213: 8303101365999982298
+    second: ttileset updated _13
+  - first:
+      213: 2988281265500650659
+    second: ttileset updated _14
+  - first:
+      213: 344561468467562766
+    second: ttileset updated _15
+  - first:
+      213: -2278988968863413032
+    second: ttileset updated _16
+  - first:
+      213: 2574407631920278561
+    second: ttileset updated _17
+  - first:
+      213: 1110201334367251985
+    second: ttileset updated _18
+  - first:
+      213: -1592668533936928327
+    second: ttileset updated _19
+  - first:
+      213: -5516954413325726656
+    second: ttileset updated _20
+  - first:
+      213: 6978999622008741588
+    second: ttileset updated _21
+  - first:
+      213: 8138360588673696644
+    second: ttileset updated _22
+  - first:
+      213: -6239201608834036592
+    second: ttileset updated _23
+  - first:
+      213: -328992214245930868
+    second: ttileset updated _24
+  - first:
+      213: 7307894051323017318
+    second: ttileset updated _25
+  - first:
+      213: 4837309166786537262
+    second: ttileset updated _26
+  - first:
+      213: 3055367217364952211
+    second: ttileset updated _27
+  - first:
+      213: 8645569459739596481
+    second: ttileset updated _28
+  - first:
+      213: -1308962355775339819
+    second: ttileset updated _29
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 1
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: ttileset updated _0
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 185
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a823a226a585492d0800000000000000
+      internalID: -3272893883974274422
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ttileset updated _1
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 185
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 24852b364e6598aa0800000000000000
+      internalID: -6158295476527278014
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ttileset updated _2
+      rect:
+        serializedVersion: 2
+        x: 176
+        y: 185
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 630b7fb556d64de00800000000000000
+      internalID: 1068599293695733814
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ttileset updated _3
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 185
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d003745fd8a107490800000000000000
+      internalID: -7750665761696829427
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ttileset updated _4
+      rect:
+        serializedVersion: 2
+        x: 336
+        y: 185
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e278cf6d23ebef190800000000000000
+      internalID: -7926689168560978130
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ttileset updated _5
+      rect:
+        serializedVersion: 2
+        x: 416
+        y: 185
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8470bdfd2cce9b4b0800000000000000
+      internalID: -5424043954467567800
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ttileset updated _6
+      rect:
+        serializedVersion: 2
+        x: 496
+        y: 185
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2d14e31bf4e6c4010800000000000000
+      internalID: 1174434891391975890
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ttileset updated _7
+      rect:
+        serializedVersion: 2
+        x: 576
+        y: 185
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a2dd0562045f0a910800000000000000
+      internalID: 1846745503091449130
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ttileset updated _8
+      rect:
+        serializedVersion: 2
+        x: 656
+        y: 185
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 42c98f97cd5403b30800000000000000
+      internalID: 4264985660361317412
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ttileset updated _9
+      rect:
+        serializedVersion: 2
+        x: 736
+        y: 185
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3e419b1ee24c0fe10800000000000000
+      internalID: 2229497521182938339
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ttileset updated _10
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 105
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 432375d43b1d1db50800000000000000
+      internalID: 6616299895610880564
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ttileset updated _11
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 105
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ad8b3012b464edd80800000000000000
+      internalID: -8224058581041563430
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ttileset updated _12
+      rect:
+        serializedVersion: 2
+        x: 176
+        y: 105
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8c4a5c321a4d24f70800000000000000
+      internalID: 9170125579834729672
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ttileset updated _13
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 105
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ad65d7e53ba8a3370800000000000000
+      internalID: 8303101365999982298
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ttileset updated _14
+      rect:
+        serializedVersion: 2
+        x: 336
+        y: 105
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3acfe177af1887920800000000000000
+      internalID: 2988281265500650659
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ttileset updated _15
+      rect:
+        serializedVersion: 2
+        x: 416
+        y: 105
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e09cb4b74d028c400800000000000000
+      internalID: 344561468467562766
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ttileset updated _16
+      rect:
+        serializedVersion: 2
+        x: 496
+        y: 105
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8dcccdf7b976f50e0800000000000000
+      internalID: -2278988968863413032
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ttileset updated _17
+      rect:
+        serializedVersion: 2
+        x: 576
+        y: 105
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 12ca9a7f9122ab320800000000000000
+      internalID: 2574407631920278561
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ttileset updated _18
+      rect:
+        serializedVersion: 2
+        x: 656
+        y: 105
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 11eef144b3a386f00800000000000000
+      internalID: 1110201334367251985
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ttileset updated _19
+      rect:
+        serializedVersion: 2
+        x: 736
+        y: 105
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9b94fbd1864b5e9e0800000000000000
+      internalID: -1592668533936928327
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ttileset updated _20
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 25
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 04c42bfe037df63b0800000000000000
+      internalID: -5516954413325726656
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ttileset updated _21
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 25
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4de9a6d0e236ad060800000000000000
+      internalID: 6978999622008741588
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ttileset updated _22
+      rect:
+        serializedVersion: 2
+        x: 176
+        y: 25
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4834fe526d341f070800000000000000
+      internalID: 8138360588673696644
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ttileset updated _23
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 25
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 09cc6678137e969a0800000000000000
+      internalID: -6239201608834036592
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ttileset updated _24
+      rect:
+        serializedVersion: 2
+        x: 336
+        y: 25
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c888000035f2f6bf0800000000000000
+      internalID: -328992214245930868
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ttileset updated _25
+      rect:
+        serializedVersion: 2
+        x: 416
+        y: 25
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6687c49bbeada6560800000000000000
+      internalID: 7307894051323017318
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ttileset updated _26
+      rect:
+        serializedVersion: 2
+        x: 496
+        y: 25
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e276d0bde03912340800000000000000
+      internalID: 4837309166786537262
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ttileset updated _27
+      rect:
+        serializedVersion: 2
+        x: 576
+        y: 25
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3946961db48d66a20800000000000000
+      internalID: 3055367217364952211
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ttileset updated _28
+      rect:
+        serializedVersion: 2
+        x: 656
+        y: 25
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1c69eb01e9b3bf770800000000000000
+      internalID: 8645569459739596481
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ttileset updated _29
+      rect:
+        serializedVersion: 2
+        x: 736
+        y: 25
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5d207af2ca1a5dde0800000000000000
+      internalID: -1308962355775339819
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

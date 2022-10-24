@@ -8,8 +8,15 @@ namespace Game.Scripts.Events
     [Serializable]
     public abstract class GameEvents : NetworkBehaviour
     {
+        public bool Completed { get; protected set; }
+
+        private void Awake()
+        {
+            Completed = false;
+        }
+
         public abstract void Tick();
 
-        public abstract bool EventDone();
+        public abstract void EventDone();
     }
 }

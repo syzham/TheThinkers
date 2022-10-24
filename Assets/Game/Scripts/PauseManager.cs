@@ -19,6 +19,19 @@ namespace Game.Scripts
         [SerializeField] private Button quit;
         private const string Link = "https://discord.com/api/webhooks/926842231086796820/CjA682ubkr9uS_DtIjCHzcxq90kihYkpLi6Imh7wy-LoAWmSubekAoLnakBLzfn4xrvC";
 
+        public static PauseManager Instance { get; private set; }
+        private bool _stop = false;
+        private void Awake()
+        {
+            if (Instance != null && Instance != this)
+            {
+                Destroy(gameObject);
+                return;
+            }
+
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
 
         private int _selectedButton = 0;
         private void Start()
@@ -26,8 +39,19 @@ namespace Game.Scripts
             pauseMenu.SetActive(false);
         }
 
+        public void Disable()
+        {
+            _stop = true;
+        }
+
+        public void Enable()
+        {
+            _stop = false;
+        }
+
         private void Update()
         {
+            if (_stop) return;
             if (Input.GetKeyDown(KeyCode.Escape))
             {
                 pauseMenu.SetActive(!pauseMenu.activeSelf);

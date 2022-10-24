@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using Cinemachine;
 using Menu_Steam.Scripts;
 using MLAPI;
@@ -117,12 +116,12 @@ namespace Game.Scripts.Player
         }
 
         [ClientRpc]
-        private void GetPlayerDataClientRpc(ulong id, string playerName, string ability1, string ability2)
+        private void GetPlayerDataClientRpc(ulong id, string playersName, string ability1, string ability2)
         {
             if (OwnerClientId != id) return;
 
-            name = playerName;
-            SetNameServerRpc(playerName);
+            name = playersName;
+            SetNameServerRpc(playersName);
             ChangeAbilityServerRpc(ability1, true);
             ChangeAbilityServerRpc(ability2, true);
         }

@@ -12,7 +12,7 @@ namespace Game.Scripts
     public class GameManager : NetworkBehaviour
     {
         [Header("Options")] 
-        [SerializeField] private int fpsLimit = 30;
+        [SerializeField] private int fpsLimit;
         
         [Header("Player Options")]
         [SerializeField] private GameObject playerPrefab;
@@ -26,6 +26,8 @@ namespace Game.Scripts
         private void Awake()
         {
             // Limits Fps
+            if (fpsLimit == 0)
+                return;
             QualitySettings.vSyncCount = 0;
             Application.targetFrameRate = fpsLimit;
         }
