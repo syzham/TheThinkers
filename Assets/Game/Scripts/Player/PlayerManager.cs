@@ -12,6 +12,9 @@ namespace Game.Scripts.Player
         public List<GameObject> Players { get; private set; }
         public GameObject CurrentPlayer { get; private set; }
         
+        public delegate void PlayerDelegate();
+        public PlayerDelegate FinishedPlayers;
+        
         private void Awake()
         {
             if (Instance != null && Instance != this)
@@ -31,6 +34,7 @@ namespace Game.Scripts.Player
             foreach (var player in Players.Where(player => player.GetComponent<NetworkObject>().IsOwner))
             {
                 CurrentPlayer = player;
+                FinishedPlayers?.Invoke();
                 return;
             }
         }
@@ -49,6 +53,7 @@ namespace Game.Scripts.Player
             foreach (var player in Players.Where(player => player.GetComponent<NetworkObject>().IsOwner))
             {
                 CurrentPlayer = player;
+                FinishedPlayers?.Invoke();
                 return;
             }
         }

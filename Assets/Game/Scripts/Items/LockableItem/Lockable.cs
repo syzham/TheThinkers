@@ -10,7 +10,11 @@ namespace Game.Scripts.Items.LockableItem
     {
         [SerializeField] private bool startLocked = true;
 
-        private readonly NetworkVariableBool _isLocked = new NetworkVariableBool();
+        private readonly NetworkVariableBool _isLocked = new NetworkVariableBool(true);
+
+        public delegate void LockableDelegates();
+
+        public LockableDelegates Unlocked;
 
         private void Start()
         {

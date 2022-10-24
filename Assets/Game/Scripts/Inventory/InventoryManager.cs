@@ -21,6 +21,8 @@ namespace Game.Scripts.Inventory
         private int _takenSlots = 0;
         private int _selectedSlot = 0;
         public bool enable = true;
+
+        private PlayerController _pc;
         
         
         private readonly NetworkList<ulong> _inventory = new NetworkList<ulong>(new MLAPI.NetworkVariable.NetworkVariableSettings { WritePermission = MLAPI.NetworkVariable.NetworkVariablePermission.ServerOnly, ReadPermission = MLAPI.NetworkVariable.NetworkVariablePermission.Everyone });
@@ -42,6 +44,12 @@ namespace Game.Scripts.Inventory
         private void Start()
         {
             inventoryPanel.SetActive(false);
+            PlayerManager.Instance.FinishedPlayers += Initialize;
+        }
+
+        private void Initialize()
+        {
+            _pc = PlayerManager.Instance.CurrentPlayer.GetComponent<PlayerController>();
         }
 
         public void AddItem(GameObject item)
@@ -133,7 +141,8 @@ namespace Game.Scripts.Inventory
                 
                 var slotImage = slot.transform.Find("ImageHolder").GetComponent<Image>();
                 slotImage.enabled = false;
-                slot.GetComponent<Slot>().isSlotted = false;
+                var sl = slot.GetComponent<Slot>();
+                sl.isSlotted = false;
 
                 if (_takenSlots >= _inventory.Count) continue;
                 if (_inventory.Count == 0) break;
@@ -143,17 +152,17 @@ namespace Game.Scripts.Inventory
 
                 _takenSlots++;
                 slotImage.sprite = obtainable.itemImage;
-                slot.GetComponent<Slot>().itemName = obtainable.itemName;
+                sl.itemName = obtainable.itemName;
                 slotImage.enabled = true;
-                slot.GetComponent<Slot>().isSlotted = true;
+                sl.isSlotted = true;
 
                 if (i == _selectedSlot)
                 {
-                    slot.GetComponent<Slot>().Expand();
+                    sl.Expand();
                 }
                 else
                 {
-                    slot.GetComponent<Slot>().Compress();
+                    sl.Compress();
                 }
                 i++;
             }
@@ -169,8 +178,8 @@ namespace Game.Scripts.Inventory
                 player.GetComponent<PlayerController>().enabled = !player.GetComponent<PlayerController>().enabled;
             } */
 
-            PlayerManager.Instance.CurrentPlayer.GetComponent<PlayerController>().enabled =
-                !PlayerManager.Instance.CurrentPlayer.GetComponent<PlayerController>().enabled;
+            var sc = PlayerManager.Instance.CurrentPlayer.GetComponent<PlayerController>();
+            sc.enabled = !sc.enabled;
         }
         
         private void Update()

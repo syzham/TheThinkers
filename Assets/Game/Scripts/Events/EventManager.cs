@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Game.Scripts.Events
@@ -6,9 +8,7 @@ namespace Game.Scripts.Events
     public class EventManager : MonoBehaviour
     {
         public static EventManager Instance { get; private set; }
-        private GameEvents _currentEvent;
-        private bool _startEvent;
-        [SerializeField] private GameEvents starting; 
+        private List<GameEvents> _events; 
 
         private void Awake()
         {
@@ -20,27 +20,17 @@ namespace Game.Scripts.Events
 
             Instance = this;
             DontDestroyOnLoad(gameObject);
-        }
 
-        private void Start()
-        {
-            _startEvent = false;
-            StartEvent(starting);
-        }
-
-        public void StartEvent(GameEvents events)
-        {
-            _currentEvent = events;
-            _startEvent = true;
+            _events = new List<GameEvents>(GetComponents<GameEvents>());
         }
 
         private void Update()
         {
-            if (!_startEvent) return;
-
-            _currentEvent.Tick();
-
-            _startEvent = !_currentEvent.EventDone();
+            foreach (var ev in _events.Where(ev => !ev.Completed))
+            {
+                ev.Tick();
+                ev.EventDone();
+            }
         }
     }
 }

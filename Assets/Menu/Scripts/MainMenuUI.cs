@@ -5,6 +5,7 @@ using Menu_Steam.Scripts;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 namespace Menu.Scripts
 {
@@ -18,9 +19,21 @@ namespace Menu.Scripts
 
         [SerializeField] private TMP_Text text;
 
+        [Header("Backgrounds")]
+        [SerializeField] private Image image;
+
+        [SerializeField] private Sprite on;
+        [SerializeField] private Sprite off;
+        private bool _lightsOn = true;
+        private float _timeUntil;
+        private float _totalTime = 0f;
+
         private void Start()
         {
             PlayerPrefs.GetString("PlayerName");
+            _timeUntil = Random.Range(1f, 5f);
+            QualitySettings.vSyncCount = 0;
+            Application.targetFrameRate = 200;
         }
 
         public void OnHostClicked()
@@ -69,6 +82,30 @@ namespace Menu.Scripts
             }
 
             AdminButtonCancelOnClick();
+        }
+
+        private void Update()
+        {
+            _totalTime += Time.deltaTime;
+            if (!(_totalTime >= _timeUntil)) return;
+            
+            ToggleBackground();
+            _totalTime = 0f;
+            _timeUntil = Random.Range(0f, 1f);
+        }
+
+        private void ToggleBackground()
+        {
+            if (_lightsOn)
+            {
+                image.sprite = off;
+                _lightsOn = false;
+            }
+            else
+            {
+                image.sprite = on;
+                _lightsOn = true;
+            }
         }
     }
 }

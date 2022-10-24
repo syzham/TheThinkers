@@ -7,7 +7,14 @@ namespace Game.Scripts.Player
     public class PlayerInteract : NetworkBehaviour
     {
         private GameObject _interactObject;
-        private bool _dialogue = false;
+        private bool _dialogue;
+
+        private DialogueManager _dialogueManager;
+
+        private void Start()
+        {
+            _dialogueManager = FindObjectOfType<DialogueManager>();
+        }
 
         private void Update()
         {
@@ -17,7 +24,7 @@ namespace Game.Scripts.Player
             }
             else if (_dialogue && Input.GetButtonDown("Interact"))
             {
-                FindObjectOfType<DialogueManager>().DisplayNextSentence();
+                _dialogueManager.DisplayNextSentence();
             }
         }
 

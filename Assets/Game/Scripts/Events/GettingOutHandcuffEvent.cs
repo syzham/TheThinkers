@@ -1,4 +1,4 @@
-using System;
+using System.Collections.Generic;
 using Game.Scripts.Player;
 using MLAPI.Messaging;
 using MLAPI.NetworkVariable;
@@ -10,13 +10,34 @@ namespace Game.Scripts.Events
     {
         private NetworkVariableInt _amountClicked;
         private const int FinishedClick = 3;
-        private bool _started = false;
+        private bool _started;
+
+        private List<PlayerController> _pc;
+
+        private Player.Player _player;
 
         public GettingOutHandcuffEvent()
         {
             _amountClicked = new NetworkVariableInt(0);
         }
-        
+
+        private void Start()
+        {
+            PlayerManager.Instance.FinishedPlayers += Initialize;
+        }
+
+        private void Initialize()
+        {
+            _pc = new List<PlayerController>();
+            foreach (var players in PlayerManager.Instance.Players)
+            {
+                _pc.Add(players.GetComponent<PlayerController>());
+            }
+
+            _player = PlayerManager.Instance.CurrentPlayer.GetComponent<Player.Player>();
+            PlayerManager.Instance.FinishedPlayers -= Initialize;
+        }
+
         public override void Tick()
         {
             if (!_started)
@@ -27,15 +48,15 @@ namespace Game.Scripts.Events
                 }
                 
                 _started = true;
-                foreach (var players in PlayerManager.Instance.Players)
+                foreach (var players in _pc)
                 {
-                    players.GetComponent<PlayerController>().enabled = false;
+                    players.enabled = false;
                 }
             }
             
             if (!Input.GetButtonDown("Interact")) return;
             
-            if (PlayerManager.Instance.CurrentPlayer.GetComponent<Player.Player>().IsStrength())
+            if (_player.IsStrength())
             {
                 ChangeAmountServerRpc(_amountClicked.Value + 1);
             }
@@ -48,21 +69,20 @@ namespace Game.Scripts.Events
         [ServerRpc(RequireOwnership = false)]
         private void ChangeAmountServerRpc(int newNumber)
         {
-            Debug.Log(newNumber);
             _amountClicked.Value = newNumber;
         }
 
-        public override bool EventDone()
+        public override void EventDone()
         {
             var done = _amountClicked.Value >= FinishedClick;
-            if (!done) return false;
-            
-            foreach (var players in PlayerManager.Instance.Players)
-            {
-                players.GetComponent<PlayerController>().enabled = true;
-            }
+            if (!done) return;
 
-            return true;
+            Completed = true;
+            
+            foreach (var players in _pc)
+            {
+                players.enabled = true;
+            }
         }
     }
 }

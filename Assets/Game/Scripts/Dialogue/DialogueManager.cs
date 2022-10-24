@@ -96,7 +96,7 @@ namespace Game.Scripts.Dialogue
             anim.SetBool(IsOpen, false);
         }
 
-        private void Update()
+        private void FixedUpdate()
         {
             if (!IsOwner) return;
             if (_currentlyTalking) return;

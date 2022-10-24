@@ -1,3 +1,4 @@
+using System;
 using MLAPI;
 using UnityEngine;
 
@@ -10,11 +11,14 @@ namespace Game.Scripts.Player
         [SerializeField] private float moveSpeed;
         [SerializeField] private Animator anim;
 
-        private bool _disableHorizontal = false;
-        private bool _disableVertical = false;
-        private static readonly int Sideways = Animator.StringToHash("sideways");
+        private bool _disableHorizontal;
+        private bool _disableVertical;
+        private static readonly int Horizontal = Animator.StringToHash("horizontal");
+        private static readonly int Vertical = Animator.StringToHash("vertical");
+        private static readonly int Speed = Animator.StringToHash("speed");
+        private static readonly int Direction = Animator.StringToHash("direction");
 
-        private void Update()
+        private void FixedUpdate()
         {
             if (IsOwner)
                 CheckInput();
@@ -28,16 +32,47 @@ namespace Game.Scripts.Player
             var position = transform.position;
             rb.MovePosition(new Vector2((position.x + move.x * moveSpeed * Time.deltaTime),
                 position.y + move.y * moveSpeed * Time.deltaTime));
+            
+            anim.SetFloat(Speed, move.sqrMagnitude);
 
-            anim.SetFloat("horizontal", move[0]);
-            anim.SetFloat("vertical", move[1]);
-            anim.SetFloat("speed", move.sqrMagnitude);
-
-            if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyUp(KeyCode.A))
+            if (_disableHorizontal || _disableVertical)
             {
-                var temp = transform.localScale;
-                temp.x *= -1;
-                transform.localScale = temp;
+                switch (anim.GetFloat(Direction))
+                {
+                    case 1:
+                        anim.SetFloat(Horizontal, 1);
+                        break;
+                    case 2:
+                        anim.SetFloat(Horizontal, -1);
+                        break;
+                    case 3:
+                        anim.SetFloat(Vertical, -1);
+                        break;
+                    default:
+                        anim.SetFloat(Vertical, 1);
+                        break;  
+                }
+                return;
+            }
+
+            anim.SetFloat(Horizontal, move[0]);
+            anim.SetFloat(Vertical, move[1]);
+            if (move[0] < 0)
+            {
+                // Direction is to the right
+                anim.SetFloat(Direction, 2);
+            } else if (move[0] > 0)
+            {
+                // Direction is to the left
+                anim.SetFloat(Direction, 1);
+            } else if (move[1] < 0)
+            {
+                // Direction is to the up
+                anim.SetFloat(Direction, 3);
+            } else if (move[1] > 0)
+            {
+                // Direction is to the down
+                anim.SetFloat(Direction, 0);
             }
         }
 
