@@ -1,9 +1,7 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Game.Scripts.Items;
 using Game.Scripts.Player;
-using Menu_Steam.Scripts;
 using MLAPI;
 using MLAPI.Messaging;
 using MLAPI.NetworkVariable.Collections;
@@ -18,13 +16,14 @@ namespace Game.Scripts.Inventory
         [SerializeField] private GameObject inventoryPanel;
         [SerializeField] private GameObject[] inventorySlots;
 
-        private int _takenSlots = 0;
-        private int _selectedSlot = 0;
+        private int _takenSlots;
+        private int _selectedSlot;
         public bool enable = true;
 
-        private PlayerController _pc;
-        
-        
+        private Player.Player _player;
+        private List<(Slot, Image)> _slots;
+
+
         private readonly NetworkList<ulong> _inventory = new NetworkList<ulong>(new MLAPI.NetworkVariable.NetworkVariableSettings { WritePermission = MLAPI.NetworkVariable.NetworkVariablePermission.ServerOnly, ReadPermission = MLAPI.NetworkVariable.NetworkVariablePermission.Everyone });
 
         public static InventoryManager Instance { get; private set; }
@@ -45,11 +44,17 @@ namespace Game.Scripts.Inventory
         {
             inventoryPanel.SetActive(false);
             PlayerManager.Instance.FinishedPlayers += Initialize;
+
+            _slots = new List<(Slot, Image)>();
+            foreach (var slots in inventorySlots)
+            {
+                _slots.Add((slots.GetComponent<Slot>(), slots.transform.Find("ImageHolder").GetComponent<Image>()));
+            }
         }
 
         private void Initialize()
         {
-            _pc = PlayerManager.Instance.CurrentPlayer.GetComponent<PlayerController>();
+            _player = PlayerManager.Instance.CurrentPlayer.GetComponent<Player.Player>();
         }
 
         public void AddItem(GameObject item)
@@ -134,14 +139,14 @@ namespace Game.Scripts.Inventory
         private void UpdateSlots()
         {
             var i = 0;
-            foreach (var slot in inventorySlots)
+            foreach (var slot in _slots)
             {
                 if (_takenSlots >= inventorySlots.Length) break;
-                   
-                
-                var slotImage = slot.transform.Find("ImageHolder").GetComponent<Image>();
+
+
+                var slotImage = slot.Item2;
                 slotImage.enabled = false;
-                var sl = slot.GetComponent<Slot>();
+                var sl = slot.Item1;
                 sl.isSlotted = false;
 
                 if (_takenSlots >= _inventory.Count) continue;
@@ -170,16 +175,10 @@ namespace Game.Scripts.Inventory
             _takenSlots = 0;
         }
 
-        private static void PlayerMovement()
+        private void PlayerMovement()
         {
-            /* foreach (var player in GameObject.FindGameObjectsWithTag("Player"))
-            {
-                if (!player.GetComponent<NetworkObject>().IsOwner) continue;
-                player.GetComponent<PlayerController>().enabled = !player.GetComponent<PlayerController>().enabled;
-            } */
-
-            var sc = PlayerManager.Instance.CurrentPlayer.GetComponent<PlayerController>();
-            sc.enabled = !sc.enabled;
+            _player.playerController.enabled = !_player.playerController.enabled;
+            _player.playerInteract.enabled = !_player.playerInteract.enabled;
         }
         
         private void Update()

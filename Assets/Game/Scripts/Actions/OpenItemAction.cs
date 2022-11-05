@@ -1,6 +1,7 @@
 using System;
 using Game.Scripts.Items.LockableItem;
 using Game.Scripts.MiniGame.MiniGameLogic;
+using MLAPI.Messaging;
 using UnityEngine;
 
 namespace Game.Scripts.Actions
@@ -10,30 +11,27 @@ namespace Game.Scripts.Actions
         
         [SerializeField] private Sprite openedSprite;
         private SpriteRenderer _renderer;
-        public MiniGameLogic test;
-        public GameObject testing;
+        private MiniGameUnlock _loc;
 
         private void Start()
         {
             _renderer = gameObject.GetComponent<SpriteRenderer>();
-            if (!TryGetComponent(out MiniGameUnlock loc))
+            if (!TryGetComponent(out _loc))
             {
                 Debug.Log("No MiniGame in " + gameObject.name);
                 return;
             }
 
-            testing = loc.miniGame.game;
-            test = loc.miniGame.game.GetComponent<MiniGameLogic>();
-            loc.miniGame.game.GetComponent<MiniGameLogic>().MiniGameCompleted += ChangeSprite;
+            _loc.Unlocked += ChangeSpriteServerRpc;
         }
 
         private void ChangeSprite()
         {
-            Debug.Log("test");
             _renderer.sprite = openedSprite;
+            _loc.Unlocked -= ChangeSprite;
         }
 
-        public override void Execute(Player.Player player, GameObject interObject)
+        public override void Execute(Player.Player player)
         {
             // Gets lockable component
             if (!TryGetComponent(out Lockable loc))
@@ -46,7 +44,7 @@ namespace Game.Scripts.Actions
             // Runs if item is unlocked
             if (!loc.IsLocked())
             {
-                TriggerDialogue(2, player);
+                TriggerDialogue(2);
                 return;
             }
 
@@ -54,11 +52,23 @@ namespace Game.Scripts.Actions
             var unlocked = loc.UnlockAttempt(player);
             if (unlocked == null) return;
             
-            TriggerDialogue((bool) unlocked ? 0 : 1, player);
+            TriggerDialogue((bool) unlocked ? 0 : 1);
         }
 
-        public override void Execute(GameObject interObject)
+        public override void Execute()
         {
+        }
+
+        [ServerRpc(RequireOwnership = false)]
+        private void ChangeSpriteServerRpc()
+        {
+            ChangeSpriteClientRpc();
+        }
+
+        [ClientRpc]
+        private void ChangeSpriteClientRpc()
+        {
+            ChangeSprite();
         }
     }
 }

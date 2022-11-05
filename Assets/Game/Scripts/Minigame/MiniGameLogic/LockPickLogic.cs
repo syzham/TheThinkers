@@ -10,12 +10,12 @@ namespace Game.Scripts.MiniGame.MiniGameLogic
         [SerializeField] private GameObject stationaryBar;
         [SerializeField] private GameObject correctPlace;
         
-        private int _barSpeed = 2;
+        private int _barSpeed = 1;
         private bool _win;
         private Bounds _bounds;
         private List<Collider2D> _collider;
 
-        private void Start()
+        private new void Start()
         {
             base.Start();
             _collider = new List<Collider2D>(stationaryBar.GetComponents<Collider2D>());

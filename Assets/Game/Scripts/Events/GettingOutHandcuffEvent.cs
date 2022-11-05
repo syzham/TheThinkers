@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Game.Scripts.Inventory;
 using Game.Scripts.Player;
 using MLAPI.Messaging;
 using MLAPI.NetworkVariable;
@@ -12,7 +13,7 @@ namespace Game.Scripts.Events
         private const int FinishedClick = 3;
         private bool _started;
 
-        private List<PlayerController> _pc;
+        private List<Player.Player> _pc;
 
         private Player.Player _player;
 
@@ -28,10 +29,10 @@ namespace Game.Scripts.Events
 
         private void Initialize()
         {
-            _pc = new List<PlayerController>();
+            _pc = new List<Player.Player>();
             foreach (var players in PlayerManager.Instance.Players)
             {
-                _pc.Add(players.GetComponent<PlayerController>());
+                _pc.Add(players.GetComponent<Player.Player>());
             }
 
             _player = PlayerManager.Instance.CurrentPlayer.GetComponent<Player.Player>();
@@ -48,13 +49,18 @@ namespace Game.Scripts.Events
                 }
                 
                 _started = true;
-                foreach (var players in _pc)
-                {
-                    players.enabled = false;
-                }
+                _player.playerController.enabled = false;
+                _player.playerInteract.enabled = false;
+
+                InventoryManager.Instance.enable = false;
             }
             
+            _player.playerController.enabled = false;
+            _player.playerInteract.enabled = false;
+            InventoryManager.Instance.enable = false;
+            
             if (!Input.GetButtonDown("Interact")) return;
+            
             
             if (_player.IsStrength())
             {
@@ -78,11 +84,10 @@ namespace Game.Scripts.Events
             if (!done) return;
 
             Completed = true;
-            
-            foreach (var players in _pc)
-            {
-                players.enabled = true;
-            }
+
+            _player.playerController.enabled = true;
+            _player.playerInteract.enabled = true;
+            InventoryManager.Instance.enable = true;
         }
     }
 }

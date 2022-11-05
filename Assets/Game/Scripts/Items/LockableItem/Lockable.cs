@@ -16,7 +16,7 @@ namespace Game.Scripts.Items.LockableItem
 
         public LockableDelegates Unlocked;
 
-        private void Start()
+        public void Start()
         {
             StartServerRpc();
         }

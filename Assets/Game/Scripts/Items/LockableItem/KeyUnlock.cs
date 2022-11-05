@@ -15,6 +15,7 @@ namespace Game.Scripts.Items.LockableItem
             if (!Enumerable.Contains(InventoryManager.Instance.GetInventory(), key)) return false;
             
             Unlock();
+            Unlocked?.Invoke();
             InventoryManager.Instance.RemoveItem(key);
             return true;
         }

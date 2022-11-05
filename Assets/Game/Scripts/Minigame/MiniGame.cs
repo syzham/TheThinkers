@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 #if UNITY_EDITOR
 using UnityEditor;
@@ -11,8 +12,8 @@ namespace Game.Scripts.MiniGame
         public GameObject game;
         private bool _timer;
         private int _time;
-        private bool _restrictions;
-        private bool[] _rests = { false, false, false};
+        public bool restrictions;
+        public List<bool> rests = new List<bool>(3);
 
         public int GetTime()
         {
@@ -26,14 +27,14 @@ namespace Game.Scripts.MiniGame
 
         public bool HasRestriction()
         {
-            return _restrictions;
+            return restrictions;
         }
 
-        public bool[] GetRestrictions()
+        public List<bool> GetRestrictions()
         {
-            return _rests;
+            return new List<bool>(rests);
         }
-        
+        /*
         #region Editor
         #if UNITY_EDITOR
         [CustomEditor(typeof(MiniGame))]
@@ -83,5 +84,6 @@ namespace Game.Scripts.MiniGame
         }
         #endif
         #endregion
+        */
     }
 }

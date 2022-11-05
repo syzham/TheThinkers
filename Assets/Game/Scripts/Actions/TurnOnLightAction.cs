@@ -14,7 +14,7 @@ namespace Game.Scripts.Actions
             Lights(false);
         }
 
-        public override void Execute(Player.Player player, GameObject interObject)
+        public override void Execute(Player.Player player)
         {
             // Gets lockable component
             if (!TryGetComponent(out Lockable loc))
@@ -41,7 +41,7 @@ namespace Game.Scripts.Actions
             }
         }
 
-        public override void Execute(GameObject interObject)
+        public override void Execute()
         {
         }
         

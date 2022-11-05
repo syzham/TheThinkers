@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Game.Scripts.Inventory;
 using Game.Scripts.Player;
 using MLAPI;
 using TMPro;
@@ -16,6 +17,8 @@ namespace Game.Scripts.Dialogue
         [SerializeField] private Animator anim;
 
         private Player.Player _player;
+        private PlayerController _pc;
+        private PlayerInteract _pi;
         private bool _currentlyTalking;
         private Queue<string> _sentences;
         private static readonly int IsOpen = Animator.StringToHash("IsOpen");
@@ -23,14 +26,23 @@ namespace Game.Scripts.Dialogue
         private void Start()
         {
             _sentences = new Queue<string>();
+            PlayerManager.Instance.FinishedPlayers += Initialize;
         }
 
-        public void StartDialogue(Dialogue dialogue, int[] count, Player.Player player)
+        private void Initialize()
+        {
+            _player = PlayerManager.Instance.CurrentPlayer.GetComponent<Player.Player>();
+            _pc = _player.GetComponent<PlayerController>();
+            _pi = _player.GetComponent<PlayerInteract>();
+
+        }
+
+        public void StartDialogue(Dialogue dialogue, int[] count)
         {
             _currentlyTalking = true;
-            _player = player;
-            _player.GetComponent<PlayerController>().enabled = false;
-            _player.GetComponent<PlayerInteract>().DialogueStatus(true);
+            _pc.enabled = false;
+            _pi.DialogueStatus(true);
+            InventoryManager.Instance.enable = false;
             anim.SetBool(IsOpen, true);
             nameText.text = dialogue.name;
             
@@ -45,12 +57,12 @@ namespace Game.Scripts.Dialogue
             DisplayNextSentence();
         }
 
-        public void StartDialogue(Dialogue dialogue, int index, Player.Player player)
+        public void StartDialogue(Dialogue dialogue, int index)
         {
             _currentlyTalking = true;
-            _player = player;
-            _player.GetComponent<PlayerController>().enabled = false;
-            _player.GetComponent<PlayerInteract>().DialogueStatus(true);
+            _pc.enabled = false;
+            _pi.DialogueStatus(true);
+            InventoryManager.Instance.enable = false;
             anim.SetBool(IsOpen, true);
             nameText.text = dialogue.name;
             
@@ -89,8 +101,9 @@ namespace Game.Scripts.Dialogue
             _currentlyTalking = false;
             if (_player)
             {
-                _player.GetComponent<PlayerController>().enabled = true;
-                _player.GetComponent<PlayerInteract>().DialogueStatus(false);
+                _pc.enabled = true;
+                _pi.DialogueStatus(false);
+                InventoryManager.Instance.enable = true;
             }
 
             anim.SetBool(IsOpen, false);

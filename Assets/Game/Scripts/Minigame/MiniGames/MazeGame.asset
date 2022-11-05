@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: MazeGame
   m_EditorClassIdentifier: 
   game: {fileID: 3701135780767371644, guid: 124bccfa56f4c1940b0fb7c58dd0b000, type: 3}
+  rests: 000000

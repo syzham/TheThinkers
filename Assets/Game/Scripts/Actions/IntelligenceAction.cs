@@ -4,12 +4,12 @@ namespace Game.Scripts.Actions
 {
     public class IntelligenceAction : Actions
     {
-        public override void Execute(Player.Player player, GameObject interObject)
+        public override void Execute(Player.Player player)
         {
-            TriggerDialogue(player.IsIntelligent() ? 0 : 1, player);
+            TriggerDialogue(player.IsIntelligent() ? 0 : 1);
         }
 
-        public override void Execute(GameObject interObject)
+        public override void Execute()
         {
         }
     }

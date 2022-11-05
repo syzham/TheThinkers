@@ -12,9 +12,16 @@ namespace Game.Scripts.Actions
         [SerializeField] private GameObject otherDoor;
         [SerializeField] private GameObject door;
 
+        private EnterDoorAction _enter;
+
         private const float Offset = 0.5f;
-        
-        public override void Execute(Player.Player player, GameObject interObject)
+
+        private void Start()
+        {
+            _enter = otherDoor.GetComponent<EnterDoorAction>();
+        }
+
+        public override void Execute(Player.Player player)
         {
             // Gets the lockable component for the current door
             if (!door.TryGetComponent(out Lockable loc))
@@ -33,11 +40,11 @@ namespace Game.Scripts.Actions
                 var unlocked = loc.UnlockAttempt(player);
                 if (unlocked == null) return;
 
-                TriggerDialogue((bool) unlocked ? 1 : 0, player);
+                TriggerDialogue((bool) unlocked ? 1 : 0);
             }
         }
 
-        public override void Execute(GameObject interObject)
+        public override void Execute()
         {
         }
 
@@ -48,7 +55,7 @@ namespace Game.Scripts.Actions
 
         private void EnterDoor(Player.Player player)
         {
-            var dir = otherDoor.GetComponent<EnterDoorAction>().GetDirection();
+            var dir = _enter.GetDirection();
 
             var position = otherDoor.transform.position;
             var x = position.x;
