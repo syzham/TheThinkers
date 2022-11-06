@@ -11,6 +11,7 @@ namespace Game.Scripts.Player
         [SerializeField] private float moveSpeed;
         [SerializeField] private Animator anim;
 
+        public int facing;
         private bool _disableHorizontal;
         private bool _disableVertical;
         private static readonly int Horizontal = Animator.StringToHash("horizontal");
@@ -61,18 +62,22 @@ namespace Game.Scripts.Player
             {
                 // Direction is to the right
                 anim.SetFloat(Direction, 2);
+                facing = 2;
             } else if (move[0] > 0)
             {
                 // Direction is to the left
                 anim.SetFloat(Direction, 1);
+                facing = 1;
             } else if (move[1] < 0)
             {
                 // Direction is to the up
                 anim.SetFloat(Direction, 3);
+                facing = 3;
             } else if (move[1] > 0)
             {
                 // Direction is to the down
                 anim.SetFloat(Direction, 0);
+                facing = 0;
             }
         }
 
