@@ -35,7 +35,7 @@ namespace Game.Scripts.Dialogue
 
         }
 
-        public void StartDialogue(Dialogue dialogue, int[] count)
+        private void InitializeStartDialogue()
         {
             _currentlyTalking = true;
             _pc.enabled = false;
@@ -44,9 +44,14 @@ namespace Game.Scripts.Dialogue
             PauseManager.Instance.Disable();
             InventoryManager.Instance.enable = false;
             anim.SetBool(IsOpen, true);
-            nameText.text = dialogue.name;
             
             _sentences.Clear();
+        }
+
+        public void StartDialogue(Dialogue dialogue, int[] count)
+        {
+            InitializeStartDialogue();
+            nameText.text = dialogue.name;
 
             for (var i = 0; i < dialogue.sentences.Length; i++)
             {
@@ -59,15 +64,8 @@ namespace Game.Scripts.Dialogue
 
         public void StartDialogue(Dialogue dialogue, int index)
         {
-            _currentlyTalking = true;
-            _pc.enabled = false;
-            _pi.enabled = false;
-            _pi.DialogueStatus(true);
-            InventoryManager.Instance.enable = false;
-            anim.SetBool(IsOpen, true);
+            InitializeStartDialogue();
             nameText.text = dialogue.name;
-            
-            _sentences.Clear();
 
             _sentences.Enqueue(dialogue.sentences[index]);
             
@@ -116,7 +114,7 @@ namespace Game.Scripts.Dialogue
         {
             if (!_currentlyTalking) return;
 
-            if (Input.GetButtonDown("Interact") || Input.GetKeyDown(KeyCode.Escape))
+            if (Input.GetButtonDown("Interact"))
             {
                 DisplayNextSentence();
             }
