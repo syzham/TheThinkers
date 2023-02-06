@@ -21,6 +21,7 @@ namespace Game.Scripts.MiniGame
         private Lockable _loc;
 
         public static MiniGameManager Instance { get; private set; }
+
         private void Awake()
         {
             panel.SetActive(false);
@@ -33,7 +34,7 @@ namespace Game.Scripts.MiniGame
             Instance = this;
             DontDestroyOnLoad(gameObject);
         }
-        
+
         public bool? StartMiniGame(MiniGame miniGame, Player.Player player, Lockable loc, MiniGameInitializer init)
         {
             if (miniGame.HasRestriction())
@@ -47,6 +48,7 @@ namespace Game.Scripts.MiniGame
                     return false;
 
             }
+
             _player = player;
             _player.playerController.enabled = false;
             _player.playerInteract.enabled = false;
@@ -54,7 +56,7 @@ namespace Game.Scripts.MiniGame
             InventoryManager.Instance.enable = false;
 
             _loc = loc;
-            
+
             /*
             _newGame = Instantiate(miniGame.game, gameHolder.transform, false);
             _newGame.transform.localScale = new Vector3(1, 1, 1);
@@ -66,14 +68,14 @@ namespace Game.Scripts.MiniGame
 
             panel.SetActive(true);
             timerBox.SetActive(false);
-            
+
             _timer = null;
             if (miniGame.Timer())
             {
                 timerBox.SetActive(true);
                 _timer = new Timer(miniGame.GetTime() + 1);
             }
-            
+
             _checkUpdate = true;
             _started = false;
             return null;
@@ -91,11 +93,12 @@ namespace Game.Scripts.MiniGame
                     Tick();
                     return;
                 }
+
                 Finish();
             }
             else
             {
-                Tick();  
+                Tick();
             }
         }
 
@@ -108,6 +111,7 @@ namespace Game.Scripts.MiniGame
                 _started = true;
                 return;
             }
+
             if (!_logic.Completed()) return;
             _loc.Unlock();
             Finish();
@@ -127,18 +131,9 @@ namespace Game.Scripts.MiniGame
             InventoryManager.Instance.enable = true;
 
             _newGame.SetActive(false);
-            
+
             panel.SetActive(false);
             _checkUpdate = false;
         }
-<<<<<<< HEAD
-
-        private void Completed()
-        {
-            MiniGameCompleted?.Invoke();
-            // _logic.MiniGameCompleted -= Completed;
-        }
-=======
->>>>>>> ChangeMinigame
     }
 }

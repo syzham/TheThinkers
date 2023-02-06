@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: LockPickGame
   m_EditorClassIdentifier: 
   game: {fileID: 8936444053063844597, guid: 76ec568c0433f374496dc077059fe84d, type: 3}
-  restrictions: 1
+  timer: 1
+  time: 15
   rests: 0100000002000000

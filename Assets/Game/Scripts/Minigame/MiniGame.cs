@@ -14,18 +14,18 @@ namespace Game.Scripts.MiniGame
         }
 
         public GameObject game;
-        private bool _timer;
-        private int _time;
+        public bool timer;
+        public int time;
         public List<Restrictions> rests = new List<Restrictions>(3);
 
         public int GetTime()
         {
-            return _time;
+            return time;
         }
 
         public bool Timer()
         {
-            return _timer;
+            return timer;
         }
 
         public bool HasRestriction()
