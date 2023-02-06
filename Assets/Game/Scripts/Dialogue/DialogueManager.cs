@@ -41,6 +41,7 @@ namespace Game.Scripts.Dialogue
             _pc.enabled = false;
             _pi.enabled = false;
             _pi.DialogueStatus(true);
+            PauseManager.Instance.Disable();
             InventoryManager.Instance.enable = false;
             anim.SetBool(IsOpen, true);
             nameText.text = dialogue.name;
@@ -105,6 +106,7 @@ namespace Game.Scripts.Dialogue
                 _pi.enabled = true;
                 _pi.DialogueStatus(false);
                 InventoryManager.Instance.enable = true;
+                PauseManager.Instance.Enable();
             }
 
             anim.SetBool(IsOpen, false);
@@ -114,7 +116,7 @@ namespace Game.Scripts.Dialogue
         {
             if (!_currentlyTalking) return;
 
-            if (Input.GetButtonDown("Interact"))
+            if (Input.GetButtonDown("Interact") || Input.GetKeyDown(KeyCode.Escape))
             {
                 DisplayNextSentence();
             }
