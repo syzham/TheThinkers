@@ -1,7 +1,5 @@
-using System;
 using Game.Scripts.Inventory;
 using Game.Scripts.Items;
-using UnityEngine;
 
 namespace Game.Scripts.Actions
 {

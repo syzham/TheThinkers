@@ -95,7 +95,7 @@ namespace Game.Scripts.MiniGame
             }
             else
             {
-                Tick();
+                Tick();  
             }
         }
 

@@ -578,8 +578,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 69133128}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -9.897446, y: 1.205733, z: 0}
-  m_LocalScale: {x: 0.046331227, y: 0.040138196, z: 4.540723}
+  m_LocalPosition: {x: -580, y: 66.15826, z: 0}
+  m_LocalScale: {x: 2.6791391, y: 2.6791391, z: 1}
   m_Children: []
   m_Father: {fileID: 815555951}
   m_RootOrder: 3
@@ -597,7 +597,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.14376831, y: -8.368992}
+  m_Offset: {x: -0.09524441, y: -8.939517}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -608,7 +608,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 32.05091, y: 27.53717}
+  m_Size: {x: 29.77065, y: 24.05342}
   m_EdgeRadius: 0
 --- !u!1 &70295582
 GameObject:
@@ -710,7 +710,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &107374849
 Transform:
   m_ObjectHideFlags: 0
@@ -738,7 +738,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startLocked: 1
-  miniGame: {fileID: 11400000, guid: 35f9541965b0ad446b129b49fd128a2e, type: 2}
+  miniGame: {fileID: 11400000, guid: c2895b9e756429e49b833df9c8b78dee, type: 2}
 --- !u!114 &107374851
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -758,6 +758,7 @@ MonoBehaviour:
     - This is Locked. Can't open it
     - Wow its open now.
   openedSprite: {fileID: 0}
+  obtainedObject: {fileID: 0}
 --- !u!114 &107374852
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -893,6 +894,49 @@ MonoBehaviour:
   PrefabHashGenerator: Item
   AlwaysReplicateAsRoot: 0
   DontDestroyWithOwner: 0
+--- !u!1 &117654043
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 117654044}
+  - component: {fileID: 117654045}
+  m_Layer: 0
+  m_Name: ShowLogs
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &117654044
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 117654043}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1775444964}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &117654045
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 117654043}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9bc7e3e8077fb28478b567996b2fc43e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &119772086
 GameObject:
   m_ObjectHideFlags: 0
@@ -1706,8 +1750,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 869644931}
-  m_RootOrder: 3
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &221168327
 MonoBehaviour:
@@ -2129,7 +2173,7 @@ MonoBehaviour:
   dialogue:
     name: 
     sentences:
-    - I am strong enough to move this away
+    - '**CLICK**'
     - why dis so heavy
   grabbed: 0
   threshold: {fileID: 1458514737}
@@ -2617,8 +2661,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 295198401}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -9.248, y: -8.14, z: 0}
-  m_LocalScale: {x: 0.05193901, y: 0.051745858, z: 5.0903177}
+  m_LocalPosition: {x: -514, y: -464, z: 0}
+  m_LocalScale: {x: 3.0034132, y: 3.0034132, z: 1}
   m_Children: []
   m_Father: {fileID: 815555951}
   m_RootOrder: 5
@@ -2636,7 +2680,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.6332696, y: -0.17834666}
+  m_Offset: {x: 0.1318512, y: -3.73}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -2647,7 +2691,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 44.8, y: 24.8}
+  m_Size: {x: 42.19962, y: 20.10179}
   m_EdgeRadius: 0
 --- !u!1 &344526594
 GameObject:
@@ -3469,8 +3513,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 417451515}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.87, y: -4.915, z: 0}
-  m_LocalScale: {x: 0.043925565, y: 0.041859508, z: 4.3049545}
+  m_LocalPosition: {x: -369, y: -330.7449, z: 0}
+  m_LocalScale: {x: 2.54003, y: 2.54003, z: 1}
   m_Children: []
   m_Father: {fileID: 815555951}
   m_RootOrder: 6
@@ -3488,7 +3532,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.6332696, y: -0.17834666}
+  m_Offset: {x: -0.0017166138, y: -6.5470624}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -3499,7 +3543,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 41.99, y: 28.8}
+  m_Size: {x: 36.78132, y: 20.26365}
   m_EdgeRadius: 0
 --- !u!1 &419568661
 GameObject:
@@ -9278,7 +9322,7 @@ MonoBehaviour:
   dialogue:
     name: 
     sentences:
-    - I am strong enough to move this away
+    - '**CLICK**'
     - why dis so heavy
   grabbed: 0
   threshold: {fileID: 2062051084}
@@ -9500,7 +9544,7 @@ Transform:
   - {fileID: 1499312242}
   - {fileID: 537134359}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &620302130
 MonoBehaviour:
@@ -9565,8 +9609,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 869644931}
-  m_RootOrder: 2
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &635218084
 MonoBehaviour:
@@ -9762,7 +9806,7 @@ Transform:
   m_Children:
   - {fileID: 276427903}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &695819857
 GameObject:
@@ -10912,8 +10956,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 869644931}
-  m_RootOrder: 4
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &847024058
 MonoBehaviour:
@@ -11081,8 +11125,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 869644931}
-  m_RootOrder: 5
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &866115304
 MonoBehaviour:
@@ -11146,6 +11190,7 @@ MonoBehaviour:
   - {fileID: 1201261100}
   - {fileID: 235606438}
   - {fileID: 600626841}
+  showObject: {fileID: 1428073381}
 --- !u!1 &869644930
 GameObject:
   m_ObjectHideFlags: 0
@@ -11172,16 +11217,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 1723657006}
-  - {fileID: 1173420628}
-  - {fileID: 635218083}
-  - {fileID: 221168326}
-  - {fileID: 847024057}
-  - {fileID: 866115303}
-  - {fileID: 917513279}
-  - {fileID: 1116530599}
-  - {fileID: 1697294682}
+  m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -11454,8 +11490,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 869644931}
-  m_RootOrder: 6
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &917513280
 MonoBehaviour:
@@ -11664,6 +11700,7 @@ Transform:
   m_Children:
   - {fileID: 815555951}
   - {fileID: 470929287}
+  - {fileID: 1953926471}
   m_Father: {fileID: 276427903}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -11890,7 +11927,7 @@ Transform:
   - {fileID: 1572723622}
   - {fileID: 1059237488}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1025691174
 GameObject:
@@ -11944,7 +11981,7 @@ MonoBehaviour:
   dialogue:
     name: 
     sentences:
-    - I am strong enough to move this away
+    - '**CLICK**'
     - why dis so heavy
   grabbed: 0
   threshold: {fileID: 69133130}
@@ -12884,8 +12921,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 869644931}
-  m_RootOrder: 7
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1167145581
 GameObject:
@@ -12995,7 +13032,7 @@ Transform:
   m_Children:
   - {fileID: 748218478}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1173420625
 GameObject:
@@ -13043,8 +13080,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 869644931}
-  m_RootOrder: 1
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1197450368
 GameObject:
@@ -13128,7 +13165,7 @@ MonoBehaviour:
   dialogue:
     name: 
     sentences:
-    - I am strong enough to move this away
+    - '**CLICK**'
     - why dis so heavy
   grabbed: 0
   threshold: {fileID: 1828398668}
@@ -14553,6 +14590,7 @@ MonoBehaviour:
     - This is Locked. Can't open it
     - Wow its open now.
   openedSprite: {fileID: -5758222766582049444, guid: 61221ded50db81b47a88c4aec5e7d221, type: 3}
+  obtainedObject: {fileID: 1452800136}
 --- !u!61 &1428073386
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -17829,6 +17867,84 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!1 &1452800136
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1452800137}
+  - component: {fileID: 1452800138}
+  - component: {fileID: 1452800140}
+  - component: {fileID: 1452800139}
+  m_Layer: 0
+  m_Name: SafeObject
+  m_TagString: Interact
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1452800137
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1452800136}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1953926471}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1452800138
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1452800136}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8ee821b7ef662c4784bffe14b5ae22c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemImage: {fileID: -4291569369652652685, guid: 61221ded50db81b47a88c4aec5e7d221, type: 3}
+  itemName: Picture
+--- !u!114 &1452800139
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1452800136}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NetworkInstanceId: 0
+  PrefabHash: 18090874050585583211
+  PrefabHashGenerator: SafeObject
+  AlwaysReplicateAsRoot: 0
+  DontDestroyWithOwner: 0
+--- !u!114 &1452800140
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1452800136}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7eafe616eae375a42bef52b75b808147, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isActive:
+    m_InternalValue: 1
 --- !u!1 &1458514735
 GameObject:
   m_ObjectHideFlags: 0
@@ -17854,8 +17970,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1458514735}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -9.942615, y: 0.057636425, z: 0}
-  m_LocalScale: {x: 0.037099294, y: 0.032140285, z: 3.6359413}
+  m_LocalPosition: {x: -580, y: -11.36, z: 0}
+  m_LocalScale: {x: 2.1452956, y: 2.1452956, z: 1}
   m_Children: []
   m_Father: {fileID: 815555951}
   m_RootOrder: 2
@@ -17873,7 +17989,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.13285065, y: -5.007993}
+  m_Offset: {x: 0.076560974, y: -5.6479154}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -17884,7 +18000,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 57.33338, y: 35.6854}
+  m_Size: {x: 54.0326, y: 32.60349}
   m_EdgeRadius: 0
 --- !u!1 &1473195088
 GameObject:
@@ -17938,7 +18054,7 @@ MonoBehaviour:
   dialogue:
     name: 
     sentences:
-    - I am strong enough to move this away
+    - '**CLICK**'
     - why dis so heavy
   grabbed: 0
   threshold: {fileID: 295198403}
@@ -19152,8 +19268,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 869644931}
-  m_RootOrder: 8
+  m_Father: {fileID: 0}
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1708806794
 GameObject:
@@ -19293,8 +19409,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 869644931}
-  m_RootOrder: 0
+  m_Father: {fileID: 0}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1723657007
 MonoBehaviour:
@@ -19453,7 +19569,7 @@ MonoBehaviour:
   dialogue:
     name: 
     sentences:
-    - I am strong enough to move this away
+    - '**CLICK**'
     - why dis so heavy
   grabbed: 0
   threshold: {fileID: 1922069929}
@@ -19672,8 +19788,9 @@ Transform:
   - {fileID: 433604137}
   - {fileID: 1543972745}
   - {fileID: 1921542061}
+  - {fileID: 117654044}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1828398666
 GameObject:
@@ -19700,8 +19817,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1828398666}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -11, y: -3.34, z: 0}
-  m_LocalScale: {x: 0.039418004, y: 0.034149054, z: 3.8631878}
+  m_LocalPosition: {x: -638.6349, y: -206, z: 0}
+  m_LocalScale: {x: 2.2793767, y: 2.2793767, z: 1}
   m_Children: []
   m_Father: {fileID: 815555951}
   m_RootOrder: 1
@@ -19719,7 +19836,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.47979164, y: 4.61}
+  m_Offset: {x: -0.21869278, y: -7.181776}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -19730,7 +19847,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 62.08, y: 28.8}
+  m_Size: {x: 56.25036, y: 19.26216}
   m_EdgeRadius: 0
 --- !u!1001 &1839641123
 PrefabInstance:
@@ -20306,8 +20423,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1922069927}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -11.2, y: -7.95, z: 0}
-  m_LocalScale: {x: 0.039418004, y: 0.034149054, z: 3.8631878}
+  m_LocalPosition: {x: -663.4315, y: -471.7737, z: 0}
+  m_LocalScale: {x: 2.2793767, y: 2.2793767, z: 1}
   m_Children: []
   m_Father: {fileID: 815555951}
   m_RootOrder: 4
@@ -20325,7 +20442,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.6332696, y: -0.17834666}
+  m_Offset: {x: -0.035573006, y: -0.5}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -20336,8 +20453,39 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 36.1, y: 36.3}
+  m_Size: {x: 30.47203, y: 25.84633}
   m_EdgeRadius: 0
+--- !u!1 &1953926470
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1953926471}
+  m_Layer: 0
+  m_Name: Obtainables
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1953926471
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1953926470}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1452800137}
+  m_Father: {fileID: 965110482}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1968256788
 GameObject:
   m_ObjectHideFlags: 0
@@ -20459,7 +20607,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1969161760
 Transform:
   m_ObjectHideFlags: 0
@@ -20491,6 +20639,7 @@ MonoBehaviour:
     sentences:
     - I understand this cause im smart
     - I don't understand because i forgot to study
+    - This says blablabla
 --- !u!114 &1969161762
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21135,7 +21284,7 @@ MonoBehaviour:
   dialogue:
     name: 
     sentences:
-    - I am strong enough to move this away
+    - '**CLICK**'
     - why dis so heavy
   grabbed: 0
   threshold: {fileID: 417451517}
@@ -21349,8 +21498,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2062051082}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.87, y: -6.37, z: 0}
-  m_LocalScale: {x: 0.04063115, y: 0.041859508, z: 4.3049545}
+  m_LocalPosition: {x: -363, y: -399, z: 0}
+  m_LocalScale: {x: 2.3495276, y: 2.3495276, z: 1}
   m_Children: []
   m_Father: {fileID: 815555951}
   m_RootOrder: 7
@@ -21368,7 +21517,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.6332696, y: -0.17834666}
+  m_Offset: {x: -0.08303833, y: -6.2026453}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -21379,7 +21528,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 40.4, y: 29.9}
+  m_Size: {x: 34.94379, y: 20.53602}
   m_EdgeRadius: 0
 --- !u!1 &2081165082
 GameObject:
@@ -21485,8 +21634,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2122697068}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -9.5, y: -3, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -526.3507, y: -206, z: 0}
+  m_LocalScale: {x: 2.2793767, y: 2.2793767, z: 1}
   m_Children: []
   m_Father: {fileID: 815555951}
   m_RootOrder: 0
@@ -21504,7 +21653,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.62079644, y: -0.17834666}
+  m_Offset: {x: 0.071193695, y: -7.304615}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -21515,5 +21664,5 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.57, y: 0.96}
+  m_Size: {x: 39.57345, y: 19.17493}
   m_EdgeRadius: 0

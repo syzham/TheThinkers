@@ -1,16 +1,14 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Game.Scripts.Inventory;
 using Game.Scripts.Player;
-using MLAPI;
 using TMPro;
 using UnityEngine;
 
 namespace Game.Scripts.Dialogue
 {
-    public class DialogueManager : NetworkBehaviour
+    public class DialogueManager : MonoBehaviour
     {
         [SerializeField] private TMP_Text nameText;
         [SerializeField] private TMP_Text dialogueText;
@@ -32,8 +30,8 @@ namespace Game.Scripts.Dialogue
         private void Initialize()
         {
             _player = PlayerManager.Instance.CurrentPlayer.GetComponent<Player.Player>();
-            _pc = _player.GetComponent<PlayerController>();
-            _pi = _player.GetComponent<PlayerInteract>();
+            _pc = _player.playerController;
+            _pi = _player.playerInteract;
 
         }
 
@@ -41,6 +39,7 @@ namespace Game.Scripts.Dialogue
         {
             _currentlyTalking = true;
             _pc.enabled = false;
+            _pi.enabled = false;
             _pi.DialogueStatus(true);
             InventoryManager.Instance.enable = false;
             anim.SetBool(IsOpen, true);
@@ -51,7 +50,7 @@ namespace Game.Scripts.Dialogue
             for (var i = 0; i < dialogue.sentences.Length; i++)
             {
                 if (!count.Contains(i)) continue;
-                _sentences.Enqueue(dialogue.sentences[i]);
+                _sentences.Enqueue(dialogue.sentences[count[i]]);
             }
 
             DisplayNextSentence();
@@ -61,6 +60,7 @@ namespace Game.Scripts.Dialogue
         {
             _currentlyTalking = true;
             _pc.enabled = false;
+            _pi.enabled = false;
             _pi.DialogueStatus(true);
             InventoryManager.Instance.enable = false;
             anim.SetBool(IsOpen, true);
@@ -102,6 +102,7 @@ namespace Game.Scripts.Dialogue
             if (_player)
             {
                 _pc.enabled = true;
+                _pi.enabled = true;
                 _pi.DialogueStatus(false);
                 InventoryManager.Instance.enable = true;
             }
@@ -109,11 +110,10 @@ namespace Game.Scripts.Dialogue
             anim.SetBool(IsOpen, false);
         }
 
-        private void FixedUpdate()
+        private void Update()
         {
-            if (!IsOwner) return;
-            if (_currentlyTalking) return;
-            
+            if (!_currentlyTalking) return;
+
             if (Input.GetButtonDown("Interact"))
             {
                 DisplayNextSentence();

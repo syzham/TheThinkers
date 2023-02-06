@@ -1,4 +1,3 @@
-using Game.Scripts.Player;
 using MLAPI;
 using MLAPI.Messaging;
 using MLAPI.NetworkVariable;
@@ -106,6 +105,11 @@ namespace Game.Scripts.Actions
         {
             if (!threshold.bounds.Contains(_objectCollider.bounds.max) ||
                 !threshold.bounds.Contains(_objectCollider.bounds.min)) return;
+            _inter.transform.SetParent(_parent);
+            _player.playerInteract.enabled = true;
+            _player.playerController.EnableMovement();
+            _player.playerController.ChangeSpeed(4);
+            grabbed = false;
             TriggerDialogue(0);
             ChangeBoolServerRpc();
         }

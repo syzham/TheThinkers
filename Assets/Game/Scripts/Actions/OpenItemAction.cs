@@ -1,6 +1,5 @@
-using System;
+using Game.Scripts.Inventory;
 using Game.Scripts.Items.LockableItem;
-using Game.Scripts.MiniGame.MiniGameLogic;
 using MLAPI.Messaging;
 using UnityEngine;
 
@@ -8,8 +7,9 @@ namespace Game.Scripts.Actions
 {
     public class OpenItemAction : Actions
     {
-        
-        [SerializeField] private Sprite openedSprite;
+        public Sprite openedSprite;
+        public GameObject obtainedObject;
+            
         private SpriteRenderer _renderer;
         private MiniGameUnlock _loc;
 
@@ -22,13 +22,13 @@ namespace Game.Scripts.Actions
                 return;
             }
 
-            _loc.Unlocked += ChangeSpriteServerRpc;
+            _loc.Unlocked += Unlocked;
         }
 
         private void ChangeSprite()
         {
             _renderer.sprite = openedSprite;
-            _loc.Unlocked -= ChangeSprite;
+            _loc.Unlocked -= Unlocked;
         }
 
         public override void Execute(Player.Player player)
@@ -57,6 +57,15 @@ namespace Game.Scripts.Actions
 
         public override void Execute()
         {
+        }
+
+        private void Unlocked()
+        {
+            TriggerDialogue(0);
+            if (obtainedObject)
+                InventoryManager.Instance.AddItem(obtainedObject);
+            Debug.Log("asdfasdf");
+            ChangeSpriteServerRpc();
         }
 
         [ServerRpc(RequireOwnership = false)]

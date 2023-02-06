@@ -1,4 +1,3 @@
-using Game.Scripts.Dialogue;
 using Game.Scripts.Items;
 using MLAPI;
 using UnityEngine;
@@ -13,27 +12,21 @@ namespace Game.Scripts.Player
         private Interactable _interactable;
         private bool _dialogue;
 
-        private DialogueManager _dialogueManager;
         private PlayerController _controller;
 
         private void Start()
         {
-            _dialogueManager = FindObjectOfType<DialogueManager>();
             _controller = GetComponent<PlayerController>();
             _playerBounds = GetComponent<Collider2D>();
         }
 
+        
         private void Update()
         {
-            if (Input.GetButtonDown("Interact") && _interactObject && !_dialogue)
-            {
-                if (CheckIfFacing()) 
-                    _interactable.Execute();
-            }
-            else if (_dialogue && Input.GetButtonDown("Interact"))
-            {
-                _dialogueManager.DisplayNextSentence();
-            }
+            if (!Input.GetButtonDown("Interact") || !_interactObject || _dialogue) return;
+            
+            if (CheckIfFacing()) 
+                _interactable.Execute();
         }
 
         private void OnTriggerEnter2D(Collider2D other)
@@ -64,41 +57,6 @@ namespace Game.Scripts.Player
 
         private bool CheckIfFacing()
         {
-            /*
-            var horizontalOffset = other.localScale.x / 2f;
-            var verticalOffset = other.localScale.y / 2f;
-
-            var playerHorizontal = transform.localScale.x / 2f;
-            var playerVertical = transform.localScale.y / 2f;
-            
-            Debug.Log(other.position.x - horizontalOffset);
-            Debug.Log(other.position.x + horizontalOffset);
-            Debug.Log(other.position.y - verticalOffset);
-            Debug.Log(other.position.y + verticalOffset);
-            Debug.Log(transform.position);
-
-            if (transform.position.x + playerHorizontal < other.position.x - horizontalOffset)
-            {
-                return _controller.facing == 1;
-            }
-
-            if (transform.position.x - playerHorizontal > other.position.x + horizontalOffset)
-            {
-                return _controller.facing == 2;
-            }
-            
-            if (transform.position.y + playerVertical < other.position.y - verticalOffset)
-            {
-                return _controller.facing == 0;
-            }
-            
-            if (transform.position.y - playerVertical > other.position.y + verticalOffset)
-            {
-                return _controller.facing == 3;
-            }
-
-            return false;
-            */
             var max = (Vector2) transform.position + _playerBounds.offset + (Vector2) _playerBounds.bounds.extents;
             var min = (Vector2) transform.position + _playerBounds.offset - (Vector2) _playerBounds.bounds.extents;
             

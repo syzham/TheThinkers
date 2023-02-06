@@ -17,7 +17,7 @@ namespace Lobby.Scripts
         [SerializeField] private Button startGameButton;
 
         private readonly NetworkList<LobbyPlayerState> _lobbyPlayers = new NetworkList<LobbyPlayerState>();
-        private static Dictionary<string, PlayerData> _playersData;
+        private static Dictionary<string, PlayerData> m_playersData;
         
         public override void NetworkStart()
         {
@@ -32,7 +32,7 @@ namespace Lobby.Scripts
 
             if (IsServer)
             {
-                _playersData = ServerGameNetPortal.Instance.GetPlayerDatas();
+                m_playersData = ServerGameNetPortal.Instance.GetPlayerDatas();
                 startGameButton.gameObject.SetActive(true);
 
                 NetworkManager.Singleton.OnClientConnectedCallback += HandleClientConnected;
@@ -298,7 +298,7 @@ namespace Lobby.Scripts
             var newData = new PlayerData(currentPlayer.PlayerName, currentPlayer.ClientId, currentPlayer.ChosenCharacter, 
                 new List<string>(){currentPlayer.Ability1, currentPlayer.Ability2});
 
-            _playersData[playerGuid] = newData;
+            m_playersData[playerGuid] = newData;
         }
     }
 }
