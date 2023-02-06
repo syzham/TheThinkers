@@ -20,6 +20,9 @@ namespace Game.Scripts.Player
         public CinemachineVirtualCamera cameraMachine;
         public CinemachineConfiner2D cameraConfine;
 
+        public PlayerInteract playerInteract;
+        public PlayerController playerController;
+
         public override void NetworkStart()
         {
             if (!IsOwner)
@@ -39,6 +42,8 @@ namespace Game.Scripts.Player
             cameraMachine.m_Lens.OrthographicSize = 210;
 
             cameraConfine.m_BoundingShape2D = GameObject.Find("SpawnLocation").GetComponent<PolygonCollider2D>();
+            playerController = GetComponent<PlayerController>();
+            playerInteract = GetComponent<PlayerInteract>();
         }
 
         [ServerRpc(RequireOwnership = false)]

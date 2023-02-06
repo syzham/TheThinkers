@@ -1,21 +1,27 @@
 using Game.Scripts.Inventory;
-using UnityEngine;
+using Game.Scripts.Items;
 
 namespace Game.Scripts.Actions
 {
     public class PickUpAction : Actions
     {
-        public override void Execute(Player.Player player, GameObject interObject)
-        { 
-            InventoryManager.Instance.AddItem(interObject);
-            interObject.GetComponent<Interactable>().SetActiveServerRpc(false);
-            dialogue.name = player.GetName(); 
-            TriggerDialogue(0, player);
+        private Interactable _interactable;
+        private void Start()
+        {
+            _interactable = gameObject.GetComponent<Interactable>();
         }
 
-        public override void Execute(GameObject interObject)
+        public override void Execute(Player.Player player)
+        { 
+            InventoryManager.Instance.AddItem(gameObject);
+            _interactable.SetActiveServerRpc(false);
+            dialogue.name = player.GetName(); 
+            TriggerDialogue(0);
+        }
+
+        public override void Execute()
         {
-            interObject.GetComponent<Interactable>().SetActiveServerRpc(false);
+            _interactable.SetActiveServerRpc(false);
         }
 
     }

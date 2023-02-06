@@ -1,10 +1,8 @@
 using System;
 using System.Collections;
-using System.Linq;
 using Game.Scripts.Inventory;
 using Game.Scripts.Player;
 using Menu_Steam.Scripts;
-using MLAPI;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
@@ -17,10 +15,12 @@ namespace Game.Scripts
         [SerializeField] private Button resume;
         [SerializeField] private Button contact;
         [SerializeField] private Button quit;
-        private const string Link = "https://discord.com/api/webhooks/926842231086796820/CjA682ubkr9uS_DtIjCHzcxq90kihYkpLi6Imh7wy-LoAWmSubekAoLnakBLzfn4xrvC";
+        private const string Link = "https://discord.com/api/webhooks/1034295446522318848/dwild14yK4EUF07DdIMmN2u9E3BurntEZvL-L6cqJhh4dXvjPHmzX2U22J5uPlp735aQ";
 
         public static PauseManager Instance { get; private set; }
-        private bool _stop = false;
+        private bool _stop;
+        private Player.Player _player;
+        
         private void Awake()
         {
             if (Instance != null && Instance != this)
@@ -33,10 +33,17 @@ namespace Game.Scripts
             DontDestroyOnLoad(gameObject);
         }
 
-        private int _selectedButton = 0;
+        private int _selectedButton;
         private void Start()
         {
             pauseMenu.SetActive(false);
+            PlayerManager.Instance.FinishedPlayers += Initialize;
+        }
+
+        private void Initialize()
+        {
+            _player = PlayerManager.Instance.CurrentPlayer.GetComponent<Player.Player>();
+            PlayerManager.Instance.FinishedPlayers -= Initialize;
         }
 
         public void Disable()
@@ -55,8 +62,7 @@ namespace Game.Scripts
             if (Input.GetKeyDown(KeyCode.Escape))
             {
                 pauseMenu.SetActive(!pauseMenu.activeSelf);
-                InventoryManager.Instance.enable = !InventoryManager.Instance.enable;
-                PlayerMovement();
+                PlayerMovement(!pauseMenu.activeInHierarchy);
             }
 
             if (!pauseMenu.activeInHierarchy) return;
@@ -101,16 +107,12 @@ namespace Game.Scripts
             }
         }
         
-        private static void PlayerMovement()
+        private void PlayerMovement(bool value)
         {
-            /* foreach (var player in GameObject.FindGameObjectsWithTag("Player"))
-            {
-                if (!player.GetComponent<NetworkObject>().IsOwner) continue;
-                player.GetComponent<PlayerController>().enabled = !player.GetComponent<PlayerController>().enabled;
-            } */
-            
-            PlayerManager.Instance.CurrentPlayer.GetComponent<PlayerController>().enabled =
-                !PlayerManager.Instance.CurrentPlayer.GetComponent<PlayerController>().enabled;
+
+            _player.playerController.enabled = value;
+            _player.playerInteract.enabled = value;
+            InventoryManager.Instance.enable = value;
         }
         
         public void Msg()
@@ -119,36 +121,31 @@ namespace Game.Scripts
 
             message += "** needs help I think";
 
-            StartCoroutine(SendWebHook(Link, message, (success) =>
-            {
-                if (success)
-                    Debug.Log("done");
-            }));
+            StartCoroutine(SendWebHook(Link, message));
         }
 
-        private static IEnumerator SendWebHook(string link, string message, Action<bool> action)
+        private static IEnumerator SendWebHook(string link, string message)
         {
             var form = new WWWForm();
             form.AddField("content", message);
             using var www = UnityWebRequest.Post(link, form);
             yield return www.SendWebRequest();
 
+            /*
             if (www.result == UnityWebRequest.Result.ConnectionError || www.result == UnityWebRequest.Result.ProtocolError || www.result == UnityWebRequest.Result.DataProcessingError)
             {
-                Debug.Log(www.error);
-                action(false);
+                
             }
             else
             {
-                action(true);
             }
+            */
         }
 
         public void OnResumeClick()
         {
             pauseMenu.SetActive(false);
-            InventoryManager.Instance.enable = true;
-            PlayerMovement();
+            PlayerMovement(true);
         }
 
         public void OnLeaveClick()

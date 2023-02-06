@@ -1,5 +1,5 @@
+using Game.Scripts.Inventory;
 using Game.Scripts.Items.LockableItem;
-using Game.Scripts.Player;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,10 +7,10 @@ namespace Game.Scripts.MiniGame
 {
     public class MiniGameManager : MonoBehaviour
     {
-        [SerializeField] private GameObject panel;
-        [SerializeField] private GameObject gameHolder;
-        [SerializeField] private GameObject timerBox;
-        [SerializeField] private Text timerText;
+        public GameObject panel;
+        public GameObject gameHolder;
+        public GameObject timerBox;
+        public Text timerText;
 
         private Timer _timer;
         private bool _checkUpdate;
@@ -20,10 +20,6 @@ namespace Game.Scripts.MiniGame
         private MiniGameLogic.MiniGameLogic _logic;
         private Lockable _loc;
 
-        public delegate void MiniGameDelegate();
-
-        public MiniGameDelegate MiniGameCompleted;
-        
         public static MiniGameManager Instance { get; private set; }
         private void Awake()
         {
@@ -37,8 +33,8 @@ namespace Game.Scripts.MiniGame
             Instance = this;
             DontDestroyOnLoad(gameObject);
         }
-
-        public bool? StartMiniGame(MiniGame miniGame, Player.Player player, Lockable loc)
+        
+        public bool? StartMiniGame(MiniGame miniGame, Player.Player player, Lockable loc, MiniGameInitializer init)
         {
             if (miniGame.HasRestriction())
             {
@@ -52,16 +48,21 @@ namespace Game.Scripts.MiniGame
 
             }
             _player = player;
-            _player.GetComponent<PlayerController>().enabled = false;
-            _player.GetComponent<PlayerInteract>().enabled = false;
+            _player.playerController.enabled = false;
+            _player.playerInteract.enabled = false;
             PauseManager.Instance.Disable();
+            InventoryManager.Instance.enable = false;
 
             _loc = loc;
-
+            
+            /*
             _newGame = Instantiate(miniGame.game, gameHolder.transform, false);
             _newGame.transform.localScale = new Vector3(1, 1, 1);
             _logic = _newGame.GetComponent<MiniGameLogic.MiniGameLogic>();
             _logic.MiniGameCompleted += Completed;
+            */
+            (_newGame, _logic) = init.GetGame();
+            _newGame.SetActive(true);
 
             panel.SetActive(true);
             timerBox.SetActive(false);
@@ -94,7 +95,7 @@ namespace Game.Scripts.MiniGame
             }
             else
             {
-                Tick();
+                Tick();  
             }
         }
 
@@ -120,20 +121,24 @@ namespace Game.Scripts.MiniGame
 
         private void Finish()
         {
-            _player.GetComponent<PlayerController>().enabled = true;
-            _player.GetComponent<PlayerInteract>().enabled = true;
+            _player.playerController.enabled = true;
+            _player.playerInteract.enabled = true;
             PauseManager.Instance.Enable();
+            InventoryManager.Instance.enable = true;
 
-            Destroy(_newGame);
+            _newGame.SetActive(false);
             
             panel.SetActive(false);
             _checkUpdate = false;
         }
+<<<<<<< HEAD
 
         private void Completed()
         {
             MiniGameCompleted?.Invoke();
             // _logic.MiniGameCompleted -= Completed;
         }
+=======
+>>>>>>> ChangeMinigame
     }
 }

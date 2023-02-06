@@ -29,7 +29,6 @@ namespace Game.Scripts.Player
 
         public void UpdatePlayers()
         {
-            Debug.Log("ran");
             Players = new List<GameObject>(GameObject.FindGameObjectsWithTag("Player"));
             foreach (var player in Players.Where(player => player.GetComponent<NetworkObject>().IsOwner))
             {
@@ -48,7 +47,6 @@ namespace Game.Scripts.Player
         [ClientRpc]
         private void UpdatePlayersClientRpc()
         {
-            Debug.Log("ran");
             Players = new List<GameObject>(GameObject.FindGameObjectsWithTag("Player"));
             foreach (var player in Players.Where(player => player.GetComponent<NetworkObject>().IsOwner))
             {
