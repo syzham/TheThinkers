@@ -1,38 +1,44 @@
 using UnityEngine;
- 
-public class ShowLogs : MonoBehaviour
+
+namespace Game.Scripts
 {
-    string myLog = "*begin log";
-    string filename = "";
-    bool doShow = false;
-    int kChars = 700;
-    void OnEnable() { Application.logMessageReceived += Log; }
-    void OnDisable() { Application.logMessageReceived -= Log; }
-    void Update() { if (Input.GetKeyDown(KeyCode.Space)) { doShow = !doShow; } }
-    public void Log(string logString, string stackTrace, LogType type)
+    public class ShowLogs : MonoBehaviour
     {
-        // for onscreen...
-        myLog = myLog + "\n" + logString;
-        if (myLog.Length > kChars) { myLog = myLog.Substring(myLog.Length - kChars); }
- 
-        // for the file ...
-        if (filename == "")
+        private string _myLog = "*begin log";
+        private string _filename = "";
+        private bool _doShow;
+        private const int KChars = 700;
+        private void OnEnable() { Application.logMessageReceived += Log; }
+        private void OnDisable() { Application.logMessageReceived -= Log; }
+        private void Update() { if (Input.GetKeyDown(KeyCode.Space)) { _doShow = !_doShow; } }
+        private void Log(string logString, string stackTrace, LogType type)
         {
-            string d = System.Environment.GetFolderPath(
-                System.Environment.SpecialFolder.Desktop) + "/YOUR_LOGS";
-            System.IO.Directory.CreateDirectory(d);
-            string r = Random.Range(1000, 9999).ToString();
-            filename = d + "/log-" + r + ".txt";
-        }
-        try { System.IO.File.AppendAllText(filename, logString + "\n"); }
-        catch { }
-    }
+            // for onscreen...
+            _myLog = _myLog + "\n" + logString;
+            if (_myLog.Length > KChars) { _myLog = _myLog.Substring(_myLog.Length - KChars); }
  
-    void OnGUI()
-    {
-        if (!doShow) { return; }
-        GUI.matrix = Matrix4x4.TRS(Vector3.zero, Quaternion.identity,
-            new Vector3(Screen.width / 1200.0f, Screen.height / 800.0f, 1.0f));
-        GUI.TextArea(new Rect(10, 10, 540, 370), myLog);
+            // for the file ...
+            if (_filename == "")
+            {
+                var d = System.Environment.GetFolderPath(
+                    System.Environment.SpecialFolder.Desktop) + "/YOUR_LOGS";
+                System.IO.Directory.CreateDirectory(d);
+                var r = Random.Range(1000, 9999).ToString();
+                _filename = d + "/log-" + r + ".txt";
+            }
+            try { System.IO.File.AppendAllText(_filename, logString + "\n"); }
+            catch
+            {
+                // ignored
+            }
+        }
+ 
+        private void OnGUI()
+        {
+            if (!_doShow) { return; }
+            GUI.matrix = Matrix4x4.TRS(Vector3.zero, Quaternion.identity,
+                new Vector3(Screen.width / 1200.0f, Screen.height / 800.0f, 1.0f));
+            GUI.TextArea(new Rect(10, 10, 540, 370), _myLog);
+        }
     }
 }

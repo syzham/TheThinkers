@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e383196c50bf49040ae7a44cf1b27639, type: 3}
+  m_Name: PhoneGame
+  m_EditorClassIdentifier: 
+  game: {fileID: 3701135780767371644, guid: b22cbdd8bc5f4d34e90a1f8f2e3d0924, type: 3}
+  timer: 0
+  time: 0
+  rests: 

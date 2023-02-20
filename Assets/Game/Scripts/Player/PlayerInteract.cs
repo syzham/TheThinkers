@@ -21,14 +21,21 @@ namespace Game.Scripts.Player
         }
 
         
+        /// <summary>
+        /// execute object executable if player interacts with object
+        /// </summary>
         private void Update()
         {
             if (!Input.GetButtonDown("Interact") || !_interactObject || _dialogue) return;
             
-            if (CheckIfFacing()) 
+            if (CheckIfFacing(_objectBounds)) 
                 _interactable.Execute();
         }
 
+        /// <summary>
+        /// Grabs the objects Interactable when a player enters its trigger collider
+        /// </summary>
+        /// <param name="other"> the collider of the other object </param>
         private void OnTriggerEnter2D(Collider2D other)
         {
             if (!IsOwner) return;
@@ -40,6 +47,10 @@ namespace Game.Scripts.Player
             _objectBounds = _interactable.GetComponent<Collider2D>().bounds;
         }
 
+        /// <summary>
+        /// removes the current interactable from memory once player leaves its trigger collider
+        /// </summary>
+        /// <param name="other"></param>
         private void OnTriggerExit2D(Collider2D other)
         {
             if (!IsOwner) return;
@@ -50,32 +61,42 @@ namespace Game.Scripts.Player
             _interactable = null;
         }
 
+        /// <summary>
+        /// updates whether the player is currently in dialogue
+        /// </summary>
+        /// <param name="status"> the current players dialogue status </param>
         public void DialogueStatus(bool status)
         {
             _dialogue = status;
         }
 
-        private bool CheckIfFacing()
+        
+        /// <summary>
+        /// checks whether the player is facing an object
+        /// </summary>
+        /// <param name="objectBounds"> the bounds of the object </param>
+        /// <returns> true if player is facing the object, false otherwise </returns>
+        private bool CheckIfFacing(Bounds objectBounds)
         {
             var max = (Vector2) transform.position + _playerBounds.offset + (Vector2) _playerBounds.bounds.extents;
             var min = (Vector2) transform.position + _playerBounds.offset - (Vector2) _playerBounds.bounds.extents;
             
-            if (max.x <= _objectBounds.min.x)
+            if (max.x <= objectBounds.min.x)
             {
                 return _controller.facing == 1;
             }
 
-            if (min.x >= _objectBounds.max.x)
+            if (min.x >= objectBounds.max.x)
             {
                 return _controller.facing == 2;
             }
 
-            if (max.y <= _objectBounds.min.y)
+            if (max.y <= objectBounds.min.y)
             {
                 return _controller.facing == 0;
             }
 
-            if (min.y >= _objectBounds.max.y)
+            if (min.y >= objectBounds.max.y)
             {
                 return _controller.facing == 3;
             }

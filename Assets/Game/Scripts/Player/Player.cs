@@ -23,6 +23,9 @@ namespace Game.Scripts.Player
         public PlayerInteract playerInteract;
         public PlayerController playerController;
 
+        /// <summary>
+        /// Initialize Current Player
+        /// </summary>
         public override void NetworkStart()
         {
             if (!IsOwner)
@@ -46,6 +49,11 @@ namespace Game.Scripts.Player
             playerInteract = GetComponent<PlayerInteract>();
         }
 
+        /// <summary>
+        /// Change whether a player posses a certain skill
+        /// </summary>
+        /// <param name="ability"> the name of the ability </param>
+        /// <param name="status"> whether the player has the ability </param>
         [ServerRpc(RequireOwnership = false)]
         public void ChangeAbilityServerRpc(string ability, bool status)
         {
@@ -69,43 +77,76 @@ namespace Game.Scripts.Player
             }
         }
 
+        /// <summary>
+        /// Checks if the player has the strength ability
+        /// </summary>
+        /// <returns> True if the player has the strength ability, false otherwise </returns>
         public bool IsStrength()
         {
             return strength.Value;
         }
 
+        /// <summary>
+        /// Checks if the player has the Intelligence ability
+        /// </summary>
+        /// <returns> True if the player has the Intelligence ability, false otherwise </returns>
         public bool IsIntelligent()
         {
             return intelligence.Value;
         }
 
+        /// <summary>
+        /// Checks if the player has the Lock-picking ability
+        /// </summary>
+        /// <returns> True if the player has the Lock-picking ability, false otherwise </returns>
         public bool IsLockPicker()
         {
             return lockPicker.Value;
         }
 
+        /// <summary>
+        /// Gets the current username of the player
+        /// </summary>
+        /// <returns> players username </returns>
         public string GetName()
         {
             return playerName.Value;
         }
 
+        /// <summary>
+        /// Gets the current location of the player in the map
+        /// </summary>
+        /// <returns> players location </returns>
         public string GetCurrentLocation()
         {
             return currentLocation.Value;
         }
 
+        /// <summary>
+        /// Sets the current players location to a new given location
+        /// </summary>
+        /// <param name="newLocation"> the name of the new location </param>
         [ServerRpc]
         public void SetCurrentLocationServerRpc(string newLocation)
         {
             currentLocation.Value = newLocation;
         }
 
+        /// <summary>
+        /// Sets the current players username
+        /// </summary>
+        /// <param name="player"> the name of the new username </param>
         [ServerRpc(RequireOwnership = false)]
         public void SetNameServerRpc(string player)
         {
             playerName.Value = player;
         }
 
+        /// <summary>
+        /// Grabs the data of the current players that was set during the game lobby
+        /// </summary>
+        /// <param name="id"> current players userid </param>
+        /// <param name="isAdmin"> whether current player is admin </param>
         [ServerRpc(RequireOwnership = false)]
         private void GetPlayerDataServerRpc(ulong id, bool isAdmin)
         {
@@ -120,6 +161,13 @@ namespace Game.Scripts.Player
             GetPlayerDataClientRpc(id, playerData.Value.PlayerName, ability1, ability2);
         }
 
+        /// <summary>
+        ///  sets players username and abilities based on what was set during game lobby
+        /// </summary>
+        /// <param name="id"> current players user id </param>
+        /// <param name="playersName"> current players username </param>
+        /// <param name="ability1"> the first ability that the player has </param>
+        /// <param name="ability2"> the second ability that the player has, "" if player doesn't </param>
         [ClientRpc]
         private void GetPlayerDataClientRpc(ulong id, string playersName, string ability1, string ability2)
         {

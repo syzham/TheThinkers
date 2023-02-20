@@ -20,6 +20,9 @@ namespace Game.Scripts.Player
                 CheckInput();
         }
 
+        /// <summary>
+        /// Moves player based on keyboard inputs
+        /// </summary>
         private void CheckInput()
         {
             var move = new Vector3(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));

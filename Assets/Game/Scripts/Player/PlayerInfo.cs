@@ -20,6 +20,9 @@ namespace Game.Scripts.Player
             PlayerManager.Instance.FinishedPlayers += Initialize;
         }
 
+        /// <summary>
+        /// Grabs the PlayerInfo of all players
+        /// </summary>
         private void Initialize()
         {
             _pl = new List<PlayerInfo>();
@@ -30,6 +33,9 @@ namespace Game.Scripts.Player
             PlayerManager.Instance.FinishedPlayers -= Initialize;
         }
 
+        /// <summary>
+        /// TODO fix Player info architecture
+        /// </summary>
         private void ShowInfo()
         {
             nameField.text = player.GetName();

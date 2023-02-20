@@ -1,4 +1,3 @@
-using System;
 using MLAPI;
 using UnityEngine;
 
@@ -25,6 +24,9 @@ namespace Game.Scripts.Player
                 CheckInput();
         }
 
+        /// <summary>
+        /// Moves player and change animations based on the players inputs
+        /// </summary>
         private void CheckInput()
         {
             var move = new Vector3(_disableHorizontal ? 0 : Input.GetAxisRaw("Horizontal"), 
@@ -81,6 +83,10 @@ namespace Game.Scripts.Player
             }
         }
 
+        /// <summary>
+        /// Ensures the players do not collide with other players
+        /// </summary>
+        /// <param name="collision"> the Collision2D of other object the player collides with </param>
         private void OnCollisionEnter2D(Collision2D collision)
         {
             if (collision.gameObject.CompareTag("Player"))
@@ -89,22 +95,36 @@ namespace Game.Scripts.Player
             }
         }
 
+        /// <summary>
+        /// Disables the horizontal movement of the player
+        /// </summary>
         public void DisableHorizontal()
         {
             _disableHorizontal = true;
         }
 
+        
+        /// <summary>
+        /// Disables the vertical movement of the player
+        /// </summary>
         public void DisableVertical()
         {
             _disableVertical = true;
         }
 
+        /// <summary>
+        /// Enables the horizontal and vertical movement of the player
+        /// </summary>
         public void EnableMovement()
         {
             _disableHorizontal = false;
             _disableVertical = false;
         }
 
+        /// <summary>
+        /// Changes the speed of player
+        /// </summary>
+        /// <param name="times"> the multiplier to change the players speed by </param>
         public void ChangeSpeed(float times)
         {
             moveSpeed *= times;

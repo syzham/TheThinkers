@@ -27,6 +27,9 @@ namespace Game.Scripts.Player
             DontDestroyOnLoad(gameObject);
         }
 
+        /// <summary>
+        /// Grabs the current player
+        /// </summary>
         public void UpdatePlayers()
         {
             Players = new List<GameObject>(GameObject.FindGameObjectsWithTag("Player"));

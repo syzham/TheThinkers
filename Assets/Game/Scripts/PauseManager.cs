@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using Game.Scripts.Inventory;
 using Game.Scripts.Player;
@@ -20,6 +19,7 @@ namespace Game.Scripts
         public static PauseManager Instance { get; private set; }
         private bool _stop;
         private Player.Player _player;
+        private int _selectedButton;
         
         private void Awake()
         {
@@ -33,24 +33,32 @@ namespace Game.Scripts
             DontDestroyOnLoad(gameObject);
         }
 
-        private int _selectedButton;
         private void Start()
         {
             pauseMenu.SetActive(false);
             PlayerManager.Instance.FinishedPlayers += Initialize;
         }
 
+        /// <summary>
+        /// Grabs the current players "Player" component once all players have spawned
+        /// </summary>
         private void Initialize()
         {
             _player = PlayerManager.Instance.CurrentPlayer.GetComponent<Player.Player>();
             PlayerManager.Instance.FinishedPlayers -= Initialize;
         }
 
+        /// <summary>
+        /// Disables the current players ability to pause
+        /// </summary>
         public void Disable()
         {
             _stop = true;
         }
 
+        /// <summary>
+        /// Enables the current players ability to pause
+        /// </summary>
         public void Enable()
         {
             _stop = false;
@@ -107,6 +115,10 @@ namespace Game.Scripts
             }
         }
         
+        /// <summary>
+        /// Disables/Enables the movement of the current player
+        /// </summary>
+        /// <param name="value"> Enable or Disable </param>
         private void PlayerMovement(bool value)
         {
 
@@ -115,6 +127,9 @@ namespace Game.Scripts
             InventoryManager.Instance.enable = value;
         }
         
+        /// <summary>
+        /// Sends a discord message to admins with details of the current player
+        /// </summary>
         public void Msg()
         {
             var message = "Yo guys, player **" + PlayerManager.Instance.CurrentPlayer.name;
@@ -131,23 +146,20 @@ namespace Game.Scripts
             using var www = UnityWebRequest.Post(link, form);
             yield return www.SendWebRequest();
 
-            /*
-            if (www.result == UnityWebRequest.Result.ConnectionError || www.result == UnityWebRequest.Result.ProtocolError || www.result == UnityWebRequest.Result.DataProcessingError)
-            {
-                
-            }
-            else
-            {
-            }
-            */
         }
 
+        /// <summary>
+        /// Enables player movement and disables pause menu
+        /// </summary>
         public void OnResumeClick()
         {
             pauseMenu.SetActive(false);
             PlayerMovement(true);
         }
 
+        /// <summary>
+        /// Disconnects from the game
+        /// </summary>
         public void OnLeaveClick()
         {
             GameNetPortal.Instance.RequestDisconnect();
