@@ -1,0 +1,16 @@
+{
+    "name": "SteamWorks",
+    "rootNamespace": "",
+    "references": [
+        "GUID:45c73549e66ded24986e97113d900763"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
