@@ -16,7 +16,7 @@ namespace Game.Scripts.Grids
             var gridSize = grid.gridSize;
             hitBox.size = new Vector2(width * gridSize, height * gridSize);
 
-            SnapToClosestGridPosition(grid.gridOffset, gridSize);
+            SnapToClosestGridPosition(grid.gridOffset, gridSize, grid.numberOfCells);
         }
 
         /// <summary>
@@ -24,10 +24,18 @@ namespace Game.Scripts.Grids
         /// </summary>
         /// <param name="gridOffset"> the offset of the grid </param>
         /// <param name="gridSize"> the size of each grid cell </param>
-        private void SnapToClosestGridPosition(Vector2 gridOffset, int gridSize)
+        /// <param name="numberOfCells"> number of cells in each axis </param>
+        private void SnapToClosestGridPosition(Vector2 gridOffset, int gridSize, Vector2 numberOfCells)
         {
             var nearestCoord = (hitBox.bounds.min - new Vector3(gridOffset.x, gridOffset.y, 0)) / 32;
-            var snappedCoord = new Vector3(Mathf.RoundToInt(nearestCoord.x), Mathf.RoundToInt(nearestCoord.y), 0);
+            
+            var nearestX = nearestCoord.x < 0 ?  0 : 
+                nearestCoord.x > numberOfCells.x - width ? numberOfCells.x - width : Mathf.RoundToInt(nearestCoord.x);
+            
+            var nearestY = nearestCoord.y < 0 ?  0 : 
+                nearestCoord.y > numberOfCells.y - height ? numberOfCells.y - height : Mathf.RoundToInt(nearestCoord.y);
+            
+            var snappedCoord = new Vector3(nearestX, nearestY, 0);
             Vector3 centerOffset = hitBox.size / 2;
             var snappedPosition = snappedCoord * gridSize + centerOffset;
             transform.position = snappedPosition;

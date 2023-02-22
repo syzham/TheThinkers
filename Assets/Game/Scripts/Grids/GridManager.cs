@@ -7,8 +7,7 @@ namespace Game.Scripts.Grids
         public int gridSize = 32;
         public Vector2 gridOffset;
 
-        public int maxX = 32;
-        public int maxY = 32;
+        public Vector2 numberOfCells;
 
         public static GridManager Instance { get; private set; }
 
@@ -29,23 +28,23 @@ namespace Game.Scripts.Grids
 
             var pos0 = new Vector3();
             var pos1 = new Vector3();
-            for (var i = 0; i <= maxX; i++)
+            for (var i = 0; i <= numberOfCells.x; i++)
             {
                 pos0.x = i * gridSize + gridOffset.x;
                 pos0.y = gridOffset.y;
                 pos1.x = i * gridSize + gridOffset.x;
-                pos1.y = maxY * gridSize + gridOffset.y;
+                pos1.y = numberOfCells.y * gridSize + gridOffset.y;
                 Gizmos.DrawLine(
                     pos0,
                     pos1
                 );
             }
 
-            for (var i = 0; i <= maxY; i++)
+            for (var i = 0; i <= numberOfCells.y; i++)
             {
                 pos0.x = gridOffset.x;
                 pos0.y = i * gridSize + gridOffset.y;
-                pos1.x = maxX * gridSize + gridOffset.x;
+                pos1.x = numberOfCells.x * gridSize + gridOffset.x;
                 pos1.y = i * gridSize + gridOffset.y;
                 Gizmos.DrawLine(
                     pos0,
