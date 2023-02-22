@@ -5,8 +5,7 @@ namespace Game.Scripts.Grids
     public class GridManager : MonoBehaviour
     {
         public int gridSize = 32;
-        public float xOffset;
-        public float yOffset;
+        public Vector2 gridOffset;
 
         public int maxX = 32;
         public int maxY = 32;
@@ -32,10 +31,10 @@ namespace Game.Scripts.Grids
             var pos1 = new Vector3();
             for (var i = 0; i <= maxX; i++)
             {
-                pos0.x = i * gridSize + xOffset;
-                pos0.y = yOffset;
-                pos1.x = i * gridSize + xOffset;
-                pos1.y = maxY * gridSize + yOffset;
+                pos0.x = i * gridSize + gridOffset.x;
+                pos0.y = gridOffset.y;
+                pos1.x = i * gridSize + gridOffset.x;
+                pos1.y = maxY * gridSize + gridOffset.y;
                 Gizmos.DrawLine(
                     pos0,
                     pos1
@@ -44,10 +43,10 @@ namespace Game.Scripts.Grids
 
             for (var i = 0; i <= maxY; i++)
             {
-                pos0.x = xOffset;
-                pos0.y = i * gridSize + yOffset;
-                pos1.x = maxX * gridSize + xOffset;
-                pos1.y = i * gridSize + yOffset;
+                pos0.x = gridOffset.x;
+                pos0.y = i * gridSize + gridOffset.y;
+                pos1.x = maxX * gridSize + gridOffset.x;
+                pos1.y = i * gridSize + gridOffset.y;
                 Gizmos.DrawLine(
                     pos0,
                     pos1

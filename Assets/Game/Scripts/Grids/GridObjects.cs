@@ -16,7 +16,7 @@ namespace Game.Scripts.Grids
             var gridSize = grid.gridSize;
             hitBox.size = new Vector2(width * gridSize, height * gridSize);
 
-            SnapToClosestGridPosition(new Vector2(grid.xOffset, grid.yOffset), gridSize);
+            SnapToClosestGridPosition(grid.gridOffset, gridSize);
         }
 
         /// <summary>
