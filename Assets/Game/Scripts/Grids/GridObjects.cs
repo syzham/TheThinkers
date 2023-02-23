@@ -14,9 +14,24 @@ namespace Game.Scripts.Grids
             var grid = GridManager.Instance;
             // Creates the appropriate hitBox
             var gridSize = grid.gridSize;
-            hitBox.size = new Vector2(width * gridSize, height * gridSize);
+            UpdateSize(gridSize);
 
             SnapToClosestGridPosition(grid.gridOffset, gridSize, grid.numberOfCells);
+            var gridObject = new GameObject();
+            var collider = gridObject.AddComponent<BoxCollider2D>();
+            var gris = gridObject.AddComponent<GridObjects>();
+            gris.height = 2;
+            gris.width = 2;
+            gris.hitBox = collider;
+            gris.UpdateSize(GridManager.Instance.gridSize);
+            gris.SnapToClosestGridPosition(GridManager.Instance.gridOffset, GridManager.Instance.gridSize,
+                GridManager.Instance.numberOfCells);
+            gridObject.transform.position = new Vector3(grid.numberOfCells.x * grid.gridSize,
+                                                            grid.numberOfCells.y * grid.gridSize, 0);
+            //gris.SnapToClosestGridPosition(GridManager.Instance.gridOffset, GridManager.Instance.gridSize,
+              //              GridManager.Instance.numberOfCells);
+            Debug.Log(gridObject.transform.position - new Vector3(collider.size.x / 2, collider.size.y / 2, 0)); 
+            Debug.Log(GridManager.Instance.GetCellPosition(new Vector2(0, 0)));
         }
 
         /// <summary>
@@ -25,7 +40,7 @@ namespace Game.Scripts.Grids
         /// <param name="gridOffset"> the offset of the grid </param>
         /// <param name="gridSize"> the size of each grid cell </param>
         /// <param name="numberOfCells"> number of cells in each axis </param>
-        private void SnapToClosestGridPosition(Vector2 gridOffset, int gridSize, Vector2 numberOfCells)
+        public void SnapToClosestGridPosition(Vector2 gridOffset, int gridSize, Vector2 numberOfCells)
         {
             var nearestCoord = (hitBox.bounds.min - new Vector3(gridOffset.x, gridOffset.y, 0)) / 32;
             
@@ -39,6 +54,11 @@ namespace Game.Scripts.Grids
             Vector3 centerOffset = hitBox.size / 2;
             var snappedPosition = snappedCoord * gridSize + centerOffset;
             transform.position = snappedPosition;
+        }
+
+        public void UpdateSize(int gridSize)
+        {
+            hitBox.size = new Vector2(width * gridSize, height * gridSize);
         }
 
         /// <summary>

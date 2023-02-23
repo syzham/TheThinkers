@@ -22,6 +22,12 @@ namespace Game.Scripts.Grids
             Instance = this;
         }
 
+        public Vector3 GetCellPosition(Vector2 cellCoordinates)
+        {
+            var originPosition = transform.position + new Vector3(gridOffset.x, gridOffset.y, 0);
+            return originPosition + new Vector3(cellCoordinates.x * gridSize, cellCoordinates.y * gridSize, 0);
+        }
+
         public void OnDrawGizmos()
         {
             Gizmos.color = Color.white;
