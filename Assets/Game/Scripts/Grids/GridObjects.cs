@@ -65,7 +65,7 @@ namespace Game.Scripts.Grids
         /// Moves the grid object one grid cell up
         /// </summary>
         /// <param name="gridSize"> the size of each grid cell </param>
-        private void MoveUp(int gridSize)
+        public void MoveUp(int gridSize)
         {
             transform.position += new Vector3(0, 1, 0);
         }
@@ -74,7 +74,7 @@ namespace Game.Scripts.Grids
         /// Moves the grid object one grid cell down
         /// </summary>
         /// <param name="gridSize"> the size of each grid cell </param>
-        private void MoveDown(int gridSize)
+        public void MoveDown(int gridSize)
         {
             transform.position += new Vector3(0, -1, 0);
         }
@@ -83,7 +83,7 @@ namespace Game.Scripts.Grids
         /// Moves the grid object one grid cell left
         /// </summary>
         /// <param name="gridSize"> the size of each grid cell </param>
-        private void MoveLeft(int gridSize)
+        public void MoveLeft(int gridSize)
         {
             transform.position += new Vector3(-1, 0, 0);
         }
@@ -92,7 +92,7 @@ namespace Game.Scripts.Grids
         /// Moves the grid object one grid cell right
         /// </summary>
         /// <param name="gridSize"> the size of each grid cell </param>
-        private void MoveRight(int gridSize)
+        public void MoveRight(int gridSize)
         {
             transform.position += new Vector3(1, 0, 0);
         }

@@ -43,6 +43,13 @@ namespace Game.Scripts.UnitTests.PlayModeTests
             grid.SnapToClosestGridPosition(manager.gridOffset, manager.gridSize, manager.numberOfCells);
             return gridObject;
         }
+
+        private Vector3 GetPosition(GameObject gridObject, BoxCollider2D collider)
+        {
+
+            return gridObject.transform.position - new Vector3(collider.size.x / 2, collider.size.y / 2, 0);
+
+        }
         
         /// <summary>
         /// Creates a Grid Object within a grid
@@ -67,38 +74,61 @@ namespace Game.Scripts.UnitTests.PlayModeTests
                 }
         
         /// <summary>
-        /// tests if GetCellPosition works at origin
+        /// tests if GetCellPosition
         /// </summary>
         [UnityTest]
         public IEnumerator CheckCellToWorldPositionOrigin()
         {
+            const int height = 2;
+            const int width = 2;
             _manager = CreateGrid();
-            var gridObject = CreateGridObject(2, 2, _manager);
+            var gridObject = CreateGridObject(height, width, _manager);
             var collider = gridObject.GetComponent<BoxCollider2D>();
             
             yield return null;
                 
-            Assert.AreEqual(gridObject.transform.position - new Vector3(collider.size.x / 2, collider.size.y / 2, 0), 
+            Assert.AreEqual(GetPosition(gridObject, collider), 
                 _manager.GetCellPosition(new Vector2(0, 0)));
+            
+            
+            gridObject = CreateGridObject(height, width, _manager, 
+                new Vector2(_manager.numberOfCells.x * _manager.gridSize, _manager.numberOfCells.y * _manager.gridSize));
+            collider = gridObject.GetComponent<BoxCollider2D>();
+
+            yield return null;
+                
+            Assert.AreEqual(GetPosition(gridObject,collider), 
+                _manager.GetCellPosition(new Vector2(_manager.numberOfCells.x - width, _manager.numberOfCells.y - height)));
+
+            gridObject = CreateGridObject(height, width, _manager,
+                new Vector2(_manager.numberOfCells.x * _manager.gridSize / 2,
+                    _manager.numberOfCells.y * _manager.gridSize / 2));
+            
+            collider = gridObject.GetComponent<BoxCollider2D>();
+
+            yield return null;
+            
+            Assert.AreEqual(GetPosition(gridObject, collider), 
+                _manager.GetCellPosition(new Vector2((_manager.numberOfCells.x - width) / 2, (_manager.numberOfCells.y - height) / 2)));
         }
-        
-        /// <summary>
-        /// Checks if GetCellPosition works at the extreme coordinate
-        /// </summary>
+
         [UnityTest]
-        public IEnumerator CheckCellToWorldPositionMax()
+        public IEnumerator GoUpTest()
         {
             const int height = 2;
             const int width = 2;
             _manager = CreateGrid();
-            var gridObject = CreateGridObject(height, width, _manager, 
-                new Vector2(_manager.numberOfCells.x * _manager.gridSize, _manager.numberOfCells.y * _manager.gridSize));
+            var gridObject = CreateGridObject(height, width, _manager);
             var collider = gridObject.GetComponent<BoxCollider2D>();
-
+            var lastPosition = GetPosition(gridObject, collider);
+            
             yield return null;
-                
-            Assert.AreEqual(gridObject.transform.position - new Vector3(collider.size.x / 2, collider.size.y / 2, 0), 
-                _manager.GetCellPosition(new Vector2(_manager.numberOfCells.x - width, _manager.numberOfCells.y - height)));
+
+            var grid = gridObject.GetComponent<GridObjects>();
+            grid.MoveUp(_manager.gridSize);
+
+            Assert.AreEqual(GetPosition(gridObject, collider), lastPosition + Vector3.up);
+
         }
     }
 }
