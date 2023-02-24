@@ -8,7 +8,6 @@ namespace Game.Scripts.UnitTests.PlayModeTests
 {
     public class GridTest
     {
-        private GridManager _manager;
         /// <summary>
         /// Creates a grid
         /// </summary>
@@ -39,8 +38,8 @@ namespace Game.Scripts.UnitTests.PlayModeTests
             grid.height = height;
             grid.width = width;
             grid.hitBox = collider;
-            grid.UpdateSize(manager.gridSize);
-            grid.SnapToClosestGridPosition(manager.gridOffset, manager.gridSize, manager.numberOfCells);
+            grid.UpdateSize(manager);
+            grid.SnapToClosestGridPosition(manager);
             return gridObject;
         }
 
@@ -60,18 +59,18 @@ namespace Game.Scripts.UnitTests.PlayModeTests
         /// <param name="coords"> the specified coordinates to create the object </param>
         /// <returns> the newly created GameObject for the grid object</returns>
         private GameObject CreateGridObject(int height, int width, GridManager manager, Vector2 coords)
-                {
-                    var gridObject = new GameObject();
-                    gridObject.transform.position = coords;
-                    var collider = gridObject.AddComponent<BoxCollider2D>();
-                    var grid = gridObject.AddComponent<GridObjects>();
-                    grid.height = height;
-                    grid.width = width;
-                    grid.hitBox = collider;
-                    grid.UpdateSize(manager.gridSize);
-                    grid.SnapToClosestGridPosition(manager.gridOffset, manager.gridSize, manager.numberOfCells);
-                    return gridObject;
-                }
+        {
+            var gridObject = new GameObject();
+            gridObject.transform.position = coords;
+            var collider = gridObject.AddComponent<BoxCollider2D>();
+            var grid = gridObject.AddComponent<GridObjects>();
+            grid.height = height;
+            grid.width = width;
+            grid.hitBox = collider;
+            grid.UpdateSize(manager);
+            grid.SnapToClosestGridPosition(manager);
+            return gridObject;
+        }
         
         /// <summary>
         /// tests if GetCellPosition
@@ -81,35 +80,35 @@ namespace Game.Scripts.UnitTests.PlayModeTests
         {
             const int height = 2;
             const int width = 2;
-            _manager = CreateGrid();
-            var gridObject = CreateGridObject(height, width, _manager);
+            var manager = CreateGrid();
+            var gridObject = CreateGridObject(height, width, manager);
             var collider = gridObject.GetComponent<BoxCollider2D>();
             
             yield return null;
                 
             Assert.AreEqual(GetPosition(gridObject, collider), 
-                _manager.GetCellPosition(new Vector2(0, 0)));
+                manager.GetCellPosition(new Vector2(0, 0)));
             
             
-            gridObject = CreateGridObject(height, width, _manager, 
-                new Vector2(_manager.numberOfCells.x * _manager.gridSize, _manager.numberOfCells.y * _manager.gridSize));
+            gridObject = CreateGridObject(height, width, manager, 
+                new Vector2(manager.numberOfCells.x * manager.gridSize, manager.numberOfCells.y * manager.gridSize));
             collider = gridObject.GetComponent<BoxCollider2D>();
 
             yield return null;
                 
             Assert.AreEqual(GetPosition(gridObject,collider), 
-                _manager.GetCellPosition(new Vector2(_manager.numberOfCells.x - width, _manager.numberOfCells.y - height)));
+                manager.GetCellPosition(new Vector2(manager.numberOfCells.x - width, manager.numberOfCells.y - height)));
 
-            gridObject = CreateGridObject(height, width, _manager,
-                new Vector2(_manager.numberOfCells.x * _manager.gridSize / 2,
-                    _manager.numberOfCells.y * _manager.gridSize / 2));
+            gridObject = CreateGridObject(height, width, manager,
+                new Vector2(manager.numberOfCells.x * manager.gridSize / 2,
+                    manager.numberOfCells.y * manager.gridSize / 2));
             
             collider = gridObject.GetComponent<BoxCollider2D>();
 
             yield return null;
             
             Assert.AreEqual(GetPosition(gridObject, collider), 
-                _manager.GetCellPosition(new Vector2((_manager.numberOfCells.x - width) / 2, (_manager.numberOfCells.y - height) / 2)));
+                manager.GetCellPosition(new Vector2((manager.numberOfCells.x - width) / 2, (manager.numberOfCells.y - height) / 2)));
         }
 
         [UnityTest]
@@ -117,18 +116,64 @@ namespace Game.Scripts.UnitTests.PlayModeTests
         {
             const int height = 2;
             const int width = 2;
-            _manager = CreateGrid();
-            var gridObject = CreateGridObject(height, width, _manager);
+            var manager = CreateGrid();
+            var gridObject = CreateGridObject(height, width, manager);
             var collider = gridObject.GetComponent<BoxCollider2D>();
             var lastPosition = GetPosition(gridObject, collider);
             
             yield return null;
 
             var grid = gridObject.GetComponent<GridObjects>();
-            grid.MoveUp(_manager.gridSize);
+            grid.MoveUp(manager);
 
-            Assert.AreEqual(GetPosition(gridObject, collider), lastPosition + Vector3.up);
+            Assert.AreEqual(lastPosition + Vector3.up * manager.gridSize, GetPosition(gridObject, collider));
 
+            gridObject = CreateGridObject(height, width, manager,
+                new Vector2(manager.numberOfCells.x * manager.gridSize,
+                    manager.numberOfCells.y * manager.gridSize));
+
+            collider = gridObject.GetComponent<BoxCollider2D>();
+            lastPosition = GetPosition(gridObject, collider);
+
+            yield return null;
+
+            grid = gridObject.GetComponent<GridObjects>();
+            grid.MoveUp(manager);
+            
+            Assert.AreEqual(lastPosition, GetPosition(gridObject, collider));
+        }
+        
+        
+        [UnityTest]
+        public IEnumerator GoDownTest()
+        {
+            const int height = 2;
+            const int width = 2;
+            var manager = CreateGrid();
+            var gridObject = CreateGridObject(height, width, manager);
+            var collider = gridObject.GetComponent<BoxCollider2D>();
+            var lastPosition = GetPosition(gridObject, collider);
+            
+            yield return null;
+
+            var grid = gridObject.GetComponent<GridObjects>();
+            grid.MoveDown(manager);
+
+            Assert.AreEqual(lastPosition, GetPosition(gridObject, collider));
+
+            gridObject = CreateGridObject(height, width, manager,
+                new Vector2(manager.numberOfCells.x * manager.gridSize,
+                    manager.numberOfCells.y * manager.gridSize));
+
+            collider = gridObject.GetComponent<BoxCollider2D>();
+            lastPosition = GetPosition(gridObject, collider);
+
+            yield return null;
+
+            grid = gridObject.GetComponent<GridObjects>();
+            grid.MoveDown(manager);
+            
+            Assert.AreEqual(lastPosition + Vector3.down * manager.gridSize, GetPosition(gridObject, collider));
         }
     }
 }

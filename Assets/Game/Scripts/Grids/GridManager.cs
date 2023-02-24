@@ -11,7 +11,7 @@ namespace Game.Scripts.Grids
 
         public static GridManager Instance { get; private set; }
 
-        private void Awake()
+        public void Awake()
         {
             if (Instance != null && Instance != this)
             {

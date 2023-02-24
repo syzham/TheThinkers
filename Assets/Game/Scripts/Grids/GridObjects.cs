@@ -9,74 +9,116 @@ namespace Game.Scripts.Grids
 
         public BoxCollider2D hitBox;
 
+        private GridManager _grid;
+
         private void Start()
         {
-            var grid = GridManager.Instance;
+            _grid = GridManager.Instance;
             // Creates the appropriate hitBox
-            var gridSize = grid.gridSize;
-            UpdateSize(gridSize);
+            var gridSize = _grid.gridSize;
+            UpdateSize();
 
-            SnapToClosestGridPosition(grid.gridOffset, gridSize, grid.numberOfCells);
-            var gridObject = new GameObject();
-            var collider = gridObject.AddComponent<BoxCollider2D>();
-            var gris = gridObject.AddComponent<GridObjects>();
-            gris.height = 2;
-            gris.width = 2;
-            gris.hitBox = collider;
-            gris.UpdateSize(GridManager.Instance.gridSize);
-            gris.SnapToClosestGridPosition(GridManager.Instance.gridOffset, GridManager.Instance.gridSize,
-                GridManager.Instance.numberOfCells);
-            gridObject.transform.position = new Vector3(grid.numberOfCells.x * grid.gridSize,
-                                                            grid.numberOfCells.y * grid.gridSize, 0);
-            //gris.SnapToClosestGridPosition(GridManager.Instance.gridOffset, GridManager.Instance.gridSize,
-              //              GridManager.Instance.numberOfCells);
-            Debug.Log(gridObject.transform.position - new Vector3(collider.size.x / 2, collider.size.y / 2, 0)); 
-            Debug.Log(GridManager.Instance.GetCellPosition(new Vector2(0, 0)));
+            SnapToClosestGridPosition();
         }
 
         /// <summary>
         /// Snaps the grid object to the nearest grid position
         /// </summary>
-        /// <param name="gridOffset"> the offset of the grid </param>
-        /// <param name="gridSize"> the size of each grid cell </param>
-        /// <param name="numberOfCells"> number of cells in each axis </param>
-        public void SnapToClosestGridPosition(Vector2 gridOffset, int gridSize, Vector2 numberOfCells)
+        public void SnapToClosestGridPosition()
         {
-            var nearestCoord = (hitBox.bounds.min - new Vector3(gridOffset.x, gridOffset.y, 0)) / 32;
+            var nearestCoord = (hitBox.bounds.min - new Vector3(_grid.gridOffset.x, _grid.gridOffset.y, 0)) / 32;
             
             var nearestX = nearestCoord.x < 0 ?  0 : 
-                nearestCoord.x > numberOfCells.x - width ? numberOfCells.x - width : Mathf.RoundToInt(nearestCoord.x);
+                nearestCoord.x > _grid.numberOfCells.x - width ? _grid.numberOfCells.x - width : Mathf.RoundToInt(nearestCoord.x);
             
             var nearestY = nearestCoord.y < 0 ?  0 : 
-                nearestCoord.y > numberOfCells.y - height ? numberOfCells.y - height : Mathf.RoundToInt(nearestCoord.y);
+                nearestCoord.y > _grid.numberOfCells.y - height ? _grid.numberOfCells.y - height : Mathf.RoundToInt(nearestCoord.y);
             
             var snappedCoord = new Vector3(nearestX, nearestY, 0);
             Vector3 centerOffset = hitBox.size / 2;
-            var snappedPosition = snappedCoord * gridSize + centerOffset;
+            var snappedPosition = snappedCoord * _grid.gridSize + centerOffset;
             transform.position = snappedPosition;
         }
-
-        public void UpdateSize(int gridSize)
+        
+        
+        /// <summary>
+        /// Snaps the grid object to the nearest grid position
+        /// </summary>
+        public void SnapToClosestGridPosition(GridManager manager)
         {
-            hitBox.size = new Vector2(width * gridSize, height * gridSize);
+            var nearestCoord = (hitBox.bounds.min - new Vector3(manager.gridOffset.x, manager.gridOffset.y, 0)) / 32;
+            
+            var nearestX = nearestCoord.x < 0 ?  0 : 
+                nearestCoord.x > manager.numberOfCells.x - width ? manager.numberOfCells.x - width : Mathf.RoundToInt(nearestCoord.x);
+            
+            var nearestY = nearestCoord.y < 0 ?  0 : 
+                nearestCoord.y > manager.numberOfCells.y - height ? manager.numberOfCells.y - height : Mathf.RoundToInt(nearestCoord.y);
+            
+            var snappedCoord = new Vector3(nearestX, nearestY, 0);
+            Vector3 centerOffset = hitBox.size / 2;
+            var snappedPosition = snappedCoord * manager.gridSize + centerOffset;
+            transform.position = snappedPosition;
+        }
+        
+        public void UpdateSize(GridManager manager)
+                {
+                    hitBox.size = new Vector2(width * manager.gridSize, height * manager.gridSize);
+                }
+
+        public void UpdateSize()
+        {
+            hitBox.size = new Vector2(width * _grid.gridSize, height * _grid.gridSize);
         }
 
         /// <summary>
         /// Moves the grid object one grid cell up
         /// </summary>
-        /// <param name="gridSize"> the size of each grid cell </param>
-        public void MoveUp(int gridSize)
+        public void MoveUp()
         {
-            transform.position += new Vector3(0, 1, 0);
+            // Checks if moving up will go out of bounds
+            if ((transform.position + Vector3.up * _grid.gridSize).y <
+                _grid.GetCellPosition(new Vector2(0, _grid.numberOfCells.y - height)).y)
+            {
+                transform.position += Vector3.up * _grid.gridSize;
+            }
+        }
+        /// <summary>
+        /// Moves the grid object one grid cell up
+        /// </summary>
+        public void MoveUp(GridManager grid)
+        {
+            // Checks if moving up will go out of bounds
+            if ((transform.position + Vector3.up * grid.gridSize).y <
+                grid.GetCellPosition(new Vector2(0, grid.numberOfCells.y - height)).y)
+            {
+                transform.position += Vector3.up * grid.gridSize;
+            }
         }
         
         /// <summary>
         /// Moves the grid object one grid cell down
         /// </summary>
         /// <param name="gridSize"> the size of each grid cell </param>
-        public void MoveDown(int gridSize)
+        public void MoveDown()
         {
-            transform.position += new Vector3(0, -1, 0);
+            // Checks if moving up will go out of bounds
+            if ((transform.position + Vector3.down * _grid.gridSize).y >
+                _grid.GetCellPosition(new Vector2(0, height)).y)
+            {
+                transform.position += Vector3.down * _grid.gridSize;
+            }
+        }
+        /// <summary>
+        /// Moves the grid object one grid cell up
+        /// </summary>
+        public void MoveDown(GridManager grid)
+        {
+            // Checks if moving up will go out of bounds
+            if ((transform.position + Vector3.down * grid.gridSize).y >
+                grid.GetCellPosition(new Vector2(0, height)).y)
+            {
+                transform.position += Vector3.down * grid.gridSize;
+            }
         }
         
         /// <summary>
