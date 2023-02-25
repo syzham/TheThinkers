@@ -124,19 +124,55 @@ namespace Game.Scripts.Grids
         /// <summary>
         /// Moves the grid object one grid cell left
         /// </summary>
-        /// <param name="gridSize"> the size of each grid cell </param>
-        public void MoveLeft(int gridSize)
+        public void MoveLeft()
         {
-            transform.position += new Vector3(-1, 0, 0);
+            // Checks if moving up will go out of bounds
+            if ((transform.position + Vector3.left * _grid.gridSize).x >
+                _grid.GetCellPosition(new Vector2(width, 0)).x)
+            {
+                transform.position += Vector3.left * _grid.gridSize;
+            }
+        }
+        
+        
+        /// <summary>
+        /// Moves the grid object one grid cell left
+        /// </summary>
+        public void MoveLeft(GridManager manager)
+        {
+            // Checks if moving up will go out of bounds
+            if ((transform.position + Vector3.left * manager.gridSize).x >
+                manager.GetCellPosition(new Vector2(width, 0)).x)
+            {
+                transform.position += Vector3.left * manager.gridSize;
+            }
         }
 
         /// <summary>
         /// Moves the grid object one grid cell right
         /// </summary>
-        /// <param name="gridSize"> the size of each grid cell </param>
-        public void MoveRight(int gridSize)
+        public void MoveRight()
         {
-            transform.position += new Vector3(1, 0, 0);
+            // Checks if moving up will go out of bounds
+            if ((transform.position + Vector3.right * _grid.gridSize).x <
+                _grid.GetCellPosition(new Vector2(_grid.numberOfCells.y - width, 0)).x)
+            {
+                transform.position += Vector3.right * _grid.gridSize;
+            }
+        }
+        
+        
+        /// <summary>
+        /// Moves the grid object one grid cell right
+        /// </summary>
+        public void MoveRight(GridManager manager)
+        {
+            // Checks if moving up will go out of bounds
+            if ((transform.position + Vector3.right * manager.gridSize).x <
+                manager.GetCellPosition(new Vector2(manager.numberOfCells.y - width, 0)).x)
+            {
+                transform.position += Vector3.right * manager.gridSize;
+            }
         }
     }
 }

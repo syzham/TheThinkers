@@ -175,5 +175,73 @@ namespace Game.Scripts.UnitTests.PlayModeTests
             
             Assert.AreEqual(lastPosition + Vector3.down * manager.gridSize, GetPosition(gridObject, collider));
         }
+        
+        
+        [UnityTest]
+        public IEnumerator GoRightTest()
+        {
+            const int height = 2;
+            const int width = 2;
+            var manager = CreateGrid();
+            var gridObject = CreateGridObject(height, width, manager);
+            var collider = gridObject.GetComponent<BoxCollider2D>();
+            var lastPosition = GetPosition(gridObject, collider);
+            
+            yield return null;
+
+            var grid = gridObject.GetComponent<GridObjects>();
+            grid.MoveRight(manager);
+
+            
+            Assert.AreEqual(lastPosition + Vector3.right * manager.gridSize, GetPosition(gridObject, collider));
+
+            gridObject = CreateGridObject(height, width, manager,
+                new Vector2(manager.numberOfCells.x * manager.gridSize,
+                    manager.numberOfCells.y * manager.gridSize));
+
+            collider = gridObject.GetComponent<BoxCollider2D>();
+            lastPosition = GetPosition(gridObject, collider);
+
+            yield return null;
+
+            grid = gridObject.GetComponent<GridObjects>();
+            grid.MoveRight(manager);
+            
+            Assert.AreEqual(lastPosition, GetPosition(gridObject, collider));
+        }
+        
+        
+        [UnityTest]
+        public IEnumerator GoLeftTest()
+        {
+            const int height = 2;
+            const int width = 2;
+            var manager = CreateGrid();
+            var gridObject = CreateGridObject(height, width, manager);
+            var collider = gridObject.GetComponent<BoxCollider2D>();
+            var lastPosition = GetPosition(gridObject, collider);
+            
+            yield return null;
+
+            var grid = gridObject.GetComponent<GridObjects>();
+            grid.MoveLeft(manager);
+
+            Assert.AreEqual(lastPosition, GetPosition(gridObject, collider));
+
+            gridObject = CreateGridObject(height, width, manager,
+                new Vector2(manager.numberOfCells.x * manager.gridSize,
+                    manager.numberOfCells.y * manager.gridSize));
+
+            collider = gridObject.GetComponent<BoxCollider2D>();
+            lastPosition = GetPosition(gridObject, collider);
+
+            yield return null;
+
+            grid = gridObject.GetComponent<GridObjects>();
+            grid.MoveLeft(manager);
+            
+            
+            Assert.AreEqual(lastPosition + Vector3.left * manager.gridSize, GetPosition(gridObject, collider));
+        }
     }
 }
