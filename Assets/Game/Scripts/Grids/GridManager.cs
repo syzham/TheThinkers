@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Game.Scripts.Grids
@@ -8,6 +11,8 @@ namespace Game.Scripts.Grids
         public Vector2 gridOffset;
 
         public Vector2 numberOfCells;
+
+        private readonly List<GridObjects> _objectsList = new List<GridObjects>();
 
         public static GridManager Instance { get; private set; }
 
@@ -27,6 +32,17 @@ namespace Game.Scripts.Grids
             var originPosition = transform.position + new Vector3(gridOffset.x, gridOffset.y, 0);
             return originPosition + new Vector3(cellCoordinates.x * gridSize, cellCoordinates.y * gridSize, 0);
         }
+
+        public void AddObject(GridObjects newObject)
+        {
+            _objectsList.Add(newObject);
+        }
+
+        public bool IsCellTaken(Vector2 cellCoordinates, GridObjects self)
+        {
+            return _objectsList.Where(gridObject => gridObject != self).Any(gridObject => gridObject.IsOnCell(this, cellCoordinates));
+        }
+
 
         public void OnDrawGizmos()
         {
