@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Game.Scripts.Inventory;
 using Game.Scripts.Player;
 using TMPro;
 using UnityEngine;
@@ -15,8 +14,6 @@ namespace Game.Scripts.Dialogue
         [SerializeField] private Animator anim;
 
         private Player.Player _player;
-        private PlayerController _pc;
-        private PlayerInteract _pi;
         private bool _currentlyTalking;
         private Queue<string> _sentences;
         private static readonly int IsOpen = Animator.StringToHash("IsOpen");
@@ -30,19 +27,14 @@ namespace Game.Scripts.Dialogue
         private void Initialize()
         {
             _player = PlayerManager.Instance.CurrentPlayer.GetComponent<Player.Player>();
-            _pc = _player.playerController;
-            _pi = _player.playerInteract;
-
         }
 
         private void InitializeStartDialogue()
         {
             _currentlyTalking = true;
-            _pc.enabled = false;
-            _pi.enabled = false;
-            _pi.DialogueStatus(true);
-            PauseManager.Instance.Disable();
-            InventoryManager.Instance.enable = false;
+            _player.DisableMovement();
+            Player.Player.DisablePause();
+            Player.Player.DisableInventory();
             anim.SetBool(IsOpen, true);
             
             _sentences.Clear();
@@ -100,11 +92,9 @@ namespace Game.Scripts.Dialogue
             _currentlyTalking = false;
             if (_player)
             {
-                _pc.enabled = true;
-                _pi.enabled = true;
-                _pi.DialogueStatus(false);
-                InventoryManager.Instance.enable = true;
-                PauseManager.Instance.Enable();
+                _player.EnableMovement();
+                Player.Player.EnablePause();
+                Player.Player.EnableInventory();
             }
 
             anim.SetBool(IsOpen, false);

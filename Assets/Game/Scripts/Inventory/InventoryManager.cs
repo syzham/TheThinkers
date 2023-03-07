@@ -98,7 +98,10 @@ namespace Game.Scripts.Inventory
             if (Input.GetKeyDown(KeyCode.I))
             {
                 inventoryPanel.SetActive(!inventoryPanel.activeInHierarchy);
-                PlayerMovement();
+                if (inventoryPanel.activeInHierarchy)
+                    DisableMovement();
+                else
+                    EnableMovement();
             }
 
             if (!inventoryPanel.activeInHierarchy) return;
@@ -133,20 +136,34 @@ namespace Game.Scripts.Inventory
                 {
                     _selectedSlot += 1;
                 }
+            } else if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                inventoryPanel.SetActive(false);
+                EnableMovement();
             }
+        }
+
+        private void DisableMovement()
+        {
+            _player.DisableMovement();
+            Player.Player.DisablePause();
+        }
+
+        private void EnableMovement()
+        {
+            _player.EnableMovement();
+            Player.Player.EnablePause();
         }
 
         private void UpdateSlots()
         {
             var i = 0;
-            foreach (var slot in _slots)
+            foreach (var (sl, slotImage) in _slots)
             {
                 if (_takenSlots >= inventorySlots.Length) break;
 
 
-                var slotImage = slot.Item2;
                 slotImage.enabled = false;
-                var sl = slot.Item1;
                 sl.isSlotted = false;
 
                 if (_takenSlots >= _inventory.Count) continue;
@@ -175,12 +192,6 @@ namespace Game.Scripts.Inventory
             _takenSlots = 0;
         }
 
-        private void PlayerMovement()
-        {
-            _player.playerController.enabled = !_player.playerController.enabled;
-            _player.playerInteract.enabled = !_player.playerInteract.enabled;
-        }
-        
         private void Update()
         {
             if (!enable) return;

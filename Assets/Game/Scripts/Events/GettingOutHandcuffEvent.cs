@@ -9,7 +9,7 @@ namespace Game.Scripts.Events
 {
     public class GettingOutHandcuffEvent : GameEvents
     {
-        private NetworkVariableInt _amountClicked;
+        private readonly NetworkVariableInt _amountClicked;
         private const int FinishedClick = 3;
         private bool _started;
 
@@ -49,15 +49,11 @@ namespace Game.Scripts.Events
                 }
                 
                 _started = true;
-                _player.playerController.enabled = false;
-                _player.playerInteract.enabled = false;
+                _player.DisableMovement();
 
-                InventoryManager.Instance.enable = false;
             }
             
-            _player.playerController.enabled = false;
-            _player.playerInteract.enabled = false;
-            InventoryManager.Instance.enable = false;
+            _player.DisableMovement();
             
             if (!Input.GetButtonDown("Interact")) return;
             
@@ -85,9 +81,7 @@ namespace Game.Scripts.Events
 
             Completed = true;
 
-            _player.playerController.enabled = true;
-            _player.playerInteract.enabled = true;
-            InventoryManager.Instance.enable = true;
+            _player.EnableMovement();
         }
     }
 }

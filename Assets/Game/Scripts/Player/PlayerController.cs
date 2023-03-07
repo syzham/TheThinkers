@@ -33,7 +33,7 @@ namespace Game.Scripts.Player
                 _disableVertical ? 0: Input.GetAxisRaw("Vertical"));
             
             var position = transform.position;
-            rb.MovePosition(new Vector2((position.x + move.x * moveSpeed * Time.deltaTime),
+            rb.MovePosition(new Vector2(position.x + move.x * moveSpeed * Time.deltaTime,
                 position.y + move.y * moveSpeed * Time.deltaTime));
             
             anim.SetFloat(Speed, move.sqrMagnitude);

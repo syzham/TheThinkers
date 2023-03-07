@@ -10,7 +10,6 @@ namespace Game.Scripts.Player
         private Bounds _objectBounds;
         private Collider2D _playerBounds;
         private Interactable _interactable;
-        private bool _dialogue;
 
         private PlayerController _controller;
 
@@ -26,7 +25,7 @@ namespace Game.Scripts.Player
         /// </summary>
         private void Update()
         {
-            if (!Input.GetButtonDown("Interact") || !_interactObject || _dialogue) return;
+            if (!Input.GetButtonDown("Interact") || !_interactObject) return;
             
             if (CheckIfFacing(_objectBounds)) 
                 _interactable.Execute();
@@ -60,16 +59,6 @@ namespace Game.Scripts.Player
             _interactObject = null;
             _interactable = null;
         }
-
-        /// <summary>
-        /// updates whether the player is currently in dialogue
-        /// </summary>
-        /// <param name="status"> the current players dialogue status </param>
-        public void DialogueStatus(bool status)
-        {
-            _dialogue = status;
-        }
-
         
         /// <summary>
         /// checks whether the player is facing an object

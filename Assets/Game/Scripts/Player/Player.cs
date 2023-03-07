@@ -1,4 +1,5 @@
 using Cinemachine;
+using Game.Scripts.Inventory;
 using Menu_Steam.Scripts;
 using MLAPI;
 using MLAPI.Messaging;
@@ -177,6 +178,49 @@ namespace Game.Scripts.Player
             SetNameServerRpc(playersName);
             ChangeAbilityServerRpc(ability1, true);
             ChangeAbilityServerRpc(ability2, true);
+        }
+
+        public void DisableMovement()
+        {
+            playerController.enabled = false;
+            playerInteract.enabled = false;
+        }
+
+        public void DisableHorizontal()
+        {
+            playerController.DisableHorizontal();
+        }
+
+        public void DisableVertical()
+        {
+            playerController.DisableVertical();
+        }
+
+        public void EnableMovement()
+        {
+            playerController.enabled = true;
+            playerInteract.enabled = true;
+            playerController.EnableMovement();
+        }
+
+        public static void DisablePause()
+        {
+            PauseManager.Instance.enabled = false;
+        }
+
+        public static void EnablePause()
+        {
+            PauseManager.Instance.enabled = true;
+        }
+
+        public static void DisableInventory()
+        {
+            InventoryManager.Instance.enabled = false;
+        }
+
+        public static void EnableInventory()
+        {
+            InventoryManager.Instance.enabled = true;
         }
     }
 }
