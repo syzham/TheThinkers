@@ -19,8 +19,8 @@ namespace Game.Scripts.Grids
 
             SnapToClosestGridPosition();
         }
-        
-        public Vector2 GetGridPosition(GridManager manager)
+
+        private Vector2 GetGridPosition(GridManager manager)
         {
             var coord = transform.position - hitBox.bounds.size / 2;
             return coord / manager.gridSize;
@@ -37,7 +37,7 @@ namespace Game.Scripts.Grids
         /// <summary>
         /// Snaps the grid object to the nearest grid position
         /// </summary>
-        public void SnapToClosestGridPosition()
+        private void SnapToClosestGridPosition()
         {
             SnapToClosestGridPosition(_grid);
         }
@@ -49,23 +49,24 @@ namespace Game.Scripts.Grids
         /// <param name="manager"> The GridManager that holds the grid details </param>
         public void SnapToClosestGridPosition(GridManager manager)
         {
-            var nearestCoord = (hitBox.bounds.min - new Vector3(manager.gridOffset.x, manager.gridOffset.y, 0)) / 32;
+            var offset = new Vector3(manager.gridOffset.x, manager.gridOffset.y, 0);
+            var nearestCoord = (hitBox.bounds.min - offset) / manager.gridSize;
             
             var nearestX = nearestCoord.x < 0 ?  0 : 
                 nearestCoord.x > manager.numberOfCells.x - width ? manager.numberOfCells.x - width : Mathf.RoundToInt(nearestCoord.x);
             
-            var nearestY = nearestCoord.y < 0 ?  0 : 
+            var nearestY = nearestCoord.y < 0 ? 0 : 
                 nearestCoord.y > manager.numberOfCells.y - height ? manager.numberOfCells.y - height : Mathf.RoundToInt(nearestCoord.y);
             
             var snappedCoord = new Vector3(nearestX, nearestY, 0);
             Vector3 centerOffset = hitBox.size / 2;
-            var snappedPosition = snappedCoord * manager.gridSize + centerOffset;
+            var snappedPosition = snappedCoord * manager.gridSize + centerOffset + offset;
             transform.position = snappedPosition;
 
             manager.AddObject(this);
         }
-        
-        public void UpdateSize()
+
+        private void UpdateSize()
         {
             UpdateSize(_grid);
         }

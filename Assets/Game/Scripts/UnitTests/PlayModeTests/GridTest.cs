@@ -21,8 +21,8 @@ namespace Game.Scripts.UnitTests.PlayModeTests
             var grid = new GameObject();
             var gridManager = grid.AddComponent<GridManager>();
             gridManager.gridSize = 32;
-            gridManager.numberOfCells = new Vector2(32, 32);
-            gridManager.gridOffset = new Vector2(0, 0);
+            gridManager.numberOfCells = new Vector2(34, 24);
+            gridManager.gridOffset = new Vector2(-687.720f, -442.1f);
             return gridManager;
         }
         
@@ -34,15 +34,7 @@ namespace Game.Scripts.UnitTests.PlayModeTests
 
         private static GameObject CreateGridObject(GridManager manager)
         {
-            var gridObject = new GameObject();
-            var collider = gridObject.AddComponent<BoxCollider2D>();
-            var grid = gridObject.AddComponent<GridObjects>();
-            grid.height = Height;
-            grid.width = Width;
-            grid.hitBox = collider;
-            grid.UpdateSize(manager);
-            grid.SnapToClosestGridPosition(manager);
-            return gridObject;
+            return CreateGridObject(manager, MinGrid(manager));
         }
 
         private static Vector3 GetPosition(GameObject gridObject, BoxCollider2D collider)
@@ -78,15 +70,20 @@ namespace Game.Scripts.UnitTests.PlayModeTests
             return gridObject;
         }
 
+        private static Vector2 MinGrid(GridManager manager)
+        {
+            return new Vector2 (manager.transform.position.x, manager.transform.position.y) + manager.gridOffset;
+        }
+
         private static Vector2 MaxGrid(GridManager manager)
         {
-           return new Vector2(manager.numberOfCells.x * manager.gridSize, manager.numberOfCells.y * manager.gridSize);
+           return new Vector2(manager.numberOfCells.x * manager.gridSize, manager.numberOfCells.y * manager.gridSize) + manager.gridOffset;
         }
 
         private static Vector2 CenterGrid(GridManager manager)
         {
             
-                return new Vector2(manager.numberOfCells.x * manager.gridSize / 2,manager.numberOfCells.y * manager.gridSize / 2);
+                return new Vector2(manager.numberOfCells.x * manager.gridSize / 2,manager.numberOfCells.y * manager.gridSize / 2) + manager.gridOffset;
         }
         
         /// <summary>
