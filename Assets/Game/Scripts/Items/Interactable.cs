@@ -1,3 +1,5 @@
+using System;
+using Game.Scripts.Grids;
 using Game.Scripts.Player;
 using MLAPI;
 using MLAPI.Messaging;
@@ -9,6 +11,12 @@ namespace Game.Scripts.Items
     public class Interactable : NetworkBehaviour
     {
         [SerializeField] private NetworkVariableBool isActive = new NetworkVariableBool(true);
+        [Header("TriggerBoxes")]
+        public BoxCollider2D triggerBox;
+
+        public GridObjects gridData;
+        public float triggerSize = 5;
+        public Vector2 triggerSizeOffset;
 
         private Actions.Actions _actions;
 
@@ -20,11 +28,24 @@ namespace Game.Scripts.Items
             gameObject.SetActive(isActive.Value);
             _actions = GetComponent<Actions.Actions>();
             PlayerManager.Instance.FinishedPlayers += Initialize;
+            gridData.FinishedInitialize += SetSize;
+        }
+
+        private void SetSize()
+        { 
+            if (!triggerBox.isTrigger)
+            { 
+                throw new Exception("triggerBox requires isTrigger to be activated");
+            }
+            triggerBox.size =  gridData.hitBox.size + new Vector2(triggerSize, triggerSize) + triggerSizeOffset;
+            triggerBox.offset = gridData.hitBox.offset;
+            gridData.FinishedInitialize -= SetSize;
         }
 
         private void Initialize()
         {
             _player = PlayerManager.Instance.CurrentPlayer.GetComponent<Player.Player>();
+            PlayerManager.Instance.FinishedPlayers -= Initialize;
         }
 
         public void Execute()

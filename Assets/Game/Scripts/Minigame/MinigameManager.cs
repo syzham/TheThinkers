@@ -1,4 +1,3 @@
-using Game.Scripts.Inventory;
 using Game.Scripts.Items.LockableItem;
 using UnityEngine;
 using UnityEngine.UI;
@@ -50,19 +49,12 @@ namespace Game.Scripts.MiniGame
             }
 
             _player = player;
-            _player.playerController.enabled = false;
-            _player.playerInteract.enabled = false;
-            PauseManager.Instance.Disable();
-            InventoryManager.Instance.enable = false;
+            _player.DisableMovement();
+            Player.Player.DisablePause();
+            Player.Player.DisableInventory();
 
             _loc = loc;
 
-            /*
-            _newGame = Instantiate(miniGame.game, gameHolder.transform, false);
-            _newGame.transform.localScale = new Vector3(1, 1, 1);
-            _logic = _newGame.GetComponent<MiniGameLogic.MiniGameLogic>();
-            _logic.MiniGameCompleted += Completed;
-            */
             (_newGame, _logic) = init.GetGame();
             _newGame.SetActive(true);
 
@@ -125,10 +117,9 @@ namespace Game.Scripts.MiniGame
 
         private void Finish()
         {
-            _player.playerController.enabled = true;
-            _player.playerInteract.enabled = true;
-            PauseManager.Instance.Enable();
-            InventoryManager.Instance.enable = true;
+            _player.EnableMovement();
+            Player.Player.EnablePause();
+            Player.Player.EnableInventory();
 
             _newGame.SetActive(false);
 

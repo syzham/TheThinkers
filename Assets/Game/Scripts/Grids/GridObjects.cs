@@ -11,6 +11,10 @@ namespace Game.Scripts.Grids
 
         private GridManager _grid;
 
+        public delegate void GridObjectDelegate();
+
+        public GridObjectDelegate FinishedInitialize;
+
         private void Start()
         {
             _grid = GridManager.Instance;
@@ -18,6 +22,7 @@ namespace Game.Scripts.Grids
             UpdateSize();
 
             SnapToClosestGridPosition();
+            FinishedInitialize?.Invoke();
         }
 
         private Vector2 GetGridPosition(GridManager manager)
