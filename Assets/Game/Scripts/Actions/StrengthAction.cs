@@ -1,4 +1,4 @@
-using MLAPI;
+using Game.Scripts.Grids;
 using MLAPI.Messaging;
 using MLAPI.NetworkVariable;
 using UnityEngine;
@@ -19,7 +19,10 @@ namespace Game.Scripts.Actions
         private Collider2D _objectCollider;
 
         public NetworkVariableBool grabbable = new NetworkVariableBool(true);
-        private NetworkObject _net;
+
+        private GridObjects _gridObjects;
+        private bool _isVertical;
+        private bool _isHorizontal;
 
         private void Start()
         {
@@ -31,7 +34,7 @@ namespace Game.Scripts.Actions
                 break;
             }
 
-            _net = GetComponent<NetworkObject>();
+            _gridObjects = GetComponent<GridObjects>();
         }
 
         public override void Execute(Player.Player player)
@@ -46,38 +49,13 @@ namespace Game.Scripts.Actions
                 return;
             }
 
-            _parent = transform.parent;
-            var contact = new ContactPoint2D[4];
-            _player = player;
-            _inter = gameObject;
-
-            _objectCollider.GetContacts(contact);
-            
-            var hitPoint = contact[0].normal;
-
             grabbed = true;
             
-            ChangeOwnershipServerRpc(player.OwnerClientId, _net.NetworkObjectId);
-            _net.DontDestroyWithOwner = true;
-            gameObject.transform.SetParent(player.transform);
-            player.playerInteract.enabled = false;
-
-            player.playerController.ChangeSpeed(0.25f);
-
-            if (hitPoint.x == 0)
-            {
-                player.playerController.DisableHorizontal();
-            }
-            else if (hitPoint.y == 0)
-            {
-                player.playerController.DisableVertical();
-            }
-        }
-
-        [ServerRpc(RequireOwnership = false)]
-        private void ChangeOwnershipServerRpc(ulong clientId, ulong objectId)
-        {
-            GetNetworkObject(objectId).ChangeOwnership(clientId);
+            var contact = new ContactPoint2D[4];
+            _objectCollider.GetContacts(contact);
+            var hitPoint = contact[0].normal;
+            _isVertical = hitPoint.x == 0;
+            _isHorizontal = hitPoint.y == 0;
         }
 
         public override void Execute()
@@ -87,18 +65,26 @@ namespace Game.Scripts.Actions
         private void Update()
         {
             if (!grabbed) return;
+            
+            
+
+            if (_isVertical)
+            {
+                if (Input.GetKeyDown(KeyCode.W))
+                    _gridObjects.MoveUp();
+                else if (Input.GetKeyDown(KeyCode.S))
+                    _gridObjects.MoveDown();
+            }
+            else if (_isHorizontal)
+            {
+                if (Input.GetKeyDown(KeyCode.A))
+                    _gridObjects.MoveLeft();
+                else if (Input.GetKeyDown(KeyCode.D))
+                    _gridObjects.MoveRight();
+            }
 
             if (Input.GetKeyDown(KeyCode.E))
-            {
-                _inter.transform.SetParent(_parent);
-                _player.playerInteract.enabled = true;
-                _player.playerController.EnableMovement();
-                _player.playerController.ChangeSpeed(4);
                 grabbed = false;
-                return;
-            }
-            if (threshold)
-                CheckBoundingBox();
         }
 
         private void CheckBoundingBox()

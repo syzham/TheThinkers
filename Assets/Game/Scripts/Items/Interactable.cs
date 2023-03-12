@@ -23,8 +23,9 @@ namespace Game.Scripts.Items
         private bool _currentPlayer;
         private Player.Player _player;
 
-        private void Start()
+        private void Awake()
         {
+            gameObject.tag = "Interact";
             gameObject.SetActive(isActive.Value);
             _actions = GetComponent<Actions.Actions>();
             PlayerManager.Instance.FinishedPlayers += Initialize;
@@ -33,6 +34,8 @@ namespace Game.Scripts.Items
 
         private void SetSize()
         { 
+            
+            Debug.Log("this is number 2");
             if (!triggerBox.isTrigger)
             { 
                 throw new Exception("triggerBox requires isTrigger to be activated");
