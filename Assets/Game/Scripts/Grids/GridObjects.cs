@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace Game.Scripts.Grids
@@ -9,7 +10,13 @@ namespace Game.Scripts.Grids
 
         public BoxCollider2D hitBox;
 
+        public float animationTime = 0.8f;
+
         private GridManager _grid;
+        private float _totalAnimationTime;
+        private bool _startAnimation;
+        private Vector2 _moveTowards;
+        private Vector2 _initialPosition;
 
         public delegate void GridObjectDelegate();
 
@@ -101,8 +108,12 @@ namespace Game.Scripts.Grids
             
             if (grid.IsCellTaken(GetGridPosition(grid) + Vector2.up, this))
                 return;
+
+            if (_startAnimation) return;
             
-            transform.position += Vector3.up * grid.gridSize;
+            _moveTowards = transform.position + Vector3.up * grid.gridSize;
+            _initialPosition = transform.position;
+            _startAnimation = true;
         }
         
         /// <summary>
@@ -124,8 +135,12 @@ namespace Game.Scripts.Grids
 
             if (grid.IsCellTaken(GetGridPosition(grid) + Vector2.down, this))
                 return;
+
+            if (_startAnimation) return;
             
-            transform.position += Vector3.down * grid.gridSize;
+            _moveTowards = transform.position + Vector3.down * grid.gridSize;
+            _initialPosition = transform.position;
+            _startAnimation = true;
         }
         
         /// <summary>
@@ -149,7 +164,11 @@ namespace Game.Scripts.Grids
             
             if (manager.IsCellTaken(GetGridPosition(manager) + Vector2.left, this))
                 return;
-            transform.position += Vector3.left * manager.gridSize;
+
+            if (_startAnimation) return;
+            _moveTowards = transform.position + Vector3.left * manager.gridSize;
+            _initialPosition = transform.position;
+            _startAnimation = true;
         }
 
         /// <summary>
@@ -173,8 +192,27 @@ namespace Game.Scripts.Grids
             
             if (manager.IsCellTaken(GetGridPosition(manager) + Vector2.right, this))
                 return;
-                
-            transform.position += Vector3.right * manager.gridSize;
+
+            if (_startAnimation) return;
+            _moveTowards = transform.position + Vector3.right * manager.gridSize;
+            _initialPosition = transform.position;
+            _startAnimation = true;
+        }
+
+        private void FixedUpdate()
+        {
+            if (!_startAnimation) return;
+            
+            _totalAnimationTime += Time.deltaTime;
+            var ratio = _totalAnimationTime / animationTime;
+
+            // if (_totalAnimationTime > animationTime) ratio = 1;
+            transform.position = Vector2.Lerp(_initialPosition, _moveTowards, ratio);
+
+            if (ratio < 1) return;
+            
+            _startAnimation = false;
+            _totalAnimationTime = 0;
         }
     }
 }
