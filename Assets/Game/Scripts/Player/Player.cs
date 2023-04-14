@@ -222,5 +222,10 @@ namespace Game.Scripts.Player
         {
             InventoryManager.Instance.enabled = true;
         }
+
+        public static bool IsPaused()
+        {
+            return PauseManager.Instance.IsPaused();
+        }
     }
 }

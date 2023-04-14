@@ -23,6 +23,7 @@ namespace Game.Scripts.Grids
                 return;
             }
 
+            DontDestroyOnLoad(this);
             Instance = this;
         }
 

@@ -22,6 +22,10 @@ namespace Game.Scripts.Grids
 
         public GridObjectDelegate FinishedInitialize;
 
+        public bool IsMoving()
+        {
+            return _startAnimation;
+        }
         private void Start()
         {
             _grid = GridManager.Instance;

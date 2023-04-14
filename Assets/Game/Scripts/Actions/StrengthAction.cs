@@ -41,6 +41,7 @@ namespace Game.Scripts.Actions
         {
             if (!grabbable.Value)
                 return;
+            _player = player;
             dialogue.name = player.GetName();
 
             if (!player.IsStrength())
@@ -65,9 +66,13 @@ namespace Game.Scripts.Actions
         private void Update()
         {
             if (!grabbed) return;
-            
-            
 
+            _player.DisableMovement();
+            _player.transform.SetParent(gameObject.transform);
+
+            if (Player.Player.IsPaused())
+                return;
+            
             if (_isVertical)
             {
                 if (Input.GetKeyDown(KeyCode.W))
@@ -83,8 +88,11 @@ namespace Game.Scripts.Actions
                     _gridObjects.MoveRight();
             }
 
-            if (Input.GetKeyDown(KeyCode.E))
-                grabbed = false;
+            if (!Input.GetKeyDown(KeyCode.E)) return;
+            
+            grabbed = false;
+            _player.transform.SetParent(null);
+            _player.EnableMovement();
         }
 
         private void CheckBoundingBox()

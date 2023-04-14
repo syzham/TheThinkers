@@ -20,6 +20,11 @@ namespace Game.Scripts
         private bool _stop;
         private Player.Player _player;
         private int _selectedButton;
+
+        public bool IsPaused()
+        {
+            return pauseMenu.activeInHierarchy;
+        }
         
         private void Awake()
         {

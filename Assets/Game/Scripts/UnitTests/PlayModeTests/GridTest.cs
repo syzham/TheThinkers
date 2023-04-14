@@ -133,6 +133,8 @@ namespace Game.Scripts.UnitTests.PlayModeTests
             var grid = gridObject.GetComponent<GridObjects>();
             grid.MoveUp(manager);
 
+            yield return new WaitForSeconds(grid.animationTime);
+
             Assert.AreEqual(lastPosition + Vector3.up * manager.gridSize, GetPosition(gridObject, collider));
 
             gridObject = CreateGridObject(manager, MaxGrid(manager));
@@ -145,6 +147,7 @@ namespace Game.Scripts.UnitTests.PlayModeTests
             grid = gridObject.GetComponent<GridObjects>();
             grid.MoveUp(manager);
             
+            yield return new WaitForSeconds(grid.animationTime);
             Assert.AreEqual(lastPosition, GetPosition(gridObject, collider));
         }
         
@@ -161,6 +164,8 @@ namespace Game.Scripts.UnitTests.PlayModeTests
 
             var grid = gridObject.GetComponent<GridObjects>();
             grid.MoveDown(manager);
+            
+            yield return new WaitForSeconds(grid.animationTime);
 
             Assert.AreEqual(lastPosition, GetPosition(gridObject, collider));
 
@@ -173,6 +178,8 @@ namespace Game.Scripts.UnitTests.PlayModeTests
 
             grid = gridObject.GetComponent<GridObjects>();
             grid.MoveDown(manager);
+            
+            yield return new WaitForSeconds(grid.animationTime);
             
             Assert.AreEqual(lastPosition + Vector3.down * manager.gridSize, GetPosition(gridObject, collider));
         }
@@ -190,6 +197,8 @@ namespace Game.Scripts.UnitTests.PlayModeTests
 
             var grid = gridObject.GetComponent<GridObjects>();
             grid.MoveRight(manager);
+            
+            yield return new WaitForSeconds(grid.animationTime);
 
             
             Assert.AreEqual(lastPosition + Vector3.right * manager.gridSize, GetPosition(gridObject, collider));
@@ -203,6 +212,8 @@ namespace Game.Scripts.UnitTests.PlayModeTests
 
             grid = gridObject.GetComponent<GridObjects>();
             grid.MoveRight(manager);
+            
+            yield return new WaitForSeconds(grid.animationTime);
             
             Assert.AreEqual(lastPosition, GetPosition(gridObject, collider));
         }
@@ -220,6 +231,8 @@ namespace Game.Scripts.UnitTests.PlayModeTests
 
             var grid = gridObject.GetComponent<GridObjects>();
             grid.MoveLeft(manager);
+            
+            yield return new WaitForSeconds(grid.animationTime);
 
             Assert.AreEqual(lastPosition, GetPosition(gridObject, collider));
 
@@ -233,6 +246,7 @@ namespace Game.Scripts.UnitTests.PlayModeTests
             grid = gridObject.GetComponent<GridObjects>();
             grid.MoveLeft(manager);
             
+            yield return new WaitForSeconds(grid.animationTime);
             
             Assert.AreEqual(lastPosition + Vector3.left * manager.gridSize, GetPosition(gridObject, collider));
         }
@@ -254,21 +268,33 @@ namespace Game.Scripts.UnitTests.PlayModeTests
             
             var grid = gridObject.GetComponent<GridObjects>();
             grid.MoveUp(manager);
+            
+            yield return new WaitForSeconds(grid.animationTime);
+            
             Assert.AreEqual(lastPosition, GetPosition(gridObject, collider));
 
             yield return null;
             
             grid.MoveDown(manager);
+            
+            yield return new WaitForSeconds(grid.animationTime);
+            
             Assert.AreEqual(lastPosition, GetPosition(gridObject, collider));
 
             yield return null;
             
             grid.MoveRight(manager);
+            
+            yield return new WaitForSeconds(grid.animationTime);
+            
             Assert.AreEqual(lastPosition, GetPosition(gridObject, collider));
 
             yield return null;
             
             grid.MoveLeft(manager);
+            
+            yield return new WaitForSeconds(grid.animationTime);
+            
             Assert.AreEqual(lastPosition, GetPosition(gridObject, collider));
         }
     }
